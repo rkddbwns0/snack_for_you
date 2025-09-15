@@ -15,6 +15,8 @@ async function bootstrap() {
     .setTitle('Snack For You')
     .setDescription('Snack For You API 명세서')
     .setVersion('1.0')
+    .addTag('Snack For You')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
