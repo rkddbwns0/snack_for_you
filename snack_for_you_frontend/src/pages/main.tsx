@@ -5,7 +5,6 @@ import { MenuBar } from '../component/menu-bar.tsx';
 export const Main = () => {
     return (
         <div>
-            <MenuBar />
             <div style={{ paddingTop: 'calc(10vmin)' }}>
                 <MainSwiper />
             </div>

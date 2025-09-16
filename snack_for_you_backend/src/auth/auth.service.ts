@@ -93,14 +93,14 @@ export class AuthService {
 
   private aceessToken(payload: any) {
     return this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET_KEY,
       expiresIn: '15m',
     });
   }
 
   private refreshToken(payload: any) {
     return this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET_KEY,
       expiresIn: '1d',
     });
   }

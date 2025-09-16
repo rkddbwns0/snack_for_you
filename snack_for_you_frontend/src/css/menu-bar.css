@@ -12,9 +12,9 @@
 
 .menu-category {
     display: flex;
-    flex: 2;
+    flex: 1;
     list-style: none;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .menu-category li {
@@ -25,9 +25,10 @@
 .search-container {
     position: relative;
     display: inline-block;
-    flex: 1;
+    flex: 2;
     align-items: center;
     justify-content: center;
+    right: 40px;
 }
 
 .search-container span {
