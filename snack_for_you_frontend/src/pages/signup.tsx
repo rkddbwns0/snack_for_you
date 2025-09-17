@@ -16,9 +16,11 @@ export const Signup = () => {
 
     const handleDupCheck = async (type: string) => {
         if (type === 'id' && id === '') {
+            setDupId(false);
             setIdMsg('아이디를 입력해 주세요.');
             return;
         } else if (type === 'nickname' && nickname === '') {
+            setDupNickname(false);
             setNicknameMsg('닉네임을 입력해 주세요.');
             return;
         }
@@ -36,8 +38,10 @@ export const Signup = () => {
             if (!response.ok) {
                 const errorData = await response.json().catch(() => {});
                 if (type === 'id') {
+                    setDupId(false);
                     setIdMsg(errorData.message);
                 } else {
+                    setDupNickname(false);
                     setNicknameMsg(errorData.message);
                 }
             }
@@ -45,10 +49,10 @@ export const Signup = () => {
             const data = await response.json();
 
             if (type === 'id') {
-                setDupId(!dupId);
+                setDupId(true);
                 setIdMsg(data?.message);
             } else {
-                setDupNickname(!dupNickname);
+                setDupNickname(true);
                 setNicknameMsg(data?.message);
             }
         } catch (e) {

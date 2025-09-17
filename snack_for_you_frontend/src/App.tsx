@@ -8,12 +8,14 @@ import { AdminLogin } from './pages/admin_login.tsx';
 import { AdminMain } from './pages/admin_main.tsx';
 import { SnackList } from './pages/snack_list.tsx';
 import { Signup } from './pages/signup.tsx';
+import ProtectedRoute from './context/protectedRoute.tsx';
+import { AuthProvider } from './context/context.tsx';
+import { MyPage } from './pages/myPage.tsx';
 
 const AppContent = () => {
     const location = useLocation();
     const hideContent = ['/admin', '/admin/login'];
-
-    const shouleHide = !hideContent.includes(useLocation().pathname);
+    const shouleHide = !hideContent.includes(location.pathname);
 
     return (
         <>
@@ -29,8 +31,23 @@ const AppContent = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/snack_list/:category_id" element={<SnackList />} />
+                    <Route
+                        path="/myPage"
+                        element={
+                            <ProtectedRoute>
+                                <MyPage />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route path="/admin/login" element={<AdminLogin />} />
-                    <Route path="/admin" element={<AdminMain />} />
+                    <Route
+                        path="/admin"
+                        element={
+                            <ProtectedRoute>
+                                <AdminMain />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Routes>
             </div>
         </>
@@ -40,7 +57,9 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <AppContent />
+                <AuthProvider>
+                    <AppContent />
+                </AuthProvider>
             </BrowserRouter>
         </div>
     );

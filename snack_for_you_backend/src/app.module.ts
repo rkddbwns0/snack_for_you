@@ -19,7 +19,7 @@ import { UserModule } from './users/users.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    }),
+    }), 
     AdminUserModule,
     AuthModule,
     SnackModule,

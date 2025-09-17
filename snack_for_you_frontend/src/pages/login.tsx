@@ -9,6 +9,39 @@ export const Login = () => {
     const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const handleLogin = async () => {
+        if (id === '' || password === '') {
+            alert('입력 정보를 모두 입력해 주세요.');
+        }
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    user_id: id,
+                    password,
+                }),
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => {});
+                alert(errorData.message || '오류가 발생했습니다 다시 시도해 주세요.');
+            }
+
+            const data = await response.json();
+            console.log(data);
+
+            sessionStorage.setItem('access_token', data.access_token);
+
+            navigation('/');
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return (
         <div className="login-container">
             <div className="login-title">
@@ -41,7 +74,7 @@ export const Login = () => {
                 <a onClick={() => navigation('/signup')}>회원가입</a>
             </div>
             <div className="login-button-container">
-                <button>로그인</button>
+                <button onClick={handleLogin}>로그인</button>
             </div>
         </div>
     );

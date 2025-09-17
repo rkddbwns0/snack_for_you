@@ -8,7 +8,6 @@ export class SnackController {
   @Get('/category')
   async getSnackCategory() {
     const result = await this.snackService.getSnackCategory();
-    console.log(result);
     return { category: result };
   }
 }

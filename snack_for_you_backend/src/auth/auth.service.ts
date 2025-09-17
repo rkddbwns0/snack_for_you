@@ -104,4 +104,22 @@ export class AuthService {
       expiresIn: '1d',
     });
   }
+
+  async refresh(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify(refreshToken, {
+        secret: process.env.JWT_SECRET_KEY,
+      });
+
+      const newAccessToken = this.aceessToken(payload);
+      const newRefreshToken = this.refreshToken(payload);
+
+      return { accessToken: newAccessToken, refreshToken: newRefreshToken };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }

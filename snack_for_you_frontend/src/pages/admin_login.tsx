@@ -27,7 +27,7 @@ export const AdminLogin = () => {
 
             const data = await response.json();
 
-            sessionStorage.setItem('admin_access_token', data.access_token);
+            sessionStorage.setItem('access_token', data.access_token);
 
             window.location.href = '/admin';
         } catch (e) {
