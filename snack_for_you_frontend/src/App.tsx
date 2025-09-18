@@ -11,6 +11,7 @@ import { Signup } from './pages/signup.tsx';
 import ProtectedRoute from './context/protectedRoute.tsx';
 import { AuthProvider } from './context/context.tsx';
 import { MyPage } from './pages/myPage.tsx';
+import { EditUser } from './pages/edti_user.tsx';
 
 const AppContent = () => {
     const location = useLocation();
@@ -36,6 +37,14 @@ const AppContent = () => {
                         element={
                             <ProtectedRoute>
                                 <MyPage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/edit_user/:user_id"
+                        element={
+                            <ProtectedRoute>
+                                <EditUser />
                             </ProtectedRoute>
                         }
                     />

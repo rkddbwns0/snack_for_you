@@ -43,7 +43,7 @@ export const MyPage = () => {
                     <ul>
                         <li>주문내역</li>
                         <li>배송지 관리</li>
-                        <li>정보 수정</li>
+                        <li onClick={() => navigation(`/edit_user/${user?.user_id}`)}>닉네임 변경</li>
                         <li onClick={handleLogout}>로그아웃</li>
                     </ul>
                 </div>

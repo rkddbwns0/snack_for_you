@@ -91,4 +91,27 @@ export class UserService {
       }
     }
   }
+
+  async updateUser(user_id: number, nickname: string) {
+    console.log(user_id, nickname);
+    try {
+      const user = await this.user.findOne({ where: { user_id: user_id } });
+
+      if (!user) {
+        throw new HttpException(
+          '존재하지 않는 아이디입니다.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      await this.user.update(user_id, { nickname: nickname });
+
+      return { message: '닉네임이 변경되었습니다.' };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }
