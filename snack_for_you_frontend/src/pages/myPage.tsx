@@ -42,7 +42,13 @@ export const MyPage = () => {
                 <div className="mypage-menu">
                     <ul>
                         <li>주문내역</li>
-                        <li>배송지 관리</li>
+                        <li
+                            onClick={() => {
+                                navigation('/address_info');
+                            }}
+                        >
+                            배송지 관리
+                        </li>
                         <li onClick={() => navigation(`/edit_user/${user?.user_id}`)}>닉네임 변경</li>
                         <li onClick={handleLogout}>로그아웃</li>
                     </ul>

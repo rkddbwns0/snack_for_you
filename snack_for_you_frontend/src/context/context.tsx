@@ -57,7 +57,6 @@ export function AuthProvider({ children }: any) {
                 setUser(null);
             }
         } catch (e) {
-            console.error(e);
             sessionStorage.clear();
             setUser(null);
         } finally {
