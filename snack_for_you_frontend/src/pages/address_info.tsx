@@ -20,7 +20,6 @@ export const AddessInfo = () => {
             <div>
                 <button onClick={handleOpen}>주소 등록하기</button>
             </div>
-
             <AddressInput isOpen={isOpen} setIsOpen={handleOpen} />
         </div>
     );
