@@ -26,8 +26,6 @@ export class AddressService {
         request,
       } = createAddress;
 
-      console.log(user_id);
-
       const user = await this.user.findOne({
         where: {
           user_id: user_id,
@@ -48,15 +46,13 @@ export class AddressService {
         },
       });
 
-      console.log(check_basic_address);
-
       if (check_basic_address) {
         check_basic_address.basic_address = false;
         await this.address.save(check_basic_address);
       }
 
       await this.address.save({
-        user_id: { user_id: user_id },
+        user: { user_id: user_id },
         name: name,
         road_name: road_name,
         detail_address: detail_address,
@@ -70,6 +66,43 @@ export class AddressService {
       if (e instanceof HttpException) {
         throw e;
       }
+    }
+  }
+
+  async getAddress(user_id: number): Promise<any> {
+    try {
+      const user = await this.user.findOne({
+        where: {
+          user_id: user_id,
+        },
+      });
+
+      if (!user) {
+        throw new HttpException(
+          '존재하지 않는 사용자입니다.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      const result = await this.address
+        .createQueryBuilder('address')
+        .innerJoin('address.user', 'user')
+        .select('address.address_id as address_id')
+        .addSelect('address.name as name')
+        .addSelect('user.user_id as user_id')
+        .addSelect('address.road_name as road_name')
+        .addSelect('address.detail_address as detail_address')
+        .addSelect('address.basic_address as basic_address')
+        .addSelect('address.request as request')
+        .addSelect('address.created_at as created_at')
+        .where('user.user_id = :user_id', { user_id: user_id })
+        .orderBy('address.basic_address', 'ASC')
+        .orderBy('address.created_at', 'DESC')
+        .getRawMany();
+
+      return result;
+    } catch (e) {
+      console.error(e);
     }
   }
 }

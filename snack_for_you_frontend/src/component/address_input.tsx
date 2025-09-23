@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 import { useAuth } from '../context/context.tsx';
+import '../css/address_input.css';
 
 export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen: () => {} }) => {
     const { user } = useAuth();
@@ -62,6 +63,7 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
                 const data = await response.json();
 
                 alert(data.message);
+                setIsOpen();
             }
         } catch (e) {
             console.error(e);
@@ -69,12 +71,15 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
     };
 
     return (
-        <div className="modal_overlay">
-            <div>
-                {isOpen && (
-                    <div>
-                        <div>
-                            <p>이름</p>
+        <div>
+            {isOpen && (
+                <div className="modal_overlay">
+                    <div className="modal-content">
+                        <div className="close-button">
+                            <button onClick={setIsOpen}>X</button>
+                        </div>
+                        <div className="input-content">
+                            <label>이름</label>
                             <input
                                 type="text"
                                 placeholder="이름"
@@ -82,13 +87,15 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <p>주소</p>
-                            <p>{address}</p>
+                        <div className="input-content">
+                            <label>주소</label>
+                            <div className={`address-box ${address ? 'active' : 'no-active'} `}>
+                                {address ? address : '주소를 입력해 주세요'}
+                            </div>
                             <button onClick={handleOpen}>주소 검색</button>
                         </div>
-                        <div>
-                            <p>상세 주소</p>
+                        <div className="input-content">
+                            <label>상세 주소</label>
                             <input
                                 value={detailAddress}
                                 onChange={(e) => setDetailAddress(e.target.value)}
@@ -96,8 +103,8 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
                                 placeholder="상세주소"
                             />
                         </div>
-                        <div>
-                            <p>요청사항</p>
+                        <div className="input-content">
+                            <label>요청사항</label>
                             <input
                                 value={request}
                                 onChange={(e) => setRequest(e.target.value)}
@@ -105,16 +112,17 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
                                 placeholder="요청사항"
                             />
                         </div>
-                        <div>
+                        <div className="input-content">
+                            <label>기본 주소로 저장하기</label>
                             <input type="checkbox" checked={basicAddress} onChange={handleBasicAddress} />
                         </div>
                         <div>
                             <button onClick={handleAddress}>배송지 저장하기</button>
                         </div>
                     </div>
-                )}
-                {addressInputOpen && <DaumPostcodeEmbed onComplete={completeHandler} autoClose />}
-            </div>
+                    {addressInputOpen && <DaumPostcodeEmbed onComplete={completeHandler} autoClose />}
+                </div>
+            )}
         </div>
     );
 };
