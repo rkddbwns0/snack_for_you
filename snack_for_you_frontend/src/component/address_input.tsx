@@ -3,7 +3,9 @@ import DaumPostcodeEmbed from 'react-daum-postcode';
 import { useAuth } from '../context/context.tsx';
 import '../css/address_input.css';
 
-export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen: () => {} }) => {
+export const AddressInput = (
+    { isOpen, setIsOpen, onSuccess } = { isOpen: false, setIsOpen: () => {}, onSuccess: () => {} }
+) => {
     const { user } = useAuth();
     const [addressInputOpen, setAddressInputOpen] = useState<boolean>(false);
     const [address, setAddress] = useState<string>('');
@@ -23,6 +25,7 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
     const completeHandler = (data: any) => {
         const { address, buildingName }: any = data;
         setAddress(address + ' ' + buildingName);
+        setAddressInputOpen(false);
     };
 
     const handleBasicAddress = () => {
@@ -64,6 +67,11 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
 
                 alert(data.message);
                 setIsOpen();
+                setAddress('');
+                setDetailAddress('');
+                setRequest('');
+                onSuccess();
+                setBasicAddress(false);
             }
         } catch (e) {
             console.error(e);
@@ -120,7 +128,14 @@ export const AddressInput = ({ isOpen, setIsOpen } = { isOpen: false, setIsOpen:
                             <button onClick={handleAddress}>배송지 저장하기</button>
                         </div>
                     </div>
-                    {addressInputOpen && <DaumPostcodeEmbed onComplete={completeHandler} autoClose />}
+                    {addressInputOpen && (
+                        <div className="address-modal">
+                            <div>
+                                <button onClick={handleOpen}>X</button>
+                            </div>
+                            <DaumPostcodeEmbed onComplete={completeHandler} autoClose />
+                        </div>
+                    )}
                 </div>
             )}
         </div>

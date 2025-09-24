@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../context/context';
+import { useAuth } from '../context/context.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const EditUser = () => {

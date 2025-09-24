@@ -98,3 +98,27 @@
     color: white;
     font-size: 15px;
 }
+
+.address-modal {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid #d3d0cb;
+    border-radius: 8px;
+    width: 700px;
+    padding: 10px;
+    background-color: white;
+}
+
+.address-modal div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.address-modal div button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+    margin-right: 10px;
+}

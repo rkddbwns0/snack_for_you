@@ -39,16 +39,18 @@ export class AddressService {
         );
       }
 
-      const check_basic_address = await this.address.findOne({
-        where: {
-          user: { user_id: user.user_id },
-          basic_address: true,
-        },
-      });
+      if (basic_address) {
+        const check_basic_address = await this.address.findOne({
+          where: {
+            user: { user_id: user.user_id },
+            basic_address: true,
+          },
+        });
 
-      if (check_basic_address) {
-        check_basic_address.basic_address = false;
-        await this.address.save(check_basic_address);
+        if (check_basic_address) {
+          check_basic_address.basic_address = false;
+          await this.address.save(check_basic_address);
+        }
       }
 
       await this.address.save({
@@ -94,15 +96,29 @@ export class AddressService {
         .addSelect('address.detail_address as detail_address')
         .addSelect('address.basic_address as basic_address')
         .addSelect('address.request as request')
-        .addSelect('address.created_at as created_at')
+        .addSelect(
+          "TO_CHAR(address.created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at",
+        )
         .where('user.user_id = :user_id', { user_id: user_id })
-        .orderBy('address.basic_address', 'ASC')
-        .orderBy('address.created_at', 'DESC')
+        .orderBy('address.basic_address', 'DESC')
+        .addOrderBy('address.created_at', 'DESC')
         .getRawMany();
 
       return result;
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  async deleteAddress(address_id: number[]) {
+    try {
+      await this.address.delete(address_id);
+      return { message: '주소가 삭제되었습니다.' };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
     }
   }
 }
