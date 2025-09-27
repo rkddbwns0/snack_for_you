@@ -26,6 +26,8 @@ export class AddressService {
         request,
       } = createAddress;
 
+      console.log(createAddress);
+
       const user = await this.user.findOne({
         where: {
           user_id: user_id,

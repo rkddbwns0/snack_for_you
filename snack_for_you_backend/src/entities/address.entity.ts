@@ -32,7 +32,7 @@ export class AddressEntity {
   @Column({ type: 'boolean', default: false })
   basic_address: boolean;
 
-  @Column({ type: 'text', default: '택배기사님 안전 운전 해주세요!' })
+  @Column({ type: 'text', default: '택배기사님 안전 운전해 주세요!' })
   request: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

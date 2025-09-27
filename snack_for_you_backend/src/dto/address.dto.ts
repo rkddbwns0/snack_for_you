@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateAddressDto {
   @ApiProperty({
@@ -57,10 +57,9 @@ export class CreateAddressDto {
     example: '택배기사님 안전 운전 해주세요!',
     description: '택배기사님 안전 운전 해주세요!',
     type: 'string',
-    required: true,
+    required: false,
     default: '택배기사님 안전 운전 해주세요!',
   })
-  @IsNotEmpty()
   @IsString()
   readonly request: string;
 }

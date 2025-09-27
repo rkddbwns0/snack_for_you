@@ -13,8 +13,8 @@
 
 .modal-content {
     background: white;
-    width: 800px;
-    height: 420px;
+    width: 45vw;
+    height: 24vw;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@
 }
 
 .input-content input {
-    width: 350px;
+    width: 20vw;
     height: 40px;
     border-radius: 8px;
     outline: none;
@@ -71,7 +71,7 @@
     display: flex;
     border: 0.5px solid #d3d0cb;
     border-radius: 8px;
-    width: 350px;
+    width: 20vw;
     height: 40px;
     align-items: center;
     justify-content: center;
@@ -88,7 +88,26 @@
 
 .input-content button {
     margin: 10px;
-    width: 100px;
+    width: 6vw;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f7a815;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    font-size: 15px;
+}
+
+.input-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-button button {
+    margin: 10px;
+    width: 6vw;
     height: 40px;
     border-radius: 8px;
     border: none;
@@ -104,7 +123,7 @@
     z-index: 2;
     border: 1px solid #d3d0cb;
     border-radius: 8px;
-    width: 700px;
+    width: 25vw;
     padding: 10px;
     background-color: white;
 }

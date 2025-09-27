@@ -1,7 +1,7 @@
 .menu-bar-container {
     display: flex;
     flex-shrink: 0;
-    width: 100%;
+    width: 100vw;
     height: 70px;
     align-items: center;
     justify-content: space-between;
@@ -51,7 +51,7 @@
 }
 
 .search-bar.active {
-    width: 220px;
+    width: 12vw;
     opacity: 1;
     padding: 10px 8px;
     border: 1px solid #d3d0cb;

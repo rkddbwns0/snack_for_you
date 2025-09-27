@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export const authContext = createContext<any | null>(null);
 
@@ -54,10 +55,12 @@ export function AuthProvider({ children }: any) {
                 setUser(data);
             } else {
                 sessionStorage.clear();
+                Cookies.remove('resfresh_token');
                 setUser(null);
             }
         } catch (e) {
             sessionStorage.clear();
+            Cookies.remove('resfresh_token');
             setUser(null);
         } finally {
             setLoading(false);

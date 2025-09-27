@@ -124,7 +124,7 @@ export const AddressInput = (
                             <label>기본 주소로 저장하기</label>
                             <input type="checkbox" checked={basicAddress} onChange={handleBasicAddress} />
                         </div>
-                        <div>
+                        <div className="input-button">
                             <button onClick={handleAddress}>배송지 저장하기</button>
                         </div>
                     </div>
