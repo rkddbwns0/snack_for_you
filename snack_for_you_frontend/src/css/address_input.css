@@ -1,0 +1,143 @@
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modal-content {
+    background: white;
+    width: 45vw;
+    height: 30vw;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.close-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-button button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+.input-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px;
+}
+
+.input-content label {
+    font-weight: 500;
+}
+
+.input-content input {
+    width: 25vw;
+    height: 40px;
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid #d3d0cb;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.input-content input[type='checkbox'] {
+    width: 18px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f7a815;
+    cursor: pointer;
+    user-select: none;
+}
+
+.address-box {
+    display: flex;
+    border: 0.5px solid #d3d0cb;
+    border-radius: 8px;
+    width: 25vw;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.address-box.active {
+    color: black;
+}
+
+.address-box.no-active {
+    color: #d3d0cb;
+}
+
+.input-content button {
+    margin: 10px;
+    width: 6vw;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f7a815;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    font-size: 15px;
+}
+
+.input-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-button button {
+    margin: 10px;
+    width: 8vw;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f7a815;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    font-size: 15px;
+}
+
+.address-modal {
+    position: absolute;
+    z-index: 2;
+    border: 1px solid #d3d0cb;
+    border-radius: 8px;
+    width: 25vw;
+    padding: 10px;
+    background-color: white;
+}
+
+.address-modal div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.address-modal div button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+    margin-right: 10px;
+}

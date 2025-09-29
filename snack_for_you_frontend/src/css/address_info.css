@@ -1,0 +1,88 @@
+.address-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+.address-info-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.address-info-title h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.address-info-button {
+    display: flex;
+    gap: 10px;
+}
+
+.address-info-button button {
+    padding: 8px 16px;
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+}
+
+.address-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 8px;
+}
+
+.address-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-bottom: 0.5px solid #d3d0cb;
+}
+
+.item-info {
+    display: flex;
+    flex: 1;
+    margin: 10px 0;
+    padding: 0 10px;
+    justify-content: space-between;
+}
+
+.item-info p {
+    font-size: 14px;
+}
+
+.item-info-basic-address {
+    display: flex;
+    align-items: center;
+    width: 150px;
+}
+
+.item-info-basic-address p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f7a815;
+    margin-left: 10px;
+    padding: 5px 10px;
+}
+
+.item-info-basic-address button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #8f8f8f;
+}

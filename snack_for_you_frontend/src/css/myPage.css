@@ -1,0 +1,59 @@
+.mypage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.mypage-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35%;
+    height: 500px;
+    border: 0.5px solid #d3d0cb;
+    border-radius: 8px;
+    padding: 20px 0; /* 여백 추가 */
+    box-sizing: border-box;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    gap: 15px;
+}
+
+.mypage-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* 세로로 쌓기 */
+    flex: 1; /* 남은 공간 채우기 */
+}
+
+.mypage-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mypage-menu li {
+    flex: 1; /* 균등하게 높이 배분 */
+    width: 100%;
+    margin: 0; /* li 사이 간격 없애고 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+}

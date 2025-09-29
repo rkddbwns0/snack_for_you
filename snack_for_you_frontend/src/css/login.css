@@ -1,0 +1,80 @@
+.login-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.login-title {
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.login-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.id-input {
+    margin: 10px;
+    width: 300px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid #d3d0cb;
+    font-size: 14px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-input {
+    margin: 10px;
+    width: 300px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid #d3d0cb;
+    font-size: 14px;
+}
+
+.login-menu-container {
+    display: flex;
+    width: 320px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 8px;
+    gap: 10px;
+}
+
+.login-menu-container a {
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.login-button-container {
+    margin-top: 20px;
+}
+
+.login-button-container button {
+    margin: 10px;
+    width: 320px;
+    height: 45px;
+    padding: 0 10px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    background-color: #f7a815;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
