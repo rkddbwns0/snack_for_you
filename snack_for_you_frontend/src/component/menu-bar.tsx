@@ -52,7 +52,13 @@ export const MenuBar = () => {
                 category.map((item: any, index: number) => {
                     return (
                         <ul className="menu-category" key={index}>
-                            <li onClick={() => navigation(`/snack_list/${item.category_id}`, { state: item.name })}>
+                            <li
+                                onClick={() =>
+                                    navigation(`/snack_list/${item.category_id}`, {
+                                        state: { category_id: item.category_id, name: item.name },
+                                    })
+                                }
+                            >
                                 {item.name}
                             </li>
                         </ul>

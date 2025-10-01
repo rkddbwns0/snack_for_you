@@ -9,6 +9,6 @@ export class SnackCategoryEntity {
   @Column({ type: 'varchar', length: 10, nullable: false })
   name: string;
 
-  @OneToMany(() => SnackInfoEntity, (snack_info) => snack_info.category_id)
+  @OneToMany(() => SnackInfoEntity, (snack_info) => snack_info.category)
   snack_info: SnackInfoEntity[];
 }
