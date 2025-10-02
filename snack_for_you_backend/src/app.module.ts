@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { SnackModule } from './snack/snack.module';
 import { UserModule } from './users/users.module';
 import { AddressModule } from './address/address.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AddressModule } from './address/address.module';
     SnackModule,
     UserModule,
     AddressModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],

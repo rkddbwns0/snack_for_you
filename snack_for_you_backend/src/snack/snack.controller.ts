@@ -17,7 +17,14 @@ export class SnackController {
   @Get(':category_id')
   async snackList(@Param('category_id') category_id: number) {
     const result = await this.snackService.getSnackList(category_id);
-    console.log(result);
+    return result;
+  }
+
+  @ApiOperation({ summary: '스낵 상세 조회' })
+  @Get(':category_id/:snack_id')
+  async snackDetail(@Param('snack_id') snack_id: number) {
+    console.log(snack_id);
+    const result = await this.snackService.snackDetail(snack_id);
     return result;
   }
 }

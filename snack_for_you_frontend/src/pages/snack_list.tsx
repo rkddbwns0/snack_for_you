@@ -8,7 +8,6 @@ export const SnackList = () => {
     const [snacks, setSnacks] = useState<any[]>([]);
 
     const snackList = async () => {
-        console.log(category_id);
         try {
             const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/snack/${category_id}`, {
                 method: 'GET',
@@ -18,7 +17,6 @@ export const SnackList = () => {
 
             const data = await response.json();
             setSnacks(data);
-            console.log(data);
         } catch (e) {
             console.error(e);
         }
@@ -33,15 +31,25 @@ export const SnackList = () => {
             <div>
                 <h3>Snack</h3>
             </div>
-            <div>
+            <div className="snack-list-container">
                 {snacks.length > 0 ? (
-                    <div>
+                    <div className="snack-list">
                         {snacks.map((item: any) => {
                             return (
-                                <div key={item.snack_id}>
+                                <div
+                                    key={item.snack_id}
+                                    className="snack-item"
+                                    onClick={() =>
+                                        navigation(`/snack_detail/${item.snack_id}`, {
+                                            state: { category_id: category_id },
+                                        })
+                                    }
+                                >
                                     <div>
-                                        <p>{item.name}</p>
                                         <img src={item.product_image} style={{ width: '100px', height: '100px' }} />
+                                        <p>{item.name}</p>
+                                        <p>{item.category_name}</p>
+                                        <p>{item.price}</p>
                                     </div>
                                 </div>
                             );

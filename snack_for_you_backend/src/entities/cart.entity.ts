@@ -20,11 +20,11 @@ export class CartEntity {
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
-  user_id: UserEntity;
+  user: UserEntity;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @OneToMany(() => CartItemEntity, (cart_item) => cart_item.cart_id)
+  @OneToMany(() => CartItemEntity, (cart_item) => cart_item.cart)
   cart_item: CartItemEntity[];
 }

@@ -15,6 +15,7 @@ export const Login = () => {
             return;
         }
         try {
+            console.log(id, password);
             const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
                 method: 'POST',
                 body: JSON.stringify({

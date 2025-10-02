@@ -1,0 +1,134 @@
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateCartDto } from 'src/dto/cart.dto';
+import { CartEntity } from 'src/entities/cart.entity';
+import { CartItemEntity } from 'src/entities/cart_items.entity';
+import { Repository } from 'typeorm';
+
+@Injectable()
+export class CartService {
+  constructor(
+    @InjectRepository(CartEntity)
+    private readonly cart: Repository<CartEntity>,
+
+    @InjectRepository(CartItemEntity)
+    private readonly cart_item: Repository<CartItemEntity>,
+  ) {}
+
+  async getCartItems(cart_id: number, user_id: number) {
+    try {
+      const cart = await this.cart.findOne({
+        where: { cart_id, user: { user_id: user_id } },
+      });
+
+      if (!cart) {
+        throw new HttpException('Cart not found', 404);
+      }
+
+      const cartItems = await this.cart_item
+        .createQueryBuilder('cart_item')
+        .select('snack.name as name')
+        .addSelect('cart_item.quantity as quantity')
+        .addSelect('cart_item.price as price')
+        .innerJoin('cart_item.snack', 'snack')
+        .where('cart_item.cart_id = :cart_id', { cart_id: cart_id })
+        .getRawMany();
+
+      return cartItems;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async createCart(createCart: CreateCartDto) {
+    try {
+      const { user_id, snack_id, quantity, price } = createCart;
+
+      const cart = await this.cart.findOne({
+        where: { user: { user_id: user_id } },
+      });
+
+      if (!cart) {
+        const newCart = this.cart.create({ user: { user_id: user_id } });
+        await this.cart.save(newCart);
+        return;
+      }
+
+      const cart_item = await this.cart_item.findOne({
+        where: {
+          cart: { cart_id: cart?.cart_id },
+          snack: { snack_id: snack_id },
+        },
+      });
+
+      if (cart_item) {
+        cart_item.quantity += quantity;
+        cart_item.price += price;
+        await this.cart_item.save(cart_item);
+        return;
+      }
+
+      const newCartItem = this.cart_item.create({
+        cart: { cart_id: cart?.cart_id },
+        snack: { snack_id: snack_id },
+        quantity: quantity,
+        price: price,
+      });
+      await this.cart_item.save(newCartItem);
+
+      return;
+    } catch (e) {
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async getCart(user_id: number) {
+    try {
+      const cart = await this.cart
+        .createQueryBuilder('cart')
+        .select('cart.cart_id as cart_id')
+        .addSelect('cart_item.cart_item_id as cart_item_id')
+        .addSelect('snack.snack_id as snack_id')
+        .addSelect('snack.name as name')
+        .addSelect('snack.product_image as product_image')
+        .addSelect('cart_item.quantity as quantity')
+        .addSelect('cart_item.price as price')
+        .innerJoin('cart.cart_item', 'cart_item')
+        .innerJoin('cart_item.snack', 'snack')
+        .where('cart.user_id = :user_id', { user_id: user_id })
+        .getRawMany();
+
+      return cart;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async deleteCart(cart_item_id: number) {
+    try {
+      const cart_item = await this.cart_item.findOne({
+        where: {
+          cart_item_id: cart_item_id,
+        },
+      });
+      if (!cart_item) {
+        throw new HttpException('Cart item not found', 404);
+      }
+      await this.cart_item.remove(cart_item);
+      return;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+}

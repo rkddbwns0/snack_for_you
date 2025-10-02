@@ -13,6 +13,8 @@ import { AuthProvider } from './context/context.tsx';
 import { MyPage } from './pages/myPage.tsx';
 import { EditUser } from './pages/edti_user.tsx';
 import { AddessInfo } from './pages/address_info.tsx';
+import { SnackDetail } from './pages/snack_detail.tsx';
+import { Cart } from './pages/cart.tsx';
 
 const AppContent = () => {
     const location = useLocation();
@@ -33,6 +35,16 @@ const AppContent = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/snack_list/:category_id" element={<SnackList />} />
+                    <Route path="/snack_detail/:snack_id" element={<SnackDetail />} />
+                    <Route
+                        path="/cart"
+                        element={
+                            <ProtectedRoute>
+                                <Cart />
+                            </ProtectedRoute>
+                        }
+                    />
+
                     <Route
                         path="/myPage"
                         element={

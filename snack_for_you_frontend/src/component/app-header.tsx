@@ -24,7 +24,7 @@ export const AppHeader = () => {
             <div className="menu-container">
                 {user ? <p>{user.nickname}님 환영합니다!</p> : <a href="/login">로그인</a>}
 
-                <a>장바구니</a>
+                <a href="/cart">장바구니</a>
                 <a onClick={handleMyPage}>마이페이지</a>
             </div>
         </header>
