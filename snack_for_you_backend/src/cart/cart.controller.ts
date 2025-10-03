@@ -5,10 +5,11 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { CreateCartDto } from 'src/dto/cart.dto';
+import { CreateCartDto, IncreaseOrDecreaseDto } from 'src/dto/cart.dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -33,5 +34,17 @@ export class CartController {
   @Delete(':cart_item_id')
   async deleteCart(@Param('cart_item_id') cart_item_id: number) {
     return await this.cartService.deleteCart(cart_item_id);
+  }
+
+  @ApiOperation({ summary: '수량 증감 라우터' })
+  @Put(':cart_item_id')
+  async increaseOrDecreaseQuantity(
+    @Body() inde: IncreaseOrDecreaseDto,
+    @Param('cart_item_id') cart_item_id: number,
+  ) {
+    return await this.cartService.increaseOrDecreaseQuantity(
+      inde.inde,
+      cart_item_id,
+    );
   }
 }

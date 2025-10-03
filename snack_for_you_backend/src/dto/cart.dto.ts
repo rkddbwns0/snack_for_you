@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateCartDto {
   @ApiProperty({
@@ -41,4 +41,16 @@ export class CreateCartDto {
   @IsNotEmpty()
   @IsNumber()
   readonly price: number;
+}
+
+export class IncreaseOrDecreaseDto {
+  @ApiProperty({
+    example: true,
+    description: 'inde',
+    type: 'boolean',
+    required: true,
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  readonly inde: boolean;
 }

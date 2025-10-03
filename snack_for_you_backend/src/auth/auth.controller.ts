@@ -28,7 +28,6 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Post('/me')
   async me(@Req() req) {
-    console.log('인증완료');
     const user = {
       user_id: req.user.user_id || req.user.admin_id,
       id: req.user.id,

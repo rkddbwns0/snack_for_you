@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCartDto } from 'src/dto/cart.dto';
 import { CartEntity } from 'src/entities/cart.entity';
@@ -123,6 +123,69 @@ export class CartService {
         throw new HttpException('Cart item not found', 404);
       }
       await this.cart_item.remove(cart_item);
+      return;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async increaseOrDecreaseQuantity(inde: boolean, cart_item_id: number) {
+    console.log(inde);
+    try {
+      const cart_item = await this.cart_item
+        .createQueryBuilder('cart_item')
+        .select('cart_item.cart_item_id as cart_item_id')
+        .addSelect('cart_item.quantity as quantity')
+        .addSelect('cart_item.price as price')
+        .addSelect('snack.price as snack_price')
+        .innerJoin('cart_item.snack', 'snack')
+        .where('cart_item.cart_item_id = :cart_item_id', {
+          cart_item_id: cart_item_id,
+        })
+        .getRawOne();
+
+      console.log(cart_item);
+
+      if (!cart_item) {
+        throw new HttpException(
+          '존재하지 않는 제품입니다.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      if (inde === true) {
+        console.log('gd');
+        await this.cart_item
+          .createQueryBuilder('cart_item')
+          .update(CartItemEntity)
+          .set({
+            quantity: cart_item.quantity + 1,
+            price: cart_item.price + cart_item.snack_price,
+          })
+          .where('cart_item_id = :cart_item_id', { cart_item_id: cart_item_id })
+          .execute();
+        return;
+      } else {
+        if (cart_item.quantity <= 1) {
+          throw new HttpException(
+            '1개 이하로 감소할 수 없습니다.',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+        await this.cart_item
+          .createQueryBuilder('cart_item')
+          .update(CartItemEntity)
+          .set({
+            quantity: cart_item.quantity - 1,
+            price: cart_item.price - cart_item.snack_price,
+          })
+          .where('cart_item_id = :cart_item_id', { cart_item_id: cart_item_id })
+          .execute();
+        return;
+      }
       return;
     } catch (e) {
       console.error(e);
