@@ -141,8 +141,6 @@ export class AddressService {
         where: { address_id: address_id, user: { user_id: user_id } },
       });
 
-      console.log(address);
-
       if (!address) {
         throw new HttpException(
           '존재하지 않는 주소입니다.',
@@ -171,6 +169,25 @@ export class AddressService {
       if (e instanceof HttpException) {
         throw e;
       }
+    }
+  }
+
+  async getBasicAddress(user_id: number) {
+    try {
+      const basic_address = await this.address.findOne({
+        where: {
+          user: { user_id: user_id },
+          basic_address: true,
+        },
+      });
+
+      if (!basic_address) {
+        return null;
+      }
+
+      return basic_address;
+    } catch (e) {
+      console.error(e);
     }
   }
 }

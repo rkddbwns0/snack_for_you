@@ -101,6 +101,7 @@ export class CartService {
         .innerJoin('cart.cart_item', 'cart_item')
         .innerJoin('cart_item.snack', 'snack')
         .where('cart.user_id = :user_id', { user_id: user_id })
+        .orderBy('cart_item.cart_item_id', 'ASC')
         .getRawMany();
 
       return cart;
@@ -112,17 +113,9 @@ export class CartService {
     }
   }
 
-  async deleteCart(cart_item_id: number) {
+  async deleteCart(cart_item_id: number[]) {
     try {
-      const cart_item = await this.cart_item.findOne({
-        where: {
-          cart_item_id: cart_item_id,
-        },
-      });
-      if (!cart_item) {
-        throw new HttpException('Cart item not found', 404);
-      }
-      await this.cart_item.remove(cart_item);
+      await this.cart_item.delete(cart_item_id);
       return;
     } catch (e) {
       console.error(e);
@@ -133,7 +126,6 @@ export class CartService {
   }
 
   async increaseOrDecreaseQuantity(inde: boolean, cart_item_id: number) {
-    console.log(inde);
     try {
       const cart_item = await this.cart_item
         .createQueryBuilder('cart_item')
@@ -147,8 +139,6 @@ export class CartService {
         })
         .getRawOne();
 
-      console.log(cart_item);
-
       if (!cart_item) {
         throw new HttpException(
           '존재하지 않는 제품입니다.',
@@ -157,7 +147,6 @@ export class CartService {
       }
 
       if (inde === true) {
-        console.log('gd');
         await this.cart_item
           .createQueryBuilder('cart_item')
           .update(CartItemEntity)

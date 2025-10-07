@@ -31,8 +31,9 @@ export class CartController {
   }
 
   @ApiOperation({ summary: '장바구니 데이터 삭제 라우터' })
-  @Delete(':cart_item_id')
-  async deleteCart(@Param('cart_item_id') cart_item_id: number) {
+  @Delete('')
+  async deleteCart(@Body('cart_item_id') cart_item_id: number[]) {
+    console.log(cart_item_id);
     return await this.cartService.deleteCart(cart_item_id);
   }
 

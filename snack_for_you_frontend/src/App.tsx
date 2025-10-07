@@ -15,6 +15,7 @@ import { EditUser } from './pages/edti_user.tsx';
 import { AddessInfo } from './pages/address_info.tsx';
 import { SnackDetail } from './pages/snack_detail.tsx';
 import { Cart } from './pages/cart.tsx';
+import { Order } from './pages/order.tsx';
 
 const AppContent = () => {
     const location = useLocation();
@@ -44,7 +45,14 @@ const AppContent = () => {
                             </ProtectedRoute>
                         }
                     />
-
+                    <Route
+                        path="/order"
+                        element={
+                            <ProtectedRoute>
+                                <Order />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/myPage"
                         element={
