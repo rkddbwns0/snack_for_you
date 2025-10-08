@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 import { useAuth } from '../context/context.tsx';
 import '../css/address_input.css';
+import { AddressApi } from '../api/address.api.tsx';
 
 export const AddressInput = (
     { isOpen, setIsOpen, onSuccess } = { isOpen: false, setIsOpen: () => {}, onSuccess: () => {} }
 ) => {
     const { user } = useAuth();
+    const addressApi = new AddressApi();
     const [addressInputOpen, setAddressInputOpen] = useState<boolean>(false);
     const [address, setAddress] = useState<string>('');
     const [name, setName] = useState<string>(user.name);
@@ -46,26 +48,16 @@ export const AddressInput = (
             return;
         }
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    user_id: user.user_id,
-                    name: name,
-                    road_name: address,
-                    detail_address: detailAddress,
-                    request: request,
-                    basic_address: basicAddress,
-                }),
+            const data = await addressApi.postAddress({
+                user_id: user.user_id,
+                name: name,
+                address: address,
+                detailAddress: detailAddress,
+                request: request,
+                basicAddress: basicAddress,
             });
 
-            if (response.ok) {
-                const data = await response.json();
-
+            if (data) {
                 alert(data.message);
                 setIsOpen();
                 setAddress('');

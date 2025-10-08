@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { AddressInput } from '../component/address_input.tsx';
 import { useAuth } from '../context/context.tsx';
 import '../css/address_info.css';
+import { AddressApi } from '../api/address.api.tsx';
 
 export const AddessInfo = () => {
     const { user } = useAuth();
+    const addressApi = new AddressApi();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [addressList, setAddressList] = useState<any>([]);
     const [checkAddress, setCheckAddress] = useState<number[]>([]);
@@ -34,44 +36,18 @@ export const AddessInfo = () => {
 
     const userAddress = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address/${user.user_id}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-            });
-            console.log(response);
-            const data = await response.json();
-            console.log(data);
+            const data = await addressApi.getAddress(user.user_id);
             setAddressList(data);
         } catch (e) {
             console.error(e);
         }
     };
-
-    const handleChageBasicAddress = async (address_id: number) => {
+    const handleChageBasicAddress = async (address: number) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address/${user.user_id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                body: JSON.stringify({
-                    address_id: address_id,
-                }),
-                credentials: 'include',
-            });
-            console.log(response);
-
-            const data = await response.json();
-
-            if (response.ok) {
+            const data = await addressApi.putAddress(address, user.user_id);
+            if (data) {
                 alert(data.message);
                 userAddress();
-                return;
             }
         } catch (e) {
             console.error(e);
@@ -89,20 +65,8 @@ export const AddessInfo = () => {
             return;
         }
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    address_id: checkAddress,
-                }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
+            const data = await addressApi.deleteAddress(checkAddress);
+            if (data) {
                 alert(data.message);
                 setCheckAddress([]);
                 userAddress();
