@@ -101,4 +101,26 @@ export class AddressApi {
             console.error(e);
         }
     }
+
+    async basicAddress(user_id: number) {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address/basic_address/${user_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+                },
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`기본배송지 조회 error ${response.status}`);
+            }
+            const data = response.json();
+
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }

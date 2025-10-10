@@ -1,14 +1,18 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/context.tsx';
 import { useEffect, useState } from 'react';
+import { AddressApi } from '../api/address.api.tsx';
+import { AddressModal } from '../component/address_modal.tsx';
 
 export const Order = () => {
     const navigation = useNavigate();
     const { user } = useAuth();
+    const addressApi = new AddressApi();
     const location = useLocation();
     const order_items = location.state;
     const [address, setAddress] = useState<any>(null);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const payment = [
         {
             id: 0,
@@ -27,21 +31,18 @@ export const Order = () => {
         },
     ];
 
+    const handleOpen = () => {
+        if (isOpen === false) {
+            setIsOpen(true);
+        } else {
+            setIsOpen(false);
+        }
+    };
+
     const basic_address = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address/basic_address/${user.user_id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setAddress(data);
-            }
+            const data = await addressApi.basicAddress(user.user_id);
+            setAddress(data);
         } catch (e) {
             console.error(e);
         }
@@ -130,6 +131,7 @@ export const Order = () => {
             <div>
                 <button>주문하기</button>
             </div>
+            <AddressModal isOpen={isOpen} setIsOpen={handleOpen} />
         </div>
     );
 };

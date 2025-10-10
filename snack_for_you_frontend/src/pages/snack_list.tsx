@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { SnackApi } from '../api/snack.api.tsx';
 
 export const SnackList = () => {
     const navigation = useNavigate();
     const location = useLocation();
+    const snackApi = new SnackApi();
     const category_id = location.pathname.split('/')[2];
     const [snacks, setSnacks] = useState<any[]>([]);
 
     const snackList = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/snack/${category_id}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-            });
-
-            const data = await response.json();
+            const data = await snackApi.getSnack(Number(category_id));
             setSnacks(data);
         } catch (e) {
             console.error(e);

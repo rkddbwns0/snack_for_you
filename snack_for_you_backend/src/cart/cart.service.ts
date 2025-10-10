@@ -101,7 +101,7 @@ export class CartService {
         .innerJoin('cart.cart_item', 'cart_item')
         .innerJoin('cart_item.snack', 'snack')
         .where('cart.user_id = :user_id', { user_id: user_id })
-        .orderBy('cart_item.cart_item_id', 'ASC')
+        .orderBy('cart_item.cart_item_id', 'DESC')
         .getRawMany();
 
       return cart;

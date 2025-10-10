@@ -1,26 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/context.tsx';
 import { useEffect, useState } from 'react';
+import { CartApi } from '../api/cart.api.tsx';
 
 export const Cart = () => {
     const navigation = useNavigate();
     const { user } = useAuth();
+    const cartApi = new CartApi();
     const [cartItems, setCartItems] = useState<any>([]);
     const [checkItems, setCheckItems] = useState<any>([]);
 
     const cart_items = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/cart/${user.user_id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-            });
-
-            const data = await response.json();
-            console.log(data);
+            const data = await cartApi.getCart(user.user_id);
             setCartItems(data);
         } catch (e) {
             console.error(e);
@@ -40,19 +32,9 @@ export const Cart = () => {
 
     const handleDeleteCart = async (cart_item_id: number[]) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/cart`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    cart_item_id: cart_item_id,
-                }),
-            });
+            const data = await cartApi.deleteCart(cart_item_id);
 
-            if (response.ok) {
+            if (data?.status === 200) {
                 setCheckItems([]);
                 cart_items();
             }
@@ -73,17 +55,9 @@ export const Cart = () => {
 
     const handleIncreaseOrDecreaseQuantity = async (inde: boolean, cart_item_id: number) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/cart/${cart_item_id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-                body: JSON.stringify({ inde: inde }),
-            });
+            const data = await cartApi.putCart(cart_item_id, inde);
 
-            if (response.ok) {
+            if (data?.status === 200) {
                 cart_items();
             }
         } catch (e) {

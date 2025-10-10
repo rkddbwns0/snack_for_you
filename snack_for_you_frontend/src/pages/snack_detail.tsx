@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/context.tsx';
+import { SnackApi } from '../api/snack.api.tsx';
+import { CartApi } from '../api/cart.api.tsx';
 
 export const SnackDetail = () => {
     const navigation = useNavigate();
     const { user } = useAuth();
+    const snackApi = new SnackApi();
+    const cartApi = new CartApi();
     const snack_id = window.location.pathname.split('/')[2];
     const location = useLocation();
     const category_id = location.state?.category_id;
@@ -14,14 +18,7 @@ export const SnackDetail = () => {
 
     const snack_info = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/snack/${category_id}/${snack_id}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-            });
-
-            const data = await response.json();
-
+            const data = await snackApi.SnackDeatil(category_id, Number(snack_id));
             setSnack(data);
         } catch (e) {
             console.error(e);
@@ -48,23 +45,15 @@ export const SnackDetail = () => {
             return;
         }
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/cart`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    user_id: user.user_id,
-                    snack_id: snack_id,
-                    quantity: quantity,
-                    price: totalPrice,
-                }),
+            const data = await cartApi.insertCart({
+                user_id: user.user_id,
+                snack_id: Number(snack_id),
+                quantity: quantity,
+                totalPrice: totalPrice,
             });
 
-            if (response.ok) {
-                alert('장바구니에 저장되었습니다.');
+            if (data?.status === 200) {
+                alert('장바구니에 등록되었습니다.');
                 return;
             }
         } catch (e) {
