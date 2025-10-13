@@ -20,14 +20,14 @@ export class OrderItemEntity {
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'order_id' })
-  order_id: OrderInfoEntity;
+  order: OrderInfoEntity;
 
   @ManyToOne(() => SnackInfoEntity, (snack_info) => snack_info.snack_id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'snack_id' })
-  snack_id: SnackInfoEntity;
+  snack: SnackInfoEntity;
 
   @Column({ type: 'int', nullable: false })
   quantity: number;

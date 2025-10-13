@@ -26,7 +26,7 @@ export const AddressInput = (
 
     const completeHandler = (data: any) => {
         const { address, buildingName }: any = data;
-        setAddress(address + ' ' + '(' + buildingName + ')');
+        setAddress(address + ' ' + (buildingName ? ` (${buildingName})` : ''));
         setAddressInputOpen(false);
     };
 

@@ -22,24 +22,27 @@ export class OrderInfoEntity {
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
-  user_id: UserEntity;
+  user: UserEntity;
 
   @ManyToOne(() => AddressEntity, (address) => address.address_id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'address_id' })
-  address_id: AddressEntity;
+  address: AddressEntity;
 
-  @Column({ type: 'varchar', length: 20, nullable: false, default: '주문완료' })
+  @Column({ type: 'varchar', length: 20, nullable: true, default: '주문완료' })
   status: string;
 
   @Column({ type: 'int', nullable: false })
   total_price: number;
 
+  @Column({ type: 'varchar', length: 30, nullable: false })
+  payment_method: string;
+
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   order_date: Date;
 
-  @OneToMany(() => OrderItemEntity, (order_item) => order_item.order_id)
+  @OneToMany(() => OrderItemEntity, (order_item) => order_item.order)
   order_item: OrderItemEntity[];
 }

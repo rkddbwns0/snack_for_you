@@ -96,6 +96,7 @@ export const Cart = () => {
                                                     price: item.price,
                                                     quantity: item.quantity,
                                                     product_image: item.product_image,
+                                                    snack_id: item.snack_id,
                                                 },
                                                 e.target.checked
                                             )
@@ -132,7 +133,7 @@ export const Cart = () => {
                         ))}
                         <div>
                             <button
-                                onClick={() => navigation('/order', { state: checkItems })}
+                                onClick={() => navigation('/order', { state: { items: checkItems, cart: true } })}
                                 disabled={checkItems.length === 0}
                             >
                                 주문하기

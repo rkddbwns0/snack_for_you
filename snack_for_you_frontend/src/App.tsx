@@ -16,6 +16,8 @@ import { AddessInfo } from './pages/address_info.tsx';
 import { SnackDetail } from './pages/snack_detail.tsx';
 import { Cart } from './pages/cart.tsx';
 import { Order } from './pages/order.tsx';
+import { Receipt } from './pages/receipt.tsx';
+import { OrderList } from './pages/order_list.tsx';
 
 const AppContent = () => {
     const location = useLocation();
@@ -54,10 +56,27 @@ const AppContent = () => {
                         }
                     />
                     <Route
+                        path="/receipt"
+                        element={
+                            <ProtectedRoute>
+                                <Receipt />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
                         path="/myPage"
                         element={
                             <ProtectedRoute>
                                 <MyPage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/orderList"
+                        element={
+                            <ProtectedRoute>
+                                <OrderList />
                             </ProtectedRoute>
                         }
                     />

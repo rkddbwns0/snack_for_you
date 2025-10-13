@@ -3,16 +3,20 @@ import { useAuth } from '../context/context.tsx';
 import { useEffect, useState } from 'react';
 import { AddressApi } from '../api/address.api.tsx';
 import { AddressModal } from '../component/address_modal.tsx';
+import { OrderApi } from '../api/order.api.tsx';
 
 export const Order = () => {
     const navigation = useNavigate();
     const { user } = useAuth();
     const addressApi = new AddressApi();
+    const orderApi = new OrderApi();
     const location = useLocation();
-    const order_items = location.state;
+    const order_items = location.state.items;
+    const cart = location.state.cart;
     const [address, setAddress] = useState<any>(null);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [checkPayment, setCheckPayment] = useState<string>('');
     const payment = [
         {
             id: 0,
@@ -56,6 +60,26 @@ export const Order = () => {
         setTotalPrice(total);
     };
 
+    const handleOrder = async () => {
+        try {
+            const data = await orderApi.insertOrder({
+                cart: cart,
+                user_id: user.user_id,
+                address_id: address.address_id,
+                totalPrice: totalPrice,
+                payment_method: checkPayment,
+                items: order_items,
+            });
+
+            if (data?.status === 200) {
+                alert('구매가 완료되었습니다.');
+                navigation('/receipt', { state: { order_id: data.order_id } });
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     useEffect(() => {
         basic_address();
         order_total_price();
@@ -77,12 +101,10 @@ export const Order = () => {
                                 <p>받는 사람 : {address.name}</p>
                             </div>
                             <div>
-                                <p>
-                                    주소 : {address.road_name} {address.detail_address}
-                                </p>
+                                <p>주소 : {address.address}</p>
                             </div>
                             <div>
-                                <button>주소 변경하기</button>
+                                <button onClick={handleOpen}>주소 변경하기</button>
                             </div>
                         </div>
                     ) : (
@@ -120,7 +142,10 @@ export const Order = () => {
                     {payment.map((item: any) => {
                         return (
                             <div key={item.id}>
-                                <button>
+                                <button
+                                    onClick={() => setCheckPayment(item.value)}
+                                    style={checkPayment === item.value ? { border: '1px solid red' } : {}}
+                                >
                                     <img src={item.image} style={{ width: '100px', height: '100px' }} />
                                 </button>
                             </div>
@@ -129,9 +154,9 @@ export const Order = () => {
                 </div>
             </div>
             <div>
-                <button>주문하기</button>
+                <button onClick={handleOrder}>주문하기</button>
             </div>
-            <AddressModal isOpen={isOpen} setIsOpen={handleOpen} />
+            <AddressModal isOpen={isOpen} setIsOpen={handleOpen} address_id={address?.address_id} />
         </div>
     );
 };

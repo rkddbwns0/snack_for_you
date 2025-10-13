@@ -94,8 +94,9 @@ export class AddressService {
         .select('address.address_id as address_id')
         .addSelect('address.name as name')
         .addSelect('user.user_id as user_id')
-        .addSelect('address.road_name as road_name')
-        .addSelect('address.detail_address as detail_address')
+        .addSelect(
+          "CONCAT(address.road_name, ' ',address.detail_address) as address",
+        )
         .addSelect('address.basic_address as basic_address')
         .addSelect('address.request as request')
         .addSelect(
@@ -174,13 +175,22 @@ export class AddressService {
 
   async getBasicAddress(user_id: number) {
     try {
-      const basic_address = await this.address.findOne({
-        where: {
-          user: { user_id: user_id },
+      const basic_address = await this.address
+        .createQueryBuilder('address')
+        .select([
+          'address.address_id as address_id',
+          'address.name as name',
+          "CONCAT(address.road_name, ' ',address.detail_address) as address",
+          'address.basic_address as basic_address',
+          'address.request as request',
+        ])
+        .where('address.user_id = :user_id', { user_id: user_id })
+        .andWhere('address.basic_address = :basic_address', {
           basic_address: true,
-        },
-      });
+        })
+        .getRawOne();
 
+      console.log(basic_address);
       if (!basic_address) {
         return null;
       }

@@ -106,7 +106,7 @@ export const AddessInfo = () => {
                                             />
                                         </div>
                                         <div className="item-info">
-                                            <p>주소 : {item.road_name + ' ' + item.detail_address}</p>
+                                            <p>주소 : {item.address}</p>
                                         </div>
                                         <div className="item-info">
                                             <p>수령자 : {item.name}</p>

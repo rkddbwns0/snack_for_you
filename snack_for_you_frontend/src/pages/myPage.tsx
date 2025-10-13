@@ -41,7 +41,7 @@ export const MyPage = () => {
                 </div>
                 <div className="mypage-menu">
                     <ul>
-                        <li>주문내역</li>
+                        <li onClick={() => navigation('/orderList')}>주문내역</li>
                         <li
                             onClick={() => {
                                 navigation('/address_info');
