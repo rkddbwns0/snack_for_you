@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './css/App.css';
+import './css/global.css';
+import './css/page.css';
 import { AppHeader } from './component/app-header.tsx';
 import { Main } from './pages/main.tsx';
 import { MenuBar } from './component/menu-bar.tsx';
@@ -11,7 +13,7 @@ import { Signup } from './pages/signup.tsx';
 import ProtectedRoute from './context/protectedRoute.tsx';
 import { AuthProvider } from './context/context.tsx';
 import { MyPage } from './pages/myPage.tsx';
-import { EditUser } from './pages/edti_user.tsx';
+import { EditUser } from './pages/edit_user.tsx';
 import { AddessInfo } from './pages/address_info.tsx';
 import { SnackDetail } from './pages/snack_detail.tsx';
 import { Cart } from './pages/cart.tsx';

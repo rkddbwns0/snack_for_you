@@ -49,40 +49,42 @@ export const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-title">
-                <p>로그인</p>
-            </div>
-            <div className="login-input-container">
-                <input
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}
-                    className="id-input"
-                    type="text"
-                    placeholder="아이디"
-                    onKeyDown={(e) => handleEnter(e)}
-                />
-                <div className="password-container">
+        <div className="page-wrapper">
+            <div className="content-box">
+                <div className="login-title">
+                    <p>로그인</p>
+                </div>
+                <div className="login-input-container">
                     <input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="password-input"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="비밀번호"
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                        className="id-input"
+                        type="text"
+                        placeholder="아이디"
                         onKeyDown={(e) => handleEnter(e)}
                     />
-                    <span onClick={() => setShowPassword(!showPassword)} className="password-icon">
-                        {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
-                    </span>
+                    <div className="password-container">
+                        <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="password-input"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="비밀번호"
+                            onKeyDown={(e) => handleEnter(e)}
+                        />
+                        <span onClick={() => setShowPassword(!showPassword)} className="password-icon">
+                            {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div className="login-menu-container">
-                <a>아이디 찾기</a>
-                <a>비밀번호 찾기</a>
-                <a onClick={() => navigation('/signup')}>회원가입</a>
-            </div>
-            <div className="login-button-container">
-                <button onClick={handleEnter}>로그인</button>
+                <div className="login-menu-container">
+                    <a>아이디 찾기</a>
+                    <a>비밀번호 찾기</a>
+                    <a onClick={() => navigation('/signup')}>회원가입</a>
+                </div>
+                <div className="login-button-container">
+                    <button onClick={handleEnter}>로그인</button>
+                </div>
             </div>
         </div>
     );

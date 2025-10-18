@@ -84,20 +84,22 @@ export const EditUser = () => {
     };
 
     return (
-        <div>
-            <h3>닉네임 변경</h3>
-            <div>
-                <input
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                    type="text"
-                    placeholder="닉네임 변경"
-                />
-                <button onClick={handleDupCheck}>중복확인</button>
-                {dupMsg && <p>{dupMsg}</p>}
-            </div>
-            <div>
-                <button onClick={handleUpdateUser}>닉네임 변경</button>
+        <div className="page-wrapper">
+            <div className="content-box">
+                <h3>닉네임 변경</h3>
+                <div>
+                    <input
+                        value={nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                        type="text"
+                        placeholder="닉네임 변경"
+                    />
+                    <button onClick={handleDupCheck}>중복확인</button>
+                    {dupMsg && <p>{dupMsg}</p>}
+                </div>
+                <div>
+                    <button onClick={handleUpdateUser}>닉네임 변경</button>
+                </div>
             </div>
         </div>
     );

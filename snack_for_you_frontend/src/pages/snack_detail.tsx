@@ -3,12 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/context.tsx';
 import { SnackApi } from '../api/snack.api.tsx';
 import { CartApi } from '../api/cart.api.tsx';
+import { HiOutlineHeart } from 'react-icons/hi';
+import '../css/snack_detail.css';
+import { FavoriteApi } from '../api/favorite.api.tsx';
 
 export const SnackDetail = () => {
     const navigation = useNavigate();
     const { user } = useAuth();
     const snackApi = new SnackApi();
     const cartApi = new CartApi();
+    const favoriteApi = new FavoriteApi();
     const snack_id = window.location.pathname.split('/')[2];
     const location = useLocation();
     const category_id = location.state?.category_id;
@@ -71,43 +75,47 @@ export const SnackDetail = () => {
         snack_info();
     }, [navigation]);
     return (
-        <div>
-            <div>
-                <div>
-                    <img src={snack?.product_image} style={{ width: '200px', height: '200px' }} />
+        <div className="page-container centered-page">
+            <div className="snack-detail-container">
+                <div className="snack-detail-image">
+                    <img src={snack?.product_image} />
                 </div>
-                <div>
-                    <p>{snack?.name}</p>
-                    <p>{snack?.category_name}</p>
-                    <p>{snack?.brand}</p>
-                    <p>{snack?.composition}</p>
-                    <p>{snack?.weight}</p>
-                    <p>{snack?.price}원</p>
+                <div className="snack-detail-content">
+                    <div className="snack-detail-info">
+                        <p>제품명 : {snack?.name}</p>
+                        <p>카테고리 : {snack?.category_name}</p>
+                        <p>브랜드명 : {snack?.brand}</p>
+                        <p>구성 : {snack?.composition}</p>
+                        <p>중량 : {snack?.weight}</p>
+                    </div>
+                    <div>
+                        <div className="price-quantity-container">
+                            <h3>{totalPrice}원</h3>
+                            <div className="quantity-controls">
+                                <button onClick={decrease}>-</button>
+                                <input
+                                    type="number"
+                                    min={1}
+                                    value={quantity}
+                                    onChange={(e) => {
+                                        const value = Number(e.target.value);
+                                        setQuantity(value < 1 ? 1 : value);
+                                    }}
+                                />
+                                <button onClick={() => increase(snack?.quantity)}>+</button>
+                            </div>
+                        </div>
+                        <div className="action-buttons">
+                            <button>
+                                <HiOutlineHeart />
+                            </button>
+                            <button className="btn-cart" onClick={handleCart}>
+                                장바구니
+                            </button>
+                            <button className="btn-buy">구매하기</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div>
-                <div>
-                    <h3>총 가격</h3>
-                    <h3>{totalPrice}원</h3>
-                </div>
-                <div>
-                    <button onClick={decrease}>-</button>
-                    <input
-                        type="number"
-                        min={1}
-                        value={quantity}
-                        onChange={(e) => {
-                            const value = Number(e.target.value);
-                            setQuantity(value < 1 ? 1 : value);
-                        }}
-                    />
-                    <button onClick={() => increase(snack?.quantity)}>+</button>
-                </div>
-            </div>
-            <div>
-                <button onClick={handleCart}>장바구니</button>
-                <button>구매하기</button>
             </div>
         </div>
     );

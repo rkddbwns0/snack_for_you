@@ -99,7 +99,10 @@ export const Signup = () => {
     };
 
     return (
-        <div className="signup-container">
+        <div
+            className="page-container"
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+        >
             <div className="signup-title">
                 <p>회원가입</p>
             </div>

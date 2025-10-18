@@ -81,71 +81,73 @@ export const AddessInfo = () => {
     }, []);
 
     return (
-        <div className="address-info-container">
-            <div className="address-info-title">
-                <div></div>
-                <h3>주소 정보</h3>
-                <div className="address-info-button">
-                    <button onClick={handleOpen}>+ 주소 등록하기</button>
-                    <button onClick={handleAddressDelete}>- 주소 삭제하기</button>
+        <div className="page-wrapper">
+            <div className="content-box">
+                <div className="address-info-title">
+                    <div></div>
+                    <h3>주소 정보</h3>
+                    <div className="address-info-button">
+                        <button onClick={handleOpen}>+ 주소 등록하기</button>
+                        <button onClick={handleAddressDelete}>- 주소 삭제하기</button>
+                    </div>
                 </div>
-            </div>
-            <div style={{ width: '100%' }}>
-                {addressList.length > 0 ? (
-                    <div className="address-list-container">
-                        {addressList.map((item: any) => {
-                            return (
-                                <div key={item.address_id} className="address-item-container">
-                                    <div className="address-item">
-                                        <div>
-                                            <input
-                                                type="checkbox"
-                                                id={item.address_id}
-                                                checked={checkAddress.includes(item.address_id)}
-                                                onChange={(e) => checkHandler(e, item.address_id)}
-                                            />
-                                        </div>
-                                        <div className="item-info">
-                                            <p>주소 : {item.address}</p>
-                                        </div>
-                                        <div className="item-info">
-                                            <p>수령자 : {item.name}</p>
-                                        </div>
-                                        <div className="item-info">
-                                            <p>요청사항 : {item.request}</p>
-                                        </div>
-                                        <div className="item-info">
-                                            <p>등록일 : {item.created_at}</p>
-                                        </div>
+                <div style={{ width: '100%' }}>
+                    {addressList.length > 0 ? (
+                        <div className="address-list-container">
+                            {addressList.map((item: any) => {
+                                return (
+                                    <div key={item.address_id} className="address-item-container">
+                                        <div className="address-item">
+                                            <div>
+                                                <input
+                                                    type="checkbox"
+                                                    id={item.address_id}
+                                                    checked={checkAddress.includes(item.address_id)}
+                                                    onChange={(e) => checkHandler(e, item.address_id)}
+                                                />
+                                            </div>
+                                            <div className="item-info">
+                                                <p>주소 : {item.address}</p>
+                                            </div>
+                                            <div className="item-info">
+                                                <p>수령자 : {item.name}</p>
+                                            </div>
+                                            <div className="item-info">
+                                                <p>요청사항 : {item.request}</p>
+                                            </div>
+                                            <div className="item-info">
+                                                <p>등록일 : {item.created_at}</p>
+                                            </div>
 
-                                        <div className="item-info-basic-address">
-                                            {item.basic_address === true ? (
-                                                <p>기본주소</p>
-                                            ) : (
-                                                <button onClick={() => handleAlert(item.address_id)}>
-                                                    기본주소로 설정
-                                                </button>
-                                            )}
+                                            <div className="item-info-basic-address">
+                                                {item.basic_address === true ? (
+                                                    <p>기본주소</p>
+                                                ) : (
+                                                    <button onClick={() => handleAlert(item.address_id)}>
+                                                        기본주소로 설정
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <div>
-                        <p>주소를 등록해 주세요.</p>
-                    </div>
-                )}
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <div>
+                            <p>주소를 등록해 주세요.</p>
+                        </div>
+                    )}
+                </div>
+                <AddressInput
+                    isOpen={isOpen}
+                    setIsOpen={handleOpen}
+                    onSuccess={() => {
+                        setIsOpen(false);
+                        userAddress();
+                    }}
+                />
             </div>
-            <AddressInput
-                isOpen={isOpen}
-                setIsOpen={handleOpen}
-                onSuccess={() => {
-                    setIsOpen(false);
-                    userAddress();
-                }}
-            />
         </div>
     );
 };

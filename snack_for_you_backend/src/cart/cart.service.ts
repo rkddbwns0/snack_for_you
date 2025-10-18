@@ -47,14 +47,13 @@ export class CartService {
     try {
       const { user_id, snack_id, quantity, price } = createCart;
 
-      const cart = await this.cart.findOne({
+      let cart = await this.cart.findOne({
         where: { user: { user_id: user_id } },
       });
 
       if (!cart) {
         const newCart = this.cart.create({ user: { user_id: user_id } });
-        await this.cart.save(newCart);
-        return;
+        cart = await this.cart.save(newCart);
       }
 
       const cart_item = await this.cart_item.findOne({
@@ -68,16 +67,15 @@ export class CartService {
         cart_item.quantity += quantity;
         cart_item.price += price;
         await this.cart_item.save(cart_item);
-        return;
+      } else {
+        const newCartItem = this.cart_item.create({
+          cart: { cart_id: cart?.cart_id },
+          snack: { snack_id: snack_id },
+          quantity: quantity,
+          price: price,
+        });
+        await this.cart_item.save(newCartItem);
       }
-
-      const newCartItem = this.cart_item.create({
-        cart: { cart_id: cart?.cart_id },
-        snack: { snack_id: snack_id },
-        quantity: quantity,
-        price: price,
-      });
-      await this.cart_item.save(newCartItem);
 
       return;
     } catch (e) {

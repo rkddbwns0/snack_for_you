@@ -73,78 +73,82 @@ export const Cart = () => {
     }, [user]);
 
     return (
-        <div>
-            <h3>장바구니</h3>
+        <div className="page-wrapper">
+            <div className="content-box">
+                <h3>장바구니</h3>
 
-            <div>
-                {cartItems.length > 0 ? (
-                    <div>
-                        {cartItems.map((item: any) => (
-                            <div key={item.snack_id}>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        id={item.cart_item_id}
-                                        checked={checkItems.some(
-                                            (checkItem: any) => checkItem.cart_item_id === item.cart_item_id
-                                        )}
-                                        onChange={(e) =>
-                                            handleCheckItems(
-                                                {
-                                                    cart_item_id: item.cart_item_id,
-                                                    name: item.name,
-                                                    price: item.price,
-                                                    quantity: item.quantity,
-                                                    product_image: item.product_image,
-                                                    snack_id: item.snack_id,
-                                                },
-                                                e.target.checked
-                                            )
-                                        }
-                                    />
-                                </div>
-                                <div>
-                                    <img src={item.product_image} style={{ width: '100px', height: '100px' }} />
-                                    <div>{item.name}</div>
-                                </div>
-                                <div>
-                                    <button
-                                        onClick={() => handleIncreaseOrDecreaseQuantity(false, item.cart_item_id)}
-                                        disabled={item.quantity === 1}
-                                    >
-                                        -
-                                    </button>
-                                    <span>{item.quantity}</span>
-                                    <button onClick={() => handleIncreaseOrDecreaseQuantity(true, item.cart_item_id)}>
-                                        +
-                                    </button>
-                                </div>
-                                <div>{item.price}원</div>
-                                <div>
-                                    <button
-                                        onClick={() => {
-                                            handleDeleteAlert(item.cart_item_id);
-                                        }}
-                                    >
-                                        X
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                <div>
+                    {cartItems.length > 0 ? (
                         <div>
-                            <button
-                                onClick={() => navigation('/order', { state: { items: checkItems, cart: true } })}
-                                disabled={checkItems.length === 0}
-                            >
-                                주문하기
-                            </button>
+                            {cartItems.map((item: any) => (
+                                <div key={item.snack_id}>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            id={item.cart_item_id}
+                                            checked={checkItems.some(
+                                                (checkItem: any) => checkItem.cart_item_id === item.cart_item_id
+                                            )}
+                                            onChange={(e) =>
+                                                handleCheckItems(
+                                                    {
+                                                        cart_item_id: item.cart_item_id,
+                                                        name: item.name,
+                                                        price: item.price,
+                                                        quantity: item.quantity,
+                                                        product_image: item.product_image,
+                                                        snack_id: item.snack_id,
+                                                    },
+                                                    e.target.checked
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <img src={item.product_image} style={{ width: '100px', height: '100px' }} />
+                                        <div>{item.name}</div>
+                                    </div>
+                                    <div>
+                                        <button
+                                            onClick={() => handleIncreaseOrDecreaseQuantity(false, item.cart_item_id)}
+                                            disabled={item.quantity === 1}
+                                        >
+                                            -
+                                        </button>
+                                        <span>{item.quantity}</span>
+                                        <button
+                                            onClick={() => handleIncreaseOrDecreaseQuantity(true, item.cart_item_id)}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                    <div>{item.price}원</div>
+                                    <div>
+                                        <button
+                                            onClick={() => {
+                                                handleDeleteAlert(item.cart_item_id);
+                                            }}
+                                        >
+                                            X
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                            <div>
+                                <button
+                                    onClick={() => navigation('/order', { state: { items: checkItems, cart: true } })}
+                                    disabled={checkItems.length === 0}
+                                >
+                                    주문하기
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <div>
-                        <div>자장바구니에 상품이 없습니다.</div>
-                    </div>
-                )}
+                    ) : (
+                        <div>
+                            <div>자장바구니에 상품이 없습니다.</div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

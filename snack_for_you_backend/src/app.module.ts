@@ -11,6 +11,7 @@ import { AddressModule } from './address/address.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { FavoritesModule } from './favorites/favorites.modeule';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AddressModule,
     CartModule,
     OrderModule,
+    FavoritesModule,
     DashboardModule,
   ],
   controllers: [AppController],

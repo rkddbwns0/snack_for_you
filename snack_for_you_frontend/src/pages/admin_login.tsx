@@ -36,35 +36,37 @@ export const AdminLogin = () => {
     };
 
     return (
-        <div className="admin-login-container">
-            <header className="admin-login-header">
-                <h3>관리자 로그인</h3>
-            </header>
-            <div className="admin-input-container">
-                <input
-                    value={adminId}
-                    onChange={(e) => setAdminId(e.target.value)}
-                    className="admin-input"
-                    type="text"
-                    placeholder="아이디를 입력해 주세요."
-                />
-                <div className="admin-password-container">
+        <div className="page-wrapper">
+            <div className="content-box">
+                <header className="admin-login-header">
+                    <h3>관리자 로그인</h3>
+                </header>
+                <div className="admin-input-container">
                     <input
-                        value={adminPassword}
-                        onChange={(e) => setAdminPassword(e.target.value)}
-                        className="admin-input-password"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="비밀번호를 입력해 주세요."
+                        value={adminId}
+                        onChange={(e) => setAdminId(e.target.value)}
+                        className="admin-input"
+                        type="text"
+                        placeholder="아이디를 입력해 주세요."
                     />
-                    <span onClick={() => setShowPassword(!showPassword)} className="password-icon">
-                        {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
-                    </span>
+                    <div className="admin-password-container">
+                        <input
+                            value={adminPassword}
+                            onChange={(e) => setAdminPassword(e.target.value)}
+                            className="admin-input-password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="비밀번호를 입력해 주세요."
+                        />
+                        <span onClick={() => setShowPassword(!showPassword)} className="password-icon">
+                            {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div className="admin-login-button-container">
-                <button className="admin-login-button" onClick={handleAdminLogin}>
-                    로그인
-                </button>
+                <div className="admin-login-button-container">
+                    <button className="admin-login-button" onClick={handleAdminLogin}>
+                        로그인
+                    </button>
+                </div>
             </div>
         </div>
     );

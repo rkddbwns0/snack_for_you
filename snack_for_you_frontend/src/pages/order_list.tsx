@@ -20,7 +20,10 @@ export const OrderList = () => {
     }, []);
 
     return (
-        <div>
+        <div
+            className="page-container"
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+        >
             <div>
                 <h3>주문내역</h3>
             </div>
