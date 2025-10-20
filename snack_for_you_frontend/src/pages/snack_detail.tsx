@@ -19,6 +19,7 @@ export const SnackDetail = () => {
     const [snack, setSnack] = useState<any>(null);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [quantity, setQuantity] = useState<number>(1);
+    const [userFavorite, setUserFavorite] = useState<any[]>([]);
 
     const snack_info = async () => {
         try {
@@ -65,6 +66,39 @@ export const SnackDetail = () => {
         }
     };
 
+    const favoriteList = async () => {
+        if (!user) {
+            return;
+        }
+        try {
+            const data = await favoriteApi.getFavorite(user.user_id);
+            setUserFavorite(data);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const favoriteCheck = (snack_id: number) => {
+        console.log(snack_id);
+        return userFavorite?.some((item: any) => item.snack_id === snack_id) ?? false;
+    };
+
+    const handleFavorite = async (snack_id: number) => {
+        if (!user) {
+            alert('로그인 후 사용할 수 있습니다.');
+            return;
+        }
+        try {
+            const data = await favoriteApi.favorite(user.user_id, snack_id);
+            if (data?.status === 200) {
+                favoriteList();
+                return;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     useEffect(() => {
         if (snack?.price) {
             setTotalPrice(snack?.price * quantity);
@@ -74,6 +108,11 @@ export const SnackDetail = () => {
     useEffect(() => {
         snack_info();
     }, [navigation]);
+
+    useEffect(() => {
+        favoriteList();
+    }, [user]);
+
     return (
         <div className="page-container centered-page">
             <div className="snack-detail-container">
@@ -106,8 +145,12 @@ export const SnackDetail = () => {
                             </div>
                         </div>
                         <div className="action-buttons">
-                            <button>
-                                <HiOutlineHeart />
+                            <button className="btn-favorite" onClick={() => handleFavorite(snack.snack_id)}>
+                                {user && favoriteCheck(snack?.snack_id) ? (
+                                    <HiOutlineHeart color="red" />
+                                ) : (
+                                    <HiOutlineHeart />
+                                )}
                             </button>
                             <button className="btn-cart" onClick={handleCart}>
                                 장바구니

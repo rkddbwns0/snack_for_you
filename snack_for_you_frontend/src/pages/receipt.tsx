@@ -13,6 +13,7 @@ export const Receipt = () => {
     const getReceipt = async () => {
         const data = await orderApi.getOrder(order_id);
         setOrder(data?.result?.order);
+        console.log(data);
         setOrderItems(data?.result?.order_items);
     };
 
@@ -30,18 +31,30 @@ export const Receipt = () => {
                 <div className="receipt-section">
                     <h4>주문 정보</h4>
                     <div className="receipt-info">
-                        <p><strong>주문 번호:</strong> {order?.order_id}</p>
-                        <p><strong>주문일:</strong> {order?.order_date}</p>
-                        <p><strong>주문 상태:</strong> {order?.status}</p>
+                        <p>
+                            <strong>주문 번호:</strong> {order?.order_id}
+                        </p>
+                        <p>
+                            <strong>주문일:</strong> {order?.order_date}
+                        </p>
+                        <p>
+                            <strong>주문 상태:</strong> {order?.status}
+                        </p>
                     </div>
                 </div>
 
                 <div className="receipt-section">
                     <h4>배송 정보</h4>
                     <div className="receipt-info">
-                        <p><strong>받는 사람:</strong> {order?.name}</p>
-                        <p><strong>주소:</strong> {order?.address}</p>
-                        <p><strong>요청사항:</strong> {order?.request}</p>
+                        <p>
+                            <strong>받는 사람:</strong> {order?.name}
+                        </p>
+                        <p>
+                            <strong>주소:</strong> {order?.address}
+                        </p>
+                        <p>
+                            <strong>요청사항:</strong> {order?.request}
+                        </p>
                     </div>
                 </div>
 
@@ -50,15 +63,26 @@ export const Receipt = () => {
                     <div className="receipt-item-list">
                         {order_items?.map((item: any) => (
                             <div key={item?.order_item_id} className="receipt-item">
-                                <span className="receipt-item-name">{item.name} (x{item.quantity})</span>
-                                <span>{item.price}원</span>
+                                <div>
+                                    <img src={item?.product_image} style={{ width: '50px', height: '50px' }} />
+                                </div>
+                                <div>
+                                    <span className="receipt-item-name">
+                                        {item.name} (x{item.quantity}) {item.price}원
+                                    </span>
+                                </div>
+                                <div>
+                                    <button disabled={order?.status !== '배송 완료'}>리뷰 작성</button>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 <div className="receipt-total">
-                    <p><strong>결제 방식:</strong> {order?.payment_method}</p>
+                    <p>
+                        <strong>결제 방식:</strong> {order?.payment_method}
+                    </p>
                     <p>총 결제금액: {order?.total_price}원</p>
                 </div>
             </div>

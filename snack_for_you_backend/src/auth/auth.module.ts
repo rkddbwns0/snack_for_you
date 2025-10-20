@@ -6,15 +6,16 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './auth.strategy';
+import { JwtStrategy } from './strategies/auth.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, AdminUserEntity]),
+    PassportModule,
     JwtModule.register({ secret: process.env.JWT_SECRET }),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtService, JwtStrategy],
+  providers: [AuthService, JwtService, JwtStrategy, LocalStrategy],
 })
 export class AuthModule {}

@@ -11,9 +11,9 @@ import {
 import { CartService } from './cart.service';
 import { CreateCartDto, IncreaseOrDecreaseDto } from 'src/dto/cart.dto';
 import { ApiOperation } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}

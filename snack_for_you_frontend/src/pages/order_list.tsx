@@ -11,7 +11,7 @@ export const OrderList = () => {
 
     const getAllOrder = async () => {
         const data = await orderApi.getAllOrder(user.user_id);
-
+        console.log(data);
         setOrderList(data);
     };
 
@@ -31,11 +31,10 @@ export const OrderList = () => {
                 {orderList &&
                     orderList.map((item: any) => {
                         return (
-                            <div
-                                key={item.order_id}
-                                onClick={() => navigation('/receipt', { state: { order_id: item.order_id } })}
-                            >
-                                <p>주문상태 : {item.name}</p>
+                            <div key={item.order_id}>
+                                <div onClick={() => navigation('/receipt', { state: { order_id: item.order_id } })}>
+                                    <p>주문상태 : {item.name}</p>
+                                </div>
                             </div>
                         );
                     })}

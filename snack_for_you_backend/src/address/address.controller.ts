@@ -11,9 +11,9 @@ import {
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateAddressDto } from 'src/dto/address.dto';
 import { AddressService } from './address.service';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @Controller('address')
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}

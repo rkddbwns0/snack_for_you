@@ -1,21 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class LoginDto {
-  @ApiProperty({
-    example: 'admin',
-    description: '관리자 id',
-    type: 'string',
-    required: false,
-  })
-  readonly admin_id?: string;
-
+export class ValidateUserDto {
   @ApiProperty({
     example: 'user1',
     description: '사용자 id',
     type: 'string',
     required: false,
   })
-  readonly user_id?: string;
+  readonly user_id: string;
 
   @ApiProperty({
     example: '1234',

@@ -54,8 +54,11 @@ export const SnackList = () => {
 
     useEffect(() => {
         snackList();
-        favoriteList();
     }, [category_id]);
+
+    useEffect(() => {
+        favoriteList();
+    }, [user]);
 
     return (
         <div className="page-container">
