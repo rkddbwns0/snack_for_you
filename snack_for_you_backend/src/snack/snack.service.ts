@@ -20,20 +20,24 @@ export class SnackService {
 
   async getSnackList(category_id: number) {
     try {
+      console.log(category_id);
       const snackList = await this.snack_info
-        .createQueryBuilder('snack')
-        .innerJoin('snack.category', 'category')
-        .select('snack.snack_id as snack_id')
-        .addSelect('category.name as category_name')
-        .addSelect('snack.name as name')
-        .addSelect('snack.brand as brand')
-        .addSelect("CONCAT(snack.price, '원') as price")
-        .addSelect('snack.product_image as product_image')
-        .where('category.category_id = :category_id', {
-          category_id: category_id,
+        .createQueryBuilder('s')
+        .innerJoin('snack_category', 'c', 'c.category_id = s.category_id')
+        .leftJoin('favorites', 'f', 'f.snack_id = s.snack_id')
+        .select('s.snack_id as snack_id')
+        .addSelect('c.name as category_name')
+        .addSelect('s.name as name')
+        .addSelect('s.brand as brand')
+        .addSelect("CONCAT(s.price, '원') as price")
+        .addSelect('s.product_image as product_image')
+        .addSelect('COALESCE(COUNT(f.favorite_id), 0) as favorite_count')
+        .where('c.category_id = :category_id', {
+          category_id,
         })
+        .groupBy('c.category_id')
+        .addGroupBy('s.snack_id')
         .getRawMany();
-
       return snackList;
     } catch (e) {
       if (e instanceof HttpException) {

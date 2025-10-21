@@ -9,10 +9,25 @@ export const AppHeader = () => {
     const handleMyPage = () => {
         if (!user) {
             alert('로그인 후 이용해 주세요.');
-            navigation('/login');
             return;
         }
         navigation('/myPage');
+    };
+
+    const handleCart = () => {
+        if (!user) {
+            alert('로그인 후 이용해 주세요.');
+            return;
+        }
+        navigation('/cart');
+    };
+
+    const handleFavorite = () => {
+        if (!user) {
+            alert('로그인 후 이용해 주세요.');
+            return;
+        }
+        navigation('/favorite');
     };
 
     return (
@@ -23,8 +38,8 @@ export const AppHeader = () => {
             </div>
             <div className="menu-container">
                 {user ? <p>{user.nickname}님 환영합니다!</p> : <a href="/login">로그인</a>}
-
-                <a href="/cart">장바구니</a>
+                <a onClick={handleFavorite}>좋아요</a>
+                <a onClick={handleCart}>장바구니</a>
                 <a onClick={handleMyPage}>마이페이지</a>
             </div>
         </header>

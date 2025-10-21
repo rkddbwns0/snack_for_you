@@ -91,4 +91,32 @@ export class FavoritesService {
       }
     }
   }
+
+  async favoriteList(user_id: number) {
+    try {
+      const list = await this.favorites
+        .createQueryBuilder('f')
+        .innerJoin('snack_info', 's', 's.snack_id = f.snack_id')
+        .select('s.snack_id as snack_id')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('s.price as snack_price')
+        .addSelect(
+          `(select COALESCE(COUNT(*), 0) from favorites where favorites.snack_id = s.snack_id)`,
+          'favorite_count',
+        )
+        .where('f.user_id = :user_id', { user_id })
+        .groupBy('f.favorite_id')
+        .addGroupBy('s.snack_id')
+        .orderBy('f.created_at', 'DESC')
+        .getRawMany();
+
+      return list;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }

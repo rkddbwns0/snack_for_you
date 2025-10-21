@@ -3,7 +3,7 @@ import { FavoritesService } from './favorites.service';
 import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
 
 @UseGuards(JwtAuthGuard)
-@Controller('favorites')
+@Controller('favorite')
 export class FavoriteController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
@@ -19,5 +19,10 @@ export class FavoriteController {
   @Get(':user_id')
   async getFavorites(@Param('user_id') user_id: number) {
     return await this.favoritesService.getFavorites(user_id);
+  }
+
+  @Get('list/:user_id')
+  async favoriteList(@Param('user_id') user_id: number) {
+    return await this.favoritesService.favoriteList(user_id);
   }
 }

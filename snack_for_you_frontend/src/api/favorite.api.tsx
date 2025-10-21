@@ -1,7 +1,7 @@
 export class FavoriteApi {
     async getFavorite(user_id: number) {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/favorites/${user_id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/favorite/${user_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export class FavoriteApi {
 
     async favorite(user_id: number, snack_id: number) {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/favorites`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/favorite`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,6 +42,25 @@ export class FavoriteApi {
             }
 
             return { status: 200 };
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async favoriteList(user_id: number) {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/favorite/list/${user_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+                },
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+
+            return data;
         } catch (e) {
             console.error(e);
         }

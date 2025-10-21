@@ -46,6 +46,8 @@ export const SnackList = () => {
             const data = await favoriteApi.favorite(user.user_id, snack_id);
             if (data?.status === 200) {
                 favoriteList();
+                snackList();
+                return;
             }
         } catch (e) {
             console.error(e);
@@ -99,6 +101,7 @@ export const SnackList = () => {
                                         ) : (
                                             <HiOutlineHeart />
                                         )}
+                                        {Number(item.favorite_count)}
                                     </button>
                                 </div>
                             </div>

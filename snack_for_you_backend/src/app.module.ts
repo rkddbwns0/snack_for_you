@@ -12,6 +12,7 @@ import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FavoritesModule } from './favorites/favorites.modeule';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { FavoritesModule } from './favorites/favorites.modeule';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      logging: true,
     }),
     AdminUserModule,
     AuthModule,
@@ -34,6 +36,7 @@ import { FavoritesModule } from './favorites/favorites.modeule';
     OrderModule,
     FavoritesModule,
     DashboardModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],

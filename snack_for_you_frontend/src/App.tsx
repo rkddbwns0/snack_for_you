@@ -20,6 +20,7 @@ import { Cart } from './pages/cart.tsx';
 import { Order } from './pages/order.tsx';
 import { Receipt } from './pages/receipt.tsx';
 import { OrderList } from './pages/order_list.tsx';
+import { Favorite } from './pages/favorite.tsx';
 
 const AppContent = () => {
     const location = useLocation();
@@ -95,6 +96,15 @@ const AppContent = () => {
                         element={
                             <ProtectedRoute>
                                 <AddessInfo />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/favorite"
+                        element={
+                            <ProtectedRoute>
+                                <Favorite />
                             </ProtectedRoute>
                         }
                     />
