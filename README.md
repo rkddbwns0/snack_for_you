@@ -35,38 +35,37 @@ Snack For You는 다음과 같은 특징을 가진 완전한 이커머스 플랫
 - **인증**: JWT 기반 토큰 인증
 
 ## 프로젝트 구조
-snack_for_you/
-├── snack_for_you_frontend/ # React 프론트엔드
-│ ├── public/
-│ ├── src/
-│ │ ├── api/ # API 통신 모듈
-│ │ ├── component/ # 재사용 컴포넌트
-│ │ ├── context/ # 전역 상태 관리
-│ │ ├── css/ # 스타일 파일
-│ │ ├── pages/ # 페이지 컴포넌트
-│ │ ├── img/ # 이미지 자산
-│ │ └── App.tsx
-│ ├── package.json
-│ └── README.md
-│
-├── snack_for_you_backend/ # NestJS 백엔드
-│ ├── src/
-│ │ ├── address/ # 배송지 관리 모듈
-│ │ ├── auth/ # 인증 모듈
-│ │ ├── cart/ # 장바구니 모듈
-│ │ ├── dto/ # Data Transfer Objects
-│ │ ├── entities/ # 데이터베이스 엔티티
-│ │ ├── favorites/ # 좋아요 모듈
-│ │ ├── order/ # 주문 모듈
-│ │ ├── review/ # 리뷰 모듈
-│ │ ├── snack/ # 상품 모듈
-│ │ ├── users/ # 사용자 모듈
-│ │ └── main.ts
-│ ├── dist/
-│ ├── package.json
-│ └── README.md
-│
-└── README.md #
+```snack_for_you/
+├── snack_for_you_frontend/        # React 프론트엔드
+│   ├── public/
+│   ├── src/
+│   │   ├── api/                   # API 통신 모듈
+│   │   ├── component/             # 재사용 가능한 컴포넌트
+│   │   ├── context/               # 전역 상태 관리
+│   │   ├── css/                   # 스타일 파일
+│   │   ├── pages/                 # 페이지 컴포넌트
+│   │   ├── img/                   # 이미지 리소스
+│   │   └── App.tsx
+│   ├── package.json
+│   └── README.md
+├── snack_for_you_backend/         # NestJS 백엔드
+│   ├── src/
+│   │   ├── address/               # 배송지 관리 모듈
+│   │   ├── auth/                  # 인증 모듈
+│   │   ├── cart/                  # 장바구니 모듈
+│   │   ├── dto/                   # 데이터 전송 객체 (DTO)
+│   │   ├── entities/              # 데이터베이스 엔티티
+│   │   ├── favorites/             # 좋아요 모듈
+│   │   ├── order/                 # 주문 모듈
+│   │   ├── review/                # 리뷰 모듈
+│   │   ├── snack/                 # 상품 모듈
+│   │   ├── users/                 # 사용자 모듈
+│   │   └── main.ts
+│   ├── dist/
+│   ├── package.json
+│   └── README.md
+└── README.md
+```
 
 
 ## 기술 스택
