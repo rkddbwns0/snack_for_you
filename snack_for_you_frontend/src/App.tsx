@@ -21,6 +21,8 @@ import { Order } from './pages/order.tsx';
 import { Receipt } from './pages/receipt.tsx';
 import { OrderList } from './pages/order_list.tsx';
 import { Favorite } from './pages/favorite.tsx';
+import { Review } from './pages/review.tsx';
+import { ReviewList } from './pages/review_list.tsx';
 
 const AppContent = () => {
     const location = useLocation();
@@ -80,6 +82,22 @@ const AppContent = () => {
                         element={
                             <ProtectedRoute>
                                 <OrderList />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/review"
+                        element={
+                            <ProtectedRoute>
+                                <Review />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/reviewList"
+                        element={
+                            <ProtectedRoute>
+                                <ReviewList />
                             </ProtectedRoute>
                         }
                     />

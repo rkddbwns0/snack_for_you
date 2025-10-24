@@ -1,6 +1,6 @@
 import { useAuth } from '../context/context.tsx';
-import { FaRegCircleUser } from 'react-icons/fa6';
-import '../css/myPage.css';
+import { FaUserCircle } from 'react-icons/fa';
+import '../css/common.css';
 import { useNavigate } from 'react-router-dom';
 
 export const MyPage = () => {
@@ -28,33 +28,40 @@ export const MyPage = () => {
     };
 
     return (
-        <div
-            className="page-container"
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-        >
-            <div>
-                <h3>마이페이지</h3>
-            </div>
-            <div className="mypage-content">
-                <div className="user-info">
-                    <FaRegCircleUser className="user-icon" size={25} />
-                    <p>
-                        {user?.name}({user?.nickname})
-                    </p>
-                </div>
-                <div className="mypage-menu">
-                    <ul>
-                        <li onClick={() => navigation('/orderList')}>주문내역</li>
-                        <li
-                            onClick={() => {
-                                navigation('/address_info');
-                            }}
-                        >
-                            배송지 관리
-                        </li>
-                        <li onClick={() => navigation(`/edit_user/${user?.user_id}`)}>닉네임 변경</li>
-                        <li onClick={handleLogout}>로그아웃</li>
-                    </ul>
+        <div className="page-wrapper">
+            <div className="content-box">
+                <div className="mypage-container">
+                    <div className="mypage-content-wrapper">
+                        <div className="mypage-user-card">
+                            <div className="mypage-user-info">
+                                <FaUserCircle className="mypage-user-icon" />
+                                <h2 className="mypage-user-name">
+                                    {user?.name} ({user?.nickname})
+                                </h2>
+                            </div>
+                        </div>
+                        
+                        <div className="mypage-menu-card">
+                            <h2 className="page-title">마이페이지</h2>
+                            <ul className="mypage-menu-list">
+                                <li className="mypage-menu-item" onClick={() => navigation('/orderList')}>
+                                    <p className="mypage-menu-item-text">주문내역</p>
+                                </li>
+                                <li className="mypage-menu-item" onClick={() => navigation('/address_info')}>
+                                    <p className="mypage-menu-item-text">배송지 관리</p>
+                                </li>
+                                <li className="mypage-menu-item" onClick={() => navigation('/reviewList')}>
+                                    <p className="mypage-menu-item-text">리뷰 내역</p>
+                                </li>
+                                <li className="mypage-menu-item" onClick={() => navigation(`/edit_user/${user?.user_id}`)}>
+                                    <p className="mypage-menu-item-text">닉네임 변경</p>
+                                </li>
+                                <li className="mypage-menu-item" onClick={handleLogout}>
+                                    <p className="mypage-menu-item-text">로그아웃</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

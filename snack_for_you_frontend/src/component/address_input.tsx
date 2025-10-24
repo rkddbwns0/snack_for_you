@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import DaumPostcodeEmbed from 'react-daum-postcode';
 import { useAuth } from '../context/context.tsx';
-import '../css/address_input.css';
+import '../css/common.css';
 import { AddressApi } from '../api/address.api.tsx';
 
 export const AddressInput = (
@@ -74,67 +74,83 @@ export const AddressInput = (
     return (
         <div>
             {isOpen && (
-                <div className="modal_overlay">
+                <div className="modal-overlay">
                     <div className="modal-content">
-                        <div className="close-button">
-                            <button onClick={setIsOpen}>X</button>
-                        </div>
-                        <div className="input-content">
-                            <label>이름</label>
+                        <button className="modal-close-btn" onClick={setIsOpen}>×</button>
+                        <h2 className="modal-title">배송지 등록</h2>
+                        
+                        <div className="modal-form-group">
+                            <label className="modal-form-label">이름</label>
                             <input
                                 type="text"
-                                placeholder="이름"
+                                className="modal-form-input"
+                                placeholder="받는 사람 이름"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
-                        <div className="input-content">
-                            <label>주소</label>
-                            <div className={`address-box ${address ? 'active' : 'no-active'} `}>
-                                {address ? address : '주소를 입력해 주세요'}
+                        
+                        <div className="modal-form-group">
+                            <label className="modal-form-label">주소</label>
+                            <div className={`modal-address-display ${address ? 'active' : ''}`}>
+                                {address || '주소를 검색해주세요'}
                             </div>
-                            <button onClick={handleOpen}>주소 검색</button>
+                            <button className="modal-search-btn" onClick={handleOpen}>
+                                주소 검색
+                            </button>
                         </div>
-                        <div className="input-content">
-                            <label>상세 주소</label>
+                        
+                        <div className="modal-form-group">
+                            <label className="modal-form-label">상세 주소</label>
                             <input
                                 value={detailAddress}
                                 onChange={(e) => setDetailAddress(e.target.value)}
+                                className="modal-form-input"
                                 type="text"
-                                placeholder="상세주소"
+                                placeholder="상세주소를 입력하세요"
                             />
                         </div>
-                        <div className="input-content">
-                            <label>요청사항</label>
+                        
+                        <div className="modal-form-group">
+                            <label className="modal-form-label">요청사항</label>
                             <input
                                 value={request}
                                 onChange={(e) => setRequest(e.target.value)}
+                                className="modal-form-input"
                                 type="text"
-                                placeholder="요청사항"
+                                placeholder="배송 요청사항"
                                 onFocus={() => {
                                     setRequest('');
                                 }}
                                 onBlur={() => {
                                     if (request === '') {
-                                        setRequest('택배기사님 안전 운전해  주세요!');
+                                        setRequest('택배기사님 안전 운전해주세요!');
                                     }
                                 }}
                             />
                         </div>
-                        <div className="input-content">
-                            <label>기본 주소로 저장하기</label>
-                            <input type="checkbox" checked={basicAddress} onChange={handleBasicAddress} />
+                        
+                        <div className="modal-checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                className="modal-checkbox"
+                                checked={basicAddress} 
+                                onChange={handleBasicAddress} 
+                            />
+                            <label className="modal-checkbox-label">기본 주소로 저장하기</label>
                         </div>
-                        <div className="input-button">
-                            <button onClick={handleAddress}>배송지 저장하기</button>
-                        </div>
+                        
+                        <button className="modal-submit-btn" onClick={handleAddress}>
+                            배송지 저장하기
+                        </button>
                     </div>
+                    
                     {addressInputOpen && (
-                        <div className="address-modal">
-                            <div>
-                                <button onClick={handleOpen}>X</button>
+                        <div className="modal-address-search">
+                            <div className="modal-address-search-content">
+                                <button className="modal-close-btn" onClick={handleOpen}>×</button>
+                                <DaumPostcodeEmbed onComplete={completeHandler} autoClose />
                             </div>
-                            <DaumPostcodeEmbed onComplete={completeHandler} autoClose />
                         </div>
                     )}
                 </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
-import '../css/login.css';
+import '../css/auth.css';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
@@ -51,39 +51,64 @@ export const Login = () => {
     return (
         <div className="page-wrapper">
             <div className="content-box">
-                <div className="login-title">
-                    <p>로그인</p>
-                </div>
-                <div className="login-input-container">
-                    <input
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                        className="id-input"
-                        type="text"
-                        placeholder="아이디"
-                        onKeyDown={(e) => handleEnter(e)}
-                    />
-                    <div className="password-container">
-                        <input
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="password-input"
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="비밀번호"
-                            onKeyDown={(e) => handleEnter(e)}
-                        />
-                        <span onClick={() => setShowPassword(!showPassword)} className="password-icon">
-                            {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
-                        </span>
+                <div className="auth-page-container">
+                    <div className="auth-content-wrapper">
+                        <div className="auth-form-card">
+                            <h1 className="auth-title">로그인</h1>
+                            
+                            <div className="auth-form-group">
+                                <label className="auth-form-label">아이디</label>
+                                <input
+                                    value={id}
+                                    onChange={(e) => setId(e.target.value)}
+                                    className="auth-form-input"
+                                    type="text"
+                                    placeholder="아이디를 입력하세요"
+                                    onKeyDown={(e) => handleEnter(e)}
+                                />
+                            </div>
+                            
+                            <div className="auth-form-group">
+                                <label className="auth-form-label">비밀번호</label>
+                                <div className="auth-password-container">
+                                    <input
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="auth-form-input"
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder="비밀번호를 입력하세요"
+                                        onKeyDown={(e) => handleEnter(e)}
+                                    />
+                                    <span 
+                                        onClick={() => setShowPassword(!showPassword)} 
+                                        className="auth-password-icon"
+                                    >
+                                        {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <button 
+                                className="auth-submit-button"
+                                onClick={handleLogin}
+                            >
+                                로그인
+                            </button>
+                            
+                            <div className="auth-menu-container">
+                                <div className="login-menu-links">
+                                    <span className="auth-menu-link">아이디 찾기</span>
+                                    <span className="auth-menu-link">비밀번호 찾기</span>
+                                    <span 
+                                        className="auth-menu-link"
+                                        onClick={() => navigation('/signup')}
+                                    >
+                                        회원가입
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="login-menu-container">
-                    <a>아이디 찾기</a>
-                    <a>비밀번호 찾기</a>
-                    <a onClick={() => navigation('/signup')}>회원가입</a>
-                </div>
-                <div className="login-button-container">
-                    <button onClick={handleEnter}>로그인</button>
                 </div>
             </div>
         </div>

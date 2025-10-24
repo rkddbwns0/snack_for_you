@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ReviewEntity } from 'src/entities/review.entity';
 import { SnackCategoryEntity } from 'src/entities/snack_category.entity';
 import { SnackInfoEntity } from 'src/entities/snack_info.entity';
 import { Repository } from 'typeorm';
@@ -12,6 +13,9 @@ export class SnackService {
 
     @InjectRepository(SnackCategoryEntity)
     private readonly snack_category: Repository<SnackCategoryEntity>,
+
+    @InjectRepository(ReviewEntity)
+    private readonly review: Repository<ReviewEntity>,
   ) {}
 
   async getSnackCategory() {
@@ -20,11 +24,11 @@ export class SnackService {
 
   async getSnackList(category_id: number) {
     try {
-      console.log(category_id);
       const snackList = await this.snack_info
         .createQueryBuilder('s')
         .innerJoin('snack_category', 'c', 'c.category_id = s.category_id')
         .leftJoin('favorites', 'f', 'f.snack_id = s.snack_id')
+        .leftJoin('review', 'r', 'r.snack_id = s.snack_id')
         .select('s.snack_id as snack_id')
         .addSelect('c.name as category_name')
         .addSelect('s.name as name')
@@ -32,6 +36,7 @@ export class SnackService {
         .addSelect("CONCAT(s.price, '원') as price")
         .addSelect('s.product_image as product_image')
         .addSelect('COALESCE(COUNT(f.favorite_id), 0) as favorite_count')
+        .addSelect('COALESCE(COUNT(r.review_id), 0) as review_count')
         .where('c.category_id = :category_id', {
           category_id,
         })
@@ -61,8 +66,21 @@ export class SnackService {
         .addSelect('snack.price as price')
         .addSelect('snack.quantity as quantity')
         .addSelect('snack.product_image as product_image')
+        .addSelect('COALESCE(ROUND(AVG(review.score), 1), 0) as review_score')
+        .addSelect('COALESCE(COUNT(review.review_id), 0) as review_count')
+        .addSelect(
+          'COALESCE(COUNT(favorites.favorite_id), 0) as favorite_count',
+        )
+        .leftJoin(
+          'favorites',
+          'favorites',
+          'favorites.snack_id = snack.snack_id',
+        )
         .innerJoin('snack.category', 'category')
+        .leftJoin('review', 'review', 'review.snack_id = snack.snack_id')
         .where('snack.snack_id = :snack_id', { snack_id: snack_id })
+        .groupBy('snack.snack_id')
+        .addGroupBy('category.name')
         .getRawOne();
 
       if (!snack) {
@@ -71,6 +89,41 @@ export class SnackService {
           HttpStatus.NOT_FOUND,
         );
       }
+
+      const review = await this.review
+        .createQueryBuilder('r')
+        .innerJoin('r.user', 'u')
+        .innerJoin('r.order_item', 'i')
+        .innerJoin('i.snack', 's')
+        .select('u.nickname as user_nickname')
+        .addSelect('s.name as snack_name')
+        .addSelect('i.quantity as order_quantity')
+        .addSelect('r.review_id as review_id')
+        .addSelect('r.content as review_content')
+        .addSelect('r.score as review_score')
+        .addSelect(
+          "TO_CHAR(r.writed_at, 'YYYY-MM-DD HH24:MI:SS') as review_writed_at",
+        )
+        .where('s.snack_id = :snack_id', { snack_id: snack_id })
+        .orderBy('r.writed_at', 'DESC')
+        .getRawMany();
+
+      return { snack, review };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async randomSnack() {
+    try {
+      const snack = await this.snack_info
+        .createQueryBuilder('snack')
+        .addOrderBy('RANDOM()')
+        .limit(10)
+        .getMany();
 
       return snack;
     } catch (e) {

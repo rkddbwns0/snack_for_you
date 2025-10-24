@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { AddressApi } from '../api/address.api.tsx';
 import { AddressModal } from '../component/address_modal.tsx';
 import { OrderApi } from '../api/order.api.tsx';
-import '../css/order.css';
+import '../css/common.css';
 
 export const Order = () => {
     const navigation = useNavigate();
@@ -91,70 +91,76 @@ export const Order = () => {
     }, []);
 
     return (
-        <div className="page-container">
-            <div className="order-container">
-                <h2>주문/결제</h2>
-
-                <div className="order-section">
-                    <h3>배송 정보</h3>
-                    <div className="orderer-details">
-                        <p><strong>주문자:</strong> {user.nickname}</p>
-                    </div>
-                    <hr />
-                    <div className="address-details">
-                        {address ? (
-                            <div>
-                                <p><strong>받는 사람:</strong> {address.name}</p>
-                                <p><strong>주소:</strong> {address.address}</p>
-                                <button onClick={handleOpen}>주소 변경하기</button>
-                            </div>
-                        ) : (
-                            <div>
-                                <p>기본 배송지를 등록해주세요.</p>
-                                <button onClick={handleOpen}>배송지 선택</button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className="order-section">
-                    <h3>주문 상품</h3>
-                    <div className="order-item-list">
-                        {order_items.map((item: any) => (
-                            <div key={item.cart_item_id || item.snack_id} className="order-item">
-                                <img src={item.product_image} alt={item.name} />
-                                <div className="order-item-details">
-                                    <p><strong>{item.name}</strong></p>
-                                    <p>수량: {item.quantity}개</p>
+        <div className="page-wrapper">
+            <div className="content-box">
+                <div className="page-container">
+                    <div className="page-content-wrapper">
+                        <div className="page-card">
+                            <h1 className="page-title">주문/결제</h1>
+                            
+                            <div className="order-section">
+                                <h3>배송 정보</h3>
+                                <div className="orderer-details">
+                                    <p><strong>주문자:</strong> {user.nickname}</p>
                                 </div>
-                                <p>{item.price}원</p>
+                                <hr />
+                                <div className="address-details">
+                                    {address ? (
+                                        <div>
+                                            <p><strong>받는 사람:</strong> {address.name}</p>
+                                            <p><strong>주소:</strong> {address.address}</p>
+                                            <button className="address-action-btn" onClick={handleOpen}>주소 변경하기</button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <p>기본 배송지를 등록해주세요.</p>
+                                            <button className="address-action-btn" onClick={handleOpen}>배송지 선택</button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        ))}
+
+                            <div className="order-section">
+                                <h3>주문 상품</h3>
+                                <div className="order-item-list">
+                                    {order_items.map((item: any) => (
+                                        <div key={item.cart_item_id || item.snack_id} className="order-item">
+                                            <img src={item.product_image} alt={item.name} className="order-item-image" />
+                                            <div className="order-item-details">
+                                                <p><strong>{item.name}</strong></p>
+                                                <p>수량: {item.quantity}개</p>
+                                            </div>
+                                            <p className="order-item-price">{item.price.toLocaleString()}원</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="order-section">
+                                <h3>결제 방식</h3>
+                                <div className="payment-options">
+                                    {payment.map((item: any) => (
+                                        <button
+                                            key={item.id}
+                                            onClick={() => setCheckPayment(item.value)}
+                                            className={`payment-btn ${checkPayment === item.value ? 'selected' : ''}`}
+                                        >
+                                            {item.name || <img src={item.image} alt={item.value} style={{ width: '80px'}} />}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="total-price">
+                                <p>총 결제금액: {totalPrice.toLocaleString()}원</p>
+                            </div>
+
+                            <button className="cart-order-btn" onClick={handleOrder}>결제하기</button>
+                        </div>
                     </div>
                 </div>
-
-                <div className="order-section">
-                    <h3>결제 방식</h3>
-                    <div className="payment-options">
-                        {payment.map((item: any) => (
-                            <button
-                                key={item.id}
-                                onClick={() => setCheckPayment(item.value)}
-                                className={`payment-btn ${checkPayment === item.value ? 'selected' : ''}`}
-                            >
-                                {item.name || <img src={item.image} alt={item.value} style={{ width: '80px'}} />}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="total-price">
-                    <p>총 결제금액: {totalPrice}원</p>
-                </div>
-
-                <button className="order-action-btn" onClick={handleOrder}>결제하기</button>
+                <AddressModal isOpen={isOpen} setIsOpen={handleOpen} address_id={address?.address_id} />
             </div>
-            <AddressModal isOpen={isOpen} setIsOpen={handleOpen} address_id={address?.address_id} />
         </div>
     );
 };

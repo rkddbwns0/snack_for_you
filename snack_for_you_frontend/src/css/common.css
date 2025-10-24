@@ -1,0 +1,1259 @@
+/* 공통 페이지 스타일 */
+.page-container {
+    padding-top: calc(10vh);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+.page-content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.page-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 마이페이지 스타일 */
+.mypage-container {
+    padding-top: calc(10vh);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+.mypage-content-wrapper {
+    width: 100%;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.mypage-user-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.mypage-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.mypage-user-icon {
+    font-size: 60px;
+    color: #f7a815;
+    margin-bottom: 10px;
+}
+
+.mypage-user-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.mypage-menu-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mypage-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mypage-menu-item {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.mypage-menu-item:hover {
+    background-color: #e9ecef;
+    border-color: #f7a815;
+    transform: translateY(-2px);
+}
+
+.mypage-menu-item-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* 장바구니 스타일 */
+.cart-container {
+    padding-top: calc(10vh);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+.cart-content-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.cart-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.cart-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto auto;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+}
+
+.cart-item-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cart-item-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.cart-item-price {
+    font-size: 16px;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.cart-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.cart-quantity-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.cart-quantity-btn:hover:not(:disabled) {
+    background-color: #5a6268;
+}
+
+.cart-quantity-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cart-quantity-display {
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
+
+.cart-item-total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e74c3c;
+    min-width: 100px;
+    text-align: right;
+}
+
+.cart-delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cart-delete-btn:hover {
+    background-color: #c82333;
+}
+
+.cart-order-section {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cart-order-btn {
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cart-order-btn:hover:not(:disabled) {
+    background-color: #e0990f;
+}
+
+.cart-order-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.cart-empty-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 18px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+/* 주소 관련 스타일 */
+.address-container {
+    padding-top: calc(10vh);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+.address-content-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.address-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.address-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.address-action-btn {
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.address-action-btn:hover {
+    background-color: #e0990f;
+}
+
+.address-action-btn.delete {
+    background-color: #dc3545;
+}
+
+.address-action-btn.delete:hover {
+    background-color: #c82333;
+}
+
+.address-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.address-item-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #f7a815;
+    transition: transform 0.2s ease;
+}
+
+.address-item-card:hover {
+    transform: translateY(-2px);
+}
+
+.address-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.address-item-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.address-item-info {
+    margin-bottom: 10px;
+}
+
+.address-item-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.address-item-value {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.address-item-basic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.address-basic-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.address-set-basic-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.address-set-basic-btn:hover {
+    background-color: #5a6268;
+}
+
+.address-empty-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 18px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+/* 모달 스타일 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    color: #333;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-form-group {
+    margin-bottom: 20px;
+}
+
+.modal-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.modal-form-input {
+    width: 100%;
+    height: 45px;
+    padding: 0 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.modal-form-input:focus {
+    border-color: #f7a815;
+}
+
+.modal-form-input::placeholder {
+    color: #999;
+}
+
+.modal-address-display {
+    width: 100%;
+    height: 45px;
+    padding: 0 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    color: #666;
+    box-sizing: border-box;
+}
+
+.modal-address-display.active {
+    background-color: #fff;
+    color: #333;
+}
+
+.modal-search-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+}
+
+.modal-search-btn:hover {
+    background-color: #5a6268;
+}
+
+.modal-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.modal-checkbox-label {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.modal-submit-btn {
+    width: 100%;
+    height: 50px;
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-submit-btn:hover {
+    background-color: #e0990f;
+}
+
+.modal-address-search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.modal-address-search-content {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* 주문 관련 스타일 */
+.order-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.order-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.order-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.orderer-details {
+    margin-bottom: 15px;
+}
+
+.orderer-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.address-details {
+    margin-top: 15px;
+}
+
+.address-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.order-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.order-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.order-item-details {
+    flex: 1;
+}
+
+.order-item-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.order-item-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.payment-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.payment-btn {
+    background-color: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    padding: 15px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.payment-btn:hover {
+    border-color: #f7a815;
+    background-color: #fff;
+}
+
+.payment-btn.selected {
+    border-color: #f7a815;
+    background-color: #f7a815;
+    color: white;
+}
+
+.total-price {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.total-price p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* 주문 내역 스타일 */
+.order-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-list-item {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.order-list-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.order-list-content:hover {
+    background-color: #f8f9fa;
+}
+
+.order-list-info {
+    flex: 1;
+}
+
+.order-list-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.order-list-status {
+    font-size: 16px;
+    color: #666;
+    margin: 4px 0;
+}
+
+.order-list-date {
+    font-size: 14px;
+    color: #999;
+    margin: 4px 0;
+}
+
+.order-list-arrow {
+    font-size: 24px;
+    color: #666;
+    margin-left: 15px;
+}
+
+/* 영수증 스타일 */
+.receipt-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.receipt-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.receipt-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.receipt-section h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.receipt-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.receipt-info p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.receipt-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.receipt-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.receipt-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.receipt-item-info {
+    flex: 1;
+}
+
+.receipt-item-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.receipt-item-action {
+    margin-left: auto;
+}
+
+.receipt-review-btn {
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.receipt-review-btn:hover:not(:disabled) {
+    background-color: #e0990f;
+}
+
+.receipt-review-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.receipt-total {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.receipt-total p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 8px 0;
+}
+
+/* 리뷰 작성 페이지 스타일 */
+.review-product-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.review-product-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+.review-product-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-product-details {
+    flex: 1;
+}
+
+.review-product-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.review-product-quantity {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.review-form-section {
+    margin-top: 20px;
+}
+
+.review-form-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.review-form-group {
+    margin-bottom: 25px;
+}
+
+.review-form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.review-star-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.review-star-item {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.review-star-item:hover {
+    transform: scale(1.1);
+}
+
+.review-star {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.review-star:hover {
+    color: #f7a815 !important;
+}
+
+.review-score-display {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f7a815;
+    margin-top: 5px;
+}
+
+.review-textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 120px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.review-textarea:focus {
+    outline: none;
+    border-color: #f7a815;
+}
+
+.review-textarea::placeholder {
+    color: #999;
+}
+
+.review-form-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.review-submit-btn {
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-width: 200px;
+}
+
+.review-submit-btn:hover:not(:disabled) {
+    background-color: #e0990f;
+}
+
+.review-submit-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* 리뷰 목록 페이지 스타일 */
+.review-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.review-list-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #f7a815;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.review-list-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.review-list-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-list-product-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.review-list-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.review-list-score {
+    display: inline-block;
+    background-color: #f7a815;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.review-list-date {
+    font-size: 14px;
+    color: #999;
+}
+
+.review-list-content {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .page-content-wrapper,
+    .mypage-content-wrapper,
+    .cart-content-wrapper,
+    .address-content-wrapper {
+        padding: 0 10px;
+    }
+    
+    .page-card,
+    .mypage-user-card,
+    .mypage-menu-card {
+        padding: 20px;
+    }
+    
+    .mypage-menu-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .cart-item-card {
+        grid-template-columns: auto 1fr;
+        gap: 15px;
+        padding-right: 60px;
+    }
+    
+    .cart-item-image {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .cart-quantity-controls,
+    .cart-item-total {
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin-top: 10px;
+    }
+    
+    .cart-delete-btn {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .address-list-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .address-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .address-actions {
+        justify-content: center;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .payment-options {
+        flex-direction: column;
+    }
+    
+    .order-item,
+    .receipt-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .order-item-image,
+    .receipt-item-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .review-product-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .review-product-image {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .review-product-name {
+        font-size: 20px;
+    }
+    
+    .review-star-container {
+        justify-content: center;
+    }
+    
+    .review-star {
+        font-size: 32px !important;
+    }
+    
+    .review-submit-btn {
+        width: 100%;
+        padding: 15px 20px;
+    }
+    
+    .review-list-item {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .review-list-image {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+    }
+    
+    .review-list-info {
+        text-align: center;
+    }
+    
+    .review-list-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

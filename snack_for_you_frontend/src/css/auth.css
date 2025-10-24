@@ -1,0 +1,196 @@
+/* 공통 폼 스타일 */
+.auth-page-container {
+    padding-top: calc(15vh);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+.auth-content-wrapper {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+.auth-form-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+}
+
+.auth-form-group {
+    margin-bottom: 20px;
+}
+
+.auth-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.auth-form-input {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.auth-form-input:focus {
+    border-color: #f7a815;
+}
+
+.auth-form-input::placeholder {
+    color: #999;
+}
+
+.auth-password-container {
+    position: relative;
+}
+
+.auth-password-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 20px;
+    transition: color 0.2s ease;
+}
+
+.auth-password-icon:hover {
+    color: #333;
+}
+
+.auth-duplicate-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.auth-duplicate-input {
+    flex: 1;
+}
+
+.auth-duplicate-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+.auth-duplicate-button:hover {
+    background-color: #5a6268;
+}
+
+.auth-message {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.auth-message.success {
+    color: #28a745;
+}
+
+.auth-message.error {
+    color: #dc3545;
+}
+
+.auth-menu-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.auth-menu-link {
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.auth-menu-link:hover {
+    color: #f7a815;
+    text-decoration: underline;
+}
+
+.auth-submit-button {
+    width: 100%;
+    height: 50px;
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 20px;
+}
+
+.auth-submit-button:hover {
+    background-color: #e0990f;
+}
+
+.auth-submit-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* 로그인 페이지 특별 스타일 */
+.login-menu-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* 회원가입 페이지 특별 스타일 */
+.signup-form-section {
+    margin-bottom: 30px;
+}
+
+.signup-form-section:last-child {
+    margin-bottom: 0;
+}
+
+/* 사용자 정보 수정 페이지 특별 스타일 */
+.edit-user-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.edit-user-section {
+    margin-bottom: 30px;
+}
+
+.edit-user-section:last-child {
+    margin-bottom: 0;
+}

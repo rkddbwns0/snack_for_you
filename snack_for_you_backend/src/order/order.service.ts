@@ -114,11 +114,20 @@ export class OrderService {
       const order_items = await this.order_item
         .createQueryBuilder('order_item')
         .select('order_item.order_item_id as order_item_id')
+        .addSelect('snack_info.snack_id as snack_id')
         .addSelect('snack_info.name as name')
         .addSelect('snack_info.product_image as product_image')
         .addSelect('order_item.quantity as quantity')
         .addSelect('order_item.price as price')
+        .addSelect(
+          'CASE WHEN review.order_item_id IS NOT NULL THEN true ELSE false END as review_status',
+        )
         .innerJoin('order_item.snack', 'snack_info')
+        .leftJoin(
+          'review',
+          'review',
+          'order_item.order_item_id = review.order_item_id',
+        )
         .where('order_item.order_id = :order_id', { order_id: order_id })
         .getRawMany();
 

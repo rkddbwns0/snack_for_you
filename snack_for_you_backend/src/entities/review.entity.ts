@@ -30,7 +30,7 @@ export class ReviewEntity {
   @Column({ type: 'text', nullable: false })
   content: string;
 
-  @Column({ type: 'numeric', nullable: false })
+  @Column({ type: 'int', nullable: false })
   score: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

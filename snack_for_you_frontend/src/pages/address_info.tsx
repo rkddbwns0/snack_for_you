@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AddressInput } from '../component/address_input.tsx';
 import { useAuth } from '../context/context.tsx';
-import '../css/address_info.css';
+import '../css/common.css';
 import { AddressApi } from '../api/address.api.tsx';
 
 export const AddessInfo = () => {
@@ -83,70 +83,86 @@ export const AddessInfo = () => {
     return (
         <div className="page-wrapper">
             <div className="content-box">
-                <div className="address-info-title">
-                    <div></div>
-                    <h3>주소 정보</h3>
-                    <div className="address-info-button">
-                        <button onClick={handleOpen}>+ 주소 등록하기</button>
-                        <button onClick={handleAddressDelete}>- 주소 삭제하기</button>
-                    </div>
-                </div>
-                <div style={{ width: '100%' }}>
-                    {addressList.length > 0 ? (
-                        <div className="address-list-container">
-                            {addressList.map((item: any) => {
-                                return (
-                                    <div key={item.address_id} className="address-item-container">
-                                        <div className="address-item">
-                                            <div>
+                <div className="address-container">
+                    <div className="address-content-wrapper">
+                        <div className="address-header">
+                            <h1 className="address-title">배송지 관리</h1>
+                            <div className="address-actions">
+                                <button className="address-action-btn" onClick={handleOpen}>
+                                    + 주소 등록하기
+                                </button>
+                                <button 
+                                    className="address-action-btn delete" 
+                                    onClick={handleAddressDelete}
+                                >
+                                    - 주소 삭제하기
+                                </button>
+                            </div>
+                        </div>
+                        
+                        {addressList.length > 0 ? (
+                            <div className="address-list-container">
+                                {addressList.map((item: any) => {
+                                    return (
+                                        <div key={item.address_id} className="address-item-card">
+                                            <div className="address-item-header">
                                                 <input
                                                     type="checkbox"
+                                                    className="address-item-checkbox"
                                                     id={item.address_id}
                                                     checked={checkAddress.includes(item.address_id)}
                                                     onChange={(e) => checkHandler(e, item.address_id)}
                                                 />
                                             </div>
-                                            <div className="item-info">
-                                                <p>주소 : {item.address}</p>
+                                            <div className="address-item-info">
+                                                <div className="address-item-label">주소</div>
+                                                <div className="address-item-value">{item.address}</div>
                                             </div>
-                                            <div className="item-info">
-                                                <p>수령자 : {item.name}</p>
+                                            <div className="address-item-info">
+                                                <div className="address-item-label">수령자</div>
+                                                <div className="address-item-value">{item.name}</div>
                                             </div>
-                                            <div className="item-info">
-                                                <p>요청사항 : {item.request}</p>
+                                            <div className="address-item-info">
+                                                <div className="address-item-label">요청사항</div>
+                                                <div className="address-item-value">{item.request}</div>
                                             </div>
-                                            <div className="item-info">
-                                                <p>등록일 : {item.created_at}</p>
+                                            <div className="address-item-info">
+                                                <div className="address-item-label">등록일</div>
+                                                <div className="address-item-value">{item.created_at}</div>
                                             </div>
-
-                                            <div className="item-info-basic-address">
+                                            <div className="address-item-basic">
                                                 {item.basic_address === true ? (
-                                                    <p>기본주소</p>
+                                                    <span className="address-basic-badge">기본주소</span>
                                                 ) : (
-                                                    <button onClick={() => handleAlert(item.address_id)}>
+                                                    <button 
+                                                        className="address-set-basic-btn"
+                                                        onClick={() => handleAlert(item.address_id)}
+                                                    >
                                                         기본주소로 설정
                                                     </button>
                                                 )}
                                             </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <div>
-                            <p>주소를 등록해 주세요.</p>
-                        </div>
-                    )}
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className="address-empty-message">
+                                <h3>등록된 주소가 없습니다.</h3>
+                                <p>새로운 배송지를 등록해주세요.</p>
+                            </div>
+                        )}
+                        
+                        <AddressInput
+                            isOpen={isOpen}
+                            setIsOpen={handleOpen}
+                            onSuccess={() => {
+                                setIsOpen(false);
+                                userAddress();
+                            }}
+                        />
+                    </div>
                 </div>
-                <AddressInput
-                    isOpen={isOpen}
-                    setIsOpen={handleOpen}
-                    onSuccess={() => {
-                        setIsOpen(false);
-                        userAddress();
-                    }}
-                />
             </div>
         </div>
     );

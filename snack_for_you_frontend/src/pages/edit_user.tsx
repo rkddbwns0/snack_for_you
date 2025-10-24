@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/context.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
+import '../css/auth.css';
 
 export const EditUser = () => {
     const navigation = useNavigate();
@@ -86,19 +87,47 @@ export const EditUser = () => {
     return (
         <div className="page-wrapper">
             <div className="content-box">
-                <h3>닉네임 변경</h3>
-                <div>
-                    <input
-                        value={nickname}
-                        onChange={(e) => setNickname(e.target.value)}
-                        type="text"
-                        placeholder="닉네임 변경"
-                    />
-                    <button onClick={handleDupCheck}>중복확인</button>
-                    {dupMsg && <p>{dupMsg}</p>}
-                </div>
-                <div>
-                    <button onClick={handleUpdateUser}>닉네임 변경</button>
+                <div className="auth-page-container">
+                    <div className="auth-content-wrapper">
+                        <div className="auth-form-card edit-user-form">
+                            <h1 className="auth-title">닉네임 변경</h1>
+                            
+                            <div className="edit-user-section">
+                                <div className="auth-form-group">
+                                    <label className="auth-form-label">새 닉네임</label>
+                                    <div className="auth-duplicate-container">
+                                        <input
+                                            value={nickname}
+                                            onChange={(e) => setNickname(e.target.value)}
+                                            className="auth-form-input auth-duplicate-input"
+                                            type="text"
+                                            placeholder="변경할 닉네임을 입력하세요"
+                                        />
+                                        <button 
+                                            className="auth-duplicate-button"
+                                            onClick={handleDupCheck}
+                                        >
+                                            중복확인
+                                        </button>
+                                    </div>
+                                    {dupMsg && (
+                                        <div className={`auth-message ${dupNickname ? 'success' : 'error'}`}>
+                                            {dupMsg}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <div className="edit-user-section">
+                                <button 
+                                    className="auth-submit-button"
+                                    onClick={handleUpdateUser}
+                                >
+                                    닉네임 변경
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -27,4 +27,12 @@ export class SnackController {
     const result = await this.snackService.snackDetail(snack_id);
     return result;
   }
+
+  @ApiOperation({ summary: '랜덤 스낵 추천' })
+  @Get()
+  async randomSnack() {
+    const result = await this.snackService.randomSnack();
+    console.log(result);
+    return result;
+  }
 }

@@ -1,75 +1,313 @@
-.snack-detail-container {
+/* Snack Detail 페이지 스타일 */
+.snack-detail-page-container {
+    padding-top: calc(10vh);
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80vh;
+}
+
+.snack-detail-content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.snack-detail-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.snack-detail-image-section {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.snack-detail-image img {
-    width: 200px;
-    height: 200px;
+.snack-detail-image {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.snack-detail-content {
+.snack-detail-info-section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+.snack-detail-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
 .snack-detail-info {
-    text-align: left;
+    margin-bottom: 30px;
 }
 
-.snack-detail-info p {
-    margin: 5px 0;
-}
-
-.price-quantity-container {
+.snack-detail-info-item {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    margin: 20px 0;
-}
-
-.quantity-controls {
-    display: flex;
-    align-items: center;
-}
-
-.quantity-controls input {
-    width: 50px;
-    text-align: center;
-    height: 28px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-}
-
-.quantity-controls button {
-    height: 32px;
-    width: 32px;
-    border: 1px solid var(--border-color);
-    background-color: var(--background-color);
-    cursor: pointer;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.action-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-bottom: 12px;
     font-size: 16px;
 }
 
-.btn-cart {
-    background-color: var(--primary-color);
-    color: white;
+.snack-detail-info-label {
+    font-weight: bold;
+    color: #666;
+    min-width: 100px;
+    margin-right: 10px;
 }
 
-.btn-buy {
-    background-color: var(--secondary-color);
+.snack-detail-info-value {
+    color: #333;
+}
+
+.snack-detail-price-section {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.snack-detail-price {
+    font-size: 32px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.snack-detail-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.snack-detail-quantity-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.snack-detail-quantity-buttons {
+    display: flex;
+    align-items: center;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.snack-detail-quantity-btn {
+    background-color: #f8f9fa;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.snack-detail-quantity-btn:hover {
+    background-color: #e9ecef;
+}
+
+.snack-detail-quantity-input {
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    width: 60px;
+    outline: none;
+}
+
+.snack-detail-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.snack-detail-favorite-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f8f9fa;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.snack-detail-favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.snack-detail-favorite-btn:hover {
+    background-color: #e9ecef;
+}
+
+.snack-detail-favorite-count {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+}
+
+.snack-detail-cart-btn {
+    background-color: #f7a815;
     color: white;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+    min-height: 50px;
+    white-space: nowrap;
+}
+
+.snack-detail-cart-btn:hover {
+    background-color: #e0990f;
+}
+
+.snack-detail-buy-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+    min-height: 50px;
+    white-space: nowrap;
+}
+
+.snack-detail-buy-btn:hover {
+    background-color: #c0392b;
+}
+
+/* 리뷰 섹션 스타일 */
+.snack-detail-reviews-section {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.snack-detail-reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.snack-detail-reviews-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.snack-detail-reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.snack-detail-review-score {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.snack-detail-review-count {
+    font-size: 16px;
+    color: #666;
+}
+
+.snack-detail-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.snack-detail-review-item {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 4px solid #f7a815;
+}
+
+.snack-detail-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.snack-detail-review-author {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.snack-detail-review-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.snack-detail-review-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.snack-detail-review-score-badge {
+    background-color: #e74c3c;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.snack-detail-review-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.snack-detail-no-reviews {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 18px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
 }

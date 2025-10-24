@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/context.tsx';
 import { useEffect, useState } from 'react';
 import { CartApi } from '../api/cart.api.tsx';
+import '../css/common.css';
 
 export const Cart = () => {
     const navigation = useNavigate();
@@ -75,16 +76,19 @@ export const Cart = () => {
     return (
         <div className="page-wrapper">
             <div className="content-box">
-                <h3>장바구니</h3>
+                <div className="cart-container">
+                    <div className="cart-content-wrapper">
+                        <div className="cart-header">
+                            <h1 className="cart-title">장바구니</h1>
+                        </div>
 
-                <div>
-                    {cartItems.length > 0 ? (
-                        <div>
-                            {cartItems.map((item: any) => (
-                                <div key={item.snack_id}>
-                                    <div>
+                        {cartItems.length > 0 ? (
+                            <div className="cart-items-container">
+                                {cartItems.map((item: any) => (
+                                    <div key={item.snack_id} className="cart-item-card">
                                         <input
                                             type="checkbox"
+                                            className="cart-item-checkbox"
                                             id={item.cart_item_id}
                                             checked={checkItems.some(
                                                 (checkItem: any) => checkItem.cart_item_id === item.cart_item_id
@@ -103,51 +107,62 @@ export const Cart = () => {
                                                 )
                                             }
                                         />
-                                    </div>
-                                    <div>
-                                        <img src={item.product_image} style={{ width: '100px', height: '100px' }} />
-                                        <div>{item.name}</div>
-                                    </div>
-                                    <div>
+                                        <img 
+                                            src={item.product_image} 
+                                            className="cart-item-image"
+                                            alt={item.name}
+                                        />
+                                        <div className="cart-item-info">
+                                            <h3 className="cart-item-name">{item.name}</h3>
+                                            <p className="cart-item-price">{item.price.toLocaleString()}원</p>
+                                        </div>
+                                        <div className="cart-quantity-controls">
+                                            <button
+                                                className="cart-quantity-btn"
+                                                onClick={() => handleIncreaseOrDecreaseQuantity(false, item.cart_item_id)}
+                                                disabled={item.quantity === 1}
+                                            >
+                                                -
+                                            </button>
+                                            <span className="cart-quantity-display">{item.quantity}</span>
+                                            <button
+                                                className="cart-quantity-btn"
+                                                onClick={() => handleIncreaseOrDecreaseQuantity(true, item.cart_item_id)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                        <div className="cart-item-total">
+                                            {(item.price * item.quantity).toLocaleString()}원
+                                        </div>
                                         <button
-                                            onClick={() => handleIncreaseOrDecreaseQuantity(false, item.cart_item_id)}
-                                            disabled={item.quantity === 1}
-                                        >
-                                            -
-                                        </button>
-                                        <span>{item.quantity}</span>
-                                        <button
-                                            onClick={() => handleIncreaseOrDecreaseQuantity(true, item.cart_item_id)}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                    <div>{item.price}원</div>
-                                    <div>
-                                        <button
+                                            className="cart-delete-btn"
                                             onClick={() => {
                                                 handleDeleteAlert(item.cart_item_id);
                                             }}
                                         >
-                                            X
+                                            ×
                                         </button>
                                     </div>
+                                ))}
+                                
+                                <div className="cart-order-section">
+                                    <button
+                                        className="cart-order-btn"
+                                        onClick={() => navigation('/order', { state: { items: checkItems, cart: true } })}
+                                        disabled={checkItems.length === 0}
+                                    >
+                                        주문하기 ({checkItems.length}개 상품)
+                                    </button>
                                 </div>
-                            ))}
-                            <div>
-                                <button
-                                    onClick={() => navigation('/order', { state: { items: checkItems, cart: true } })}
-                                    disabled={checkItems.length === 0}
-                                >
-                                    주문하기
-                                </button>
                             </div>
-                        </div>
-                    ) : (
-                        <div>
-                            <div>자장바구니에 상품이 없습니다.</div>
-                        </div>
-                    )}
+                        ) : (
+                            <div className="cart-empty-message">
+                                <h3>장바구니에 상품이 없습니다.</h3>
+                                <p>원하는 상품을 장바구니에 담아보세요!</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

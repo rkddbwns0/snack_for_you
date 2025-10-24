@@ -17,6 +17,7 @@ export const SnackDetail = () => {
     const location = useLocation();
     const category_id = location.state?.category_id;
     const [snack, setSnack] = useState<any>(null);
+    const [review, setReview] = useState<any>(null);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [quantity, setQuantity] = useState<number>(1);
     const [userFavorite, setUserFavorite] = useState<any[]>([]);
@@ -24,7 +25,9 @@ export const SnackDetail = () => {
     const snack_info = async () => {
         try {
             const data = await snackApi.SnackDeatil(category_id, Number(snack_id));
-            setSnack(data);
+            console.log(data);
+            setSnack(data.snack);
+            setReview(data.review);
         } catch (e) {
             console.error(e);
         }
@@ -92,6 +95,7 @@ export const SnackDetail = () => {
             const data = await favoriteApi.favorite(user.user_id, snack_id);
             if (data?.status === 200) {
                 favoriteList();
+                snack_info();
                 return;
             }
         } catch (e) {
@@ -114,48 +118,150 @@ export const SnackDetail = () => {
     }, [user]);
 
     return (
-        <div className="page-container centered-page">
-            <div className="snack-detail-container">
-                <div className="snack-detail-image">
-                    <img src={snack?.product_image} />
-                </div>
-                <div className="snack-detail-content">
-                    <div className="snack-detail-info">
-                        <p>제품명 : {snack?.name}</p>
-                        <p>카테고리 : {snack?.category_name}</p>
-                        <p>브랜드명 : {snack?.brand}</p>
-                        <p>구성 : {snack?.composition}</p>
-                        <p>중량 : {snack?.weight}</p>
-                    </div>
-                    <div>
-                        <div className="price-quantity-container">
-                            <h3>{totalPrice}원</h3>
-                            <div className="quantity-controls">
-                                <button onClick={decrease}>-</button>
-                                <input
-                                    type="number"
-                                    min={1}
-                                    value={quantity}
-                                    onChange={(e) => {
-                                        const value = Number(e.target.value);
-                                        setQuantity(value < 1 ? 1 : value);
-                                    }}
+        <div className="page-wrapper">
+            <div className="content-box">
+                <div className="snack-detail-page-container">
+                    <div className="snack-detail-content-wrapper">
+                        {/* 메인 상품 정보 섹션 */}
+                        <div className="snack-detail-main">
+                            <div className="snack-detail-image-section">
+                                <img 
+                                    src={snack?.product_image} 
+                                    className="snack-detail-image"
+                                    alt={snack?.name}
                                 />
-                                <button onClick={() => increase(snack?.quantity)}>+</button>
+                            </div>
+                            <div className="snack-detail-info-section">
+                                <div>
+                                    <h1 className="snack-detail-title">
+                                        {snack?.name}
+                                    </h1>
+                                    <div className="snack-detail-info">
+                                        <div className="snack-detail-info-item">
+                                            <span className="snack-detail-info-label">카테고리</span>
+                                            <span className="snack-detail-info-value">{snack?.category_name}</span>
+                                        </div>
+                                        <div className="snack-detail-info-item">
+                                            <span className="snack-detail-info-label">브랜드</span>
+                                            <span className="snack-detail-info-value">{snack?.brand}</span>
+                                        </div>
+                                        <div className="snack-detail-info-item">
+                                            <span className="snack-detail-info-label">구성</span>
+                                            <span className="snack-detail-info-value">{snack?.composition}</span>
+                                        </div>
+                                        <div className="snack-detail-info-item">
+                                            <span className="snack-detail-info-label">중량</span>
+                                            <span className="snack-detail-info-value">{snack?.weight}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="snack-detail-price-section">
+                                    <div className="snack-detail-price">
+                                        {totalPrice.toLocaleString()}원
+                                    </div>
+                                    <div className="snack-detail-quantity-controls">
+                                        <span className="snack-detail-quantity-label">수량</span>
+                                        <div className="snack-detail-quantity-buttons">
+                                            <button 
+                                                className="snack-detail-quantity-btn"
+                                                onClick={decrease}
+                                            >
+                                                -
+                                            </button>
+                                            <input
+                                                type="number"
+                                                min={1}
+                                                value={quantity}
+                                                className="snack-detail-quantity-input"
+                                                onChange={(e) => {
+                                                    const value = Number(e.target.value);
+                                                    setQuantity(value < 1 ? 1 : value);
+                                                }}
+                                            />
+                                            <button 
+                                                className="snack-detail-quantity-btn"
+                                                onClick={() => increase(snack?.quantity)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="snack-detail-actions">
+                                        <div className="snack-detail-favorite-section">
+                                            <button 
+                                                className="snack-detail-favorite-btn"
+                                                onClick={() => handleFavorite(snack?.snack_id)}
+                                            >
+                                                <HiOutlineHeart 
+                                                    className={`favorite-icon ${user && favoriteCheck(snack?.snack_id) ? 'active' : ''}`}
+                                                />
+                                            </button>
+                                            <span className="snack-detail-favorite-count">
+                                                {snack?.favorite_count}
+                                            </span>
+                                        </div>
+                                        <button 
+                                            className="snack-detail-cart-btn"
+                                            onClick={handleCart}
+                                        >
+                                            장바구니
+                                        </button>
+                                        <button className="snack-detail-buy-btn">
+                                            구매하기
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="action-buttons">
-                            <button className="btn-favorite" onClick={() => handleFavorite(snack.snack_id)}>
-                                {user && favoriteCheck(snack?.snack_id) ? (
-                                    <HiOutlineHeart color="red" />
-                                ) : (
-                                    <HiOutlineHeart />
-                                )}
-                            </button>
-                            <button className="btn-cart" onClick={handleCart}>
-                                장바구니
-                            </button>
-                            <button className="btn-buy">구매하기</button>
+
+                        {/* 리뷰 섹션 */}
+                        <div className="snack-detail-reviews-section">
+                            <div className="snack-detail-reviews-header">
+                                <h2 className="snack-detail-reviews-title">
+                                    리뷰
+                                </h2>
+                                <div className="snack-detail-reviews-summary">
+                                    <span className="snack-detail-review-score">
+                                        {snack?.review_score || 0}점
+                                    </span>
+                                    <span className="snack-detail-review-count">
+                                        ({snack?.review_count || 0}개)
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            {review && review.length > 0 ? (
+                                <div className="snack-detail-reviews-list">
+                                    {review.map((item: any) => (
+                                        <div key={item?.review_id} className="snack-detail-review-item">
+                                            <div className="snack-detail-review-header">
+                                                <span className="snack-detail-review-author">
+                                                    {item?.user_nickname}
+                                                </span>
+                                                <span className="snack-detail-review-date">
+                                                    {item?.review_writed_at}
+                                                </span>
+                                            </div>
+                                            <div className="snack-detail-review-meta">
+                                                <span className="snack-detail-review-score-badge">
+                                                    {item?.review_score}점
+                                                </span>
+                                                <span>
+                                                    구매 수량: {item?.order_quantity}개
+                                                </span>
+                                            </div>
+                                            <div className="snack-detail-review-content">
+                                                {item?.review_content}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="snack-detail-no-reviews">
+                                    <h3>현재 등록된 리뷰가 없습니다.</h3>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

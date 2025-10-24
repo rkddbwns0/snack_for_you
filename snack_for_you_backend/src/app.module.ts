@@ -25,7 +25,6 @@ import { ReviewModule } from './review/review.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      logging: true,
     }),
     AdminUserModule,
     AuthModule,

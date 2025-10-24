@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../css/menu-bar.css';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/context.tsx';
 
 export const MenuBar = () => {
     const navigation = useNavigate();

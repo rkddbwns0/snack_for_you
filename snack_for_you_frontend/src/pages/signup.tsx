@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/signup.css';
+import '../css/auth.css';
 
 export const Signup = () => {
     const navigation = useNavigate();
@@ -99,40 +99,100 @@ export const Signup = () => {
     };
 
     return (
-        <div
-            className="page-container"
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-        >
-            <div className="signup-title">
-                <p>회원가입</p>
-            </div>
-            <div className="signup-input-container">
-                <div className="id-container">
-                    <input value={id} onChange={(e) => setId(e.target.value)} type="text" placeholder="아이디" />
-                    <button onClick={() => handleDupCheck('id')}>아이디 확인</button>
-                    <p style={{ color: dupId ? 'green' : 'red' }}>{idMsg}</p>
-                </div>
+        <div className="page-wrapper">
+            <div className="content-box">
+                <div className="auth-page-container">
+                    <div className="auth-content-wrapper">
+                        <div className="auth-form-card">
+                            <h1 className="auth-title">회원가입</h1>
+                            
+                            <div className="signup-form-section">
+                                <div className="auth-form-group">
+                                    <label className="auth-form-label">아이디</label>
+                                    <div className="auth-duplicate-container">
+                                        <input 
+                                            value={id} 
+                                            onChange={(e) => setId(e.target.value)} 
+                                            className="auth-form-input auth-duplicate-input"
+                                            type="text" 
+                                            placeholder="아이디를 입력하세요" 
+                                        />
+                                        <button 
+                                            className="auth-duplicate-button"
+                                            onClick={() => handleDupCheck('id')}
+                                        >
+                                            중복확인
+                                        </button>
+                                    </div>
+                                    {idMsg && (
+                                        <div className={`auth-message ${dupId ? 'success' : 'error'}`}>
+                                            {idMsg}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
 
-                <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="비밀번호"
-                />
-                <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="이름" />
-                <div className="nickname-container">
-                    <input
-                        value={nickname}
-                        onChange={(e) => setNickname(e.target.value)}
-                        type="text"
-                        placeholder="닉네임"
-                    />
-                    <button onClick={() => handleDupCheck('nickname')}>닉네임 확인</button>
-                    <p style={{ color: dupNickname ? 'green' : 'red' }}>{nicknameMsg}</p>
+                            <div className="signup-form-section">
+                                <div className="auth-form-group">
+                                    <label className="auth-form-label">비밀번호</label>
+                                    <input
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="auth-form-input"
+                                        type="password"
+                                        placeholder="비밀번호를 입력하세요"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="signup-form-section">
+                                <div className="auth-form-group">
+                                    <label className="auth-form-label">이름</label>
+                                    <input 
+                                        value={name} 
+                                        onChange={(e) => setName(e.target.value)} 
+                                        className="auth-form-input"
+                                        type="text" 
+                                        placeholder="이름을 입력하세요" 
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="signup-form-section">
+                                <div className="auth-form-group">
+                                    <label className="auth-form-label">닉네임</label>
+                                    <div className="auth-duplicate-container">
+                                        <input
+                                            value={nickname}
+                                            onChange={(e) => setNickname(e.target.value)}
+                                            className="auth-form-input auth-duplicate-input"
+                                            type="text"
+                                            placeholder="닉네임을 입력하세요"
+                                        />
+                                        <button 
+                                            className="auth-duplicate-button"
+                                            onClick={() => handleDupCheck('nickname')}
+                                        >
+                                            중복확인
+                                        </button>
+                                    </div>
+                                    {nicknameMsg && (
+                                        <div className={`auth-message ${dupNickname ? 'success' : 'error'}`}>
+                                            {nicknameMsg}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <button 
+                                className="auth-submit-button"
+                                onClick={handleSignup}
+                            >
+                                회원가입
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="signup-button-container">
-                <button onClick={handleSignup}>회원가입</button>
             </div>
         </div>
     );
