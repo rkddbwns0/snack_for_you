@@ -102,21 +102,28 @@ export class AddressApi {
         }
     }
 
-    async basicAddress(user_id: number) {
+    async orderAddress(user_id: number, address_id?: number) {
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/address/basic_address/${user_id}`, {
+            const url = new URL(`${process.env.REACT_APP_SERVER_URL}/address/basic_address/${user_id}`);
+
+            if (address_id) {
+                url.searchParams.append('address_id', address_id.toString());
+            }
+
+            const response = await fetch(url.toString(), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
                 },
                 credentials: 'include',
+                
             });
 
             if (!response.ok) {
                 throw new Error(`기본배송지 조회 error ${response.status}`);
             }
-            const data = response.json();
+            const data = await response.json();
 
             return data;
         } catch (e) {

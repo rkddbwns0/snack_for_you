@@ -173,9 +173,9 @@ export class AddressService {
     }
   }
 
-  async getBasicAddress(user_id: number) {
+  async getOrderAddress(user_id: number, address_id?: number) {
     try {
-      const basic_address = await this.address
+        const basic_address = await this.address
         .createQueryBuilder('address')
         .select([
           'address.address_id as address_id',
@@ -185,17 +185,17 @@ export class AddressService {
           'address.request as request',
         ])
         .where('address.user_id = :user_id', { user_id: user_id })
-        .andWhere('address.basic_address = :basic_address', {
-          basic_address: true,
-        })
+        .andWhere(address_id ? 'address_id = :address_id' : 'basic_address = true', { address_id: address_id })
         .getRawOne();
 
-      console.log(basic_address);
-      if (!basic_address) {
-        return null;
-      }
+        console.log(basic_address);
+        if (!basic_address) {
+          return null;
+        }
+        return basic_address;
 
-      return basic_address;
+
+      
     } catch (e) {
       console.error(e);
     }

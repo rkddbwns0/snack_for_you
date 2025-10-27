@@ -1,26 +1,105 @@
 /* Main 페이지 스타일 */
-.main-container {
-    padding-top: calc(15vh);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
+
+/* 환영 섹션 */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 40px 20px;
+    background: #f7a815;
+    border-radius: 20px;
+    color: white;
+    animation: fadeInDown 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 8px 32px rgba(247, 168, 21, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* 환영 섹션 배경 데코레이션 */
+.welcome-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.welcome-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.welcome-title {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-title .highlight {
+    background: linear-gradient(120deg, #fff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+}
+
+.welcome-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+}
+
+.main-container {
+    padding-top: 0;
+    display: block;
+    min-height: auto;
+}
+
+/* 섹션 공통 스타일 */
 .main-content {
     width: 100%;
     max-width: 1200px;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-header {
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 .main-title {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+    margin-bottom: 12px;
+    font-size: 32px;
+    font-weight: 700;
+    color: black;
 }
 
+.section-description {
+    font-size: 16px;
+    color: #888;
+    font-weight: 400;
+}
+
+/* 추천 상품 섹션 - 가로 스크롤 */
 .snack-scroll-container {
     display: flex;
     overflow-x: auto;
@@ -28,9 +107,9 @@
     padding: 20px 0;
     scrollbar-width: thin;
     scrollbar-color: #ccc #f1f1f1;
+    margin-bottom: 30px;
 }
 
-/* 웹킷 브라우저용 스크롤바 스타일 */
 .snack-scroll-container::-webkit-scrollbar {
     height: 8px;
 }
@@ -41,33 +120,80 @@
 }
 
 .snack-scroll-container::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: linear-gradient(180deg, #f7a815 0%, #e0990f 100%);
     border-radius: 4px;
 }
 
 .snack-scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #999;
+    background: linear-gradient(180deg, #e0990f 0%, #d08708 100%);
 }
 
+/* 인기 상품 섹션 - 그리드 레이아웃 */
+.featured-section {
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    margin: 60px auto;
+}
+
+.snack-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+    .snack-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .snack-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+}
+
+/* 상품 카드 */
 .snack-card {
     min-width: 200px;
     background-color: #fff;
-    border-radius: 12px;
+    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border: 1px solid #f0f0f0;
+    height: 100%;
 }
 
 .snack-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: #f7a815;
 }
 
 .snack-image-container {
     margin-bottom: 15px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.snack-card:hover .snack-image-container {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
 }
 
 .snack-image {
@@ -75,21 +201,44 @@
     height: 120px;
     object-fit: cover;
     border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.snack-card:hover .snack-image {
+    transform: scale(1.1);
 }
 
 .snack-name {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 8px;
     text-align: center;
     color: #333;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .snack-price {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 800;
     color: #e74c3c;
     margin-bottom: 15px;
+}
+
+.snack-card-footer {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
 }
 
 .favorite-button {
@@ -99,17 +248,138 @@
     font-size: 24px;
     padding: 8px;
     border-radius: 50%;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .favorite-button:hover {
-    background-color: #f8f9fa;
+    background-color: #fff3cd;
+    transform: scale(1.1);
 }
 
 .favorite-icon {
     color: #ccc;
+    transition: all 0.2s ease;
 }
 
 .favorite-icon.active {
-    color: #e74c3c;
+    color: #f7a815;
+}
+
+.detail-button {
+    flex: 1;
+    background: linear-gradient(135deg, #f7a815 0%, #e0990f 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.detail-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(247, 168, 21, 0.4);
+}
+
+.detail-button:active {
+    transform: translateY(0);
+}
+
+/* 전체 상품 보기 버튼 */
+.view-all-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.view-all-button {
+    background: linear-gradient(135deg, #f7a815 0%, #e0990f 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 50px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(247, 168, 21, 0.3);
+}
+
+.view-all-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(247, 168, 21, 0.5);
+}
+
+.view-all-button:active {
+    transform: translateY(-1px);
+}
+
+/* 애니메이션 */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .welcome-section {
+        padding: 30px 20px;
+    }
+
+    .welcome-title {
+        font-size: 28px;
+    }
+
+    .welcome-subtitle {
+        font-size: 14px;
+    }
+
+    .main-title {
+        font-size: 24px;
+    }
+
+    .main-content {
+        padding: 30px 15px;
+    }
+
+    .snack-card {
+        min-width: 160px;
+        padding: 15px;
+    }
+
+    .snack-image-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    .snack-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .section-header {
+        margin-bottom: 25px;
+    }
 }

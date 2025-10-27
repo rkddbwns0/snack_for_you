@@ -173,7 +173,6 @@ export class CartService {
           .execute();
         return;
       }
-      return;
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {

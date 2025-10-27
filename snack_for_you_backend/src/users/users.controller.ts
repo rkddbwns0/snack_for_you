@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
 import { UserService } from './users.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, DupCcheckDto } from 'src/dto/users.dto';
@@ -32,7 +32,14 @@ export class UserController {
   async updateUser(
     @Param('user_id') user_id: number,
     @Body() body: { nickname: string },
+    @Res({ passthrough: true }) res,
   ) {
-    return await this.userService.updateUser(user_id, body.nickname);
+    const result = await this.userService.updateUser(user_id, body.nickname);
+    res.cookie('refresh_token', result?.refresh_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'none',
+    });
+    return { access_token: result?.access_token, message: result?.message };
   }
 }

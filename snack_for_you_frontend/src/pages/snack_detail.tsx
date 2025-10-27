@@ -158,7 +158,7 @@ export const SnackDetail = () => {
                                 
                                 <div className="snack-detail-price-section">
                                     <div className="snack-detail-price">
-                                        {totalPrice.toLocaleString()}원
+                                        {totalPrice}원
                                     </div>
                                     <div className="snack-detail-quantity-controls">
                                         <span className="snack-detail-quantity-label">수량</span>
@@ -207,7 +207,7 @@ export const SnackDetail = () => {
                                         >
                                             장바구니
                                         </button>
-                                        <button className="snack-detail-buy-btn">
+                                        <button className="snack-detail-buy-btn" onClick={() => navigation('/order', { state: {items: [{snack_id: snack?.snack_id, quantity: quantity, price: totalPrice, product_image: snack?.product_image}], cart: false }})}>
                                             구매하기
                                         </button>
                                     </div>

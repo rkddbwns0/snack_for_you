@@ -7,9 +7,7 @@ export const MenuBar = () => {
     const [searchView, setSearchView] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [category, setCategory] = useState<[]>([]);
-    const enterButton = () => {
-        alert(`${searchText}`);
-    };
+
     const handleSearchView = () => {
         if (searchView) {
             setSearchView(false);
@@ -21,7 +19,11 @@ export const MenuBar = () => {
 
     const handleSearchEnter = (e: any) => {
         if (e.key === 'Enter') {
-            enterButton();
+            if (searchText === '') {
+                alert('검색어를 입력해 주세요.')
+                return;
+            }
+            navigation('/search', {state: {keyword: searchText}})
         }
     };
 

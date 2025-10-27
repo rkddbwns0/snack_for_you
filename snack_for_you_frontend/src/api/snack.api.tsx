@@ -57,4 +57,25 @@ export class SnackApi {
             console.error(e);
         }
     }
+
+    async searchSnack(keyword: string) {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/snack/search/${keyword}`,
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                }
+            )
+
+            if (!response.ok) {
+                throw new Error(`error ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            console.error(e);
+        }
+    } 
 }

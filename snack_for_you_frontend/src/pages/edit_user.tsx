@@ -5,8 +5,7 @@ import '../css/auth.css';
 
 export const EditUser = () => {
     const navigation = useNavigate();
-    const location = useLocation();
-    const user_id = location.pathname.split('/')[2];
+    const { user } = useAuth();
     const [nickname, setNickname] = useState<string>('');
     const [dupMsg, setDupMsg] = useState<string>('');
     const [dupNickname, setDupNickname] = useState<boolean>(false);
@@ -55,10 +54,8 @@ export const EditUser = () => {
             return;
         }
 
-        console.log(JSON.stringify({ nickname }));
-
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/users/${user_id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/users/${user?.user_id}`, {
                 method: 'PUT',
                 credentials: 'include',
                 body: JSON.stringify({
@@ -78,6 +75,7 @@ export const EditUser = () => {
             const data = await response.json();
 
             alert(data.message);
+            sessionStorage.setItem('access_token', data.access_token);
             navigation('/myPage');
         } catch (e) {
             console.error(e);

@@ -131,7 +131,6 @@ export class OrderService {
         .where('order_item.order_id = :order_id', { order_id: order_id })
         .getRawMany();
 
-      console.log(order, order_items);
       return { order, order_items };
     } catch (e) {
       console.error(e);

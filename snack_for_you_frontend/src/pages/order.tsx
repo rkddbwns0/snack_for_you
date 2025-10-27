@@ -40,9 +40,13 @@ export const Order = () => {
         setIsOpen(!isOpen);
     };
 
+    const handleAddressChange = (newAddress: any) => {
+        setAddress(newAddress);
+    };
+
     const basic_address = async () => {
         try {
-            const data = await addressApi.basicAddress(user.user_id);
+            const data = await addressApi.orderAddress(user.user_id);
             setAddress(data);
         } catch (e) {
             console.error(e);
@@ -52,10 +56,10 @@ export const Order = () => {
     const order_total_price = () => {
         let total = 0;
         order_items.forEach((item: any) => {
-            total += item.price;
-        });
+            total += item.price
+            
         setTotalPrice(total);
-    };
+    })};
 
     const handleOrder = async () => {
         if (!address) {
@@ -86,9 +90,12 @@ export const Order = () => {
     };
 
     useEffect(() => {
-        basic_address();
-        order_total_price();
-    }, []);
+        console.log(order_items);
+        if (user) {
+            basic_address();
+            order_total_price();
+        }
+    }, [user, order_items]);
 
     return (
         <div className="page-wrapper">
@@ -109,6 +116,7 @@ export const Order = () => {
                                         <div>
                                             <p><strong>받는 사람:</strong> {address.name}</p>
                                             <p><strong>주소:</strong> {address.address}</p>
+                                            <p><strong>요청사항:</strong> {address.request}</p>
                                             <button className="address-action-btn" onClick={handleOpen}>주소 변경하기</button>
                                         </div>
                                     ) : (
@@ -130,7 +138,7 @@ export const Order = () => {
                                                 <p><strong>{item.name}</strong></p>
                                                 <p>수량: {item.quantity}개</p>
                                             </div>
-                                            <p className="order-item-price">{item.price.toLocaleString()}원</p>
+                                            <p className="order-item-price">{item.price}원</p>
                                         </div>
                                     ))}
                                 </div>
@@ -152,14 +160,14 @@ export const Order = () => {
                             </div>
 
                             <div className="total-price">
-                                <p>총 결제금액: {totalPrice.toLocaleString()}원</p>
+                                <p>총 결제금액: {totalPrice}원</p>
                             </div>
 
                             <button className="cart-order-btn" onClick={handleOrder}>결제하기</button>
                         </div>
                     </div>
                 </div>
-                <AddressModal isOpen={isOpen} setIsOpen={handleOpen} address_id={address?.address_id} />
+                <AddressModal isOpen={isOpen} setIsOpen={handleOpen} address_id={address?.address_id} onAddressChange={handleAddressChange} />
             </div>
         </div>
     );

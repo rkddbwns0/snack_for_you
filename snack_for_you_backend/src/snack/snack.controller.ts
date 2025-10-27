@@ -13,6 +13,13 @@ export class SnackController {
     return { category: result };
   }
 
+  @Get('/search/:keyword')
+  async searchSnack(@Param('keyword') keyword: string) {
+    const result = await this.snackService.searchSnack(keyword);
+    console.log(result)
+    return result;
+  }
+
   @ApiOperation({ summary: '스낵 리스트 조회' })
   @Get(':category_id')
   async snackList(@Param('category_id') category_id: number) {
@@ -23,7 +30,6 @@ export class SnackController {
   @ApiOperation({ summary: '스낵 상세 조회' })
   @Get(':category_id/:snack_id')
   async snackDetail(@Param('snack_id') snack_id: number) {
-    console.log(snack_id);
     const result = await this.snackService.snackDetail(snack_id);
     return result;
   }
@@ -32,7 +38,6 @@ export class SnackController {
   @Get()
   async randomSnack() {
     const result = await this.snackService.randomSnack();
-    console.log(result);
     return result;
   }
 }

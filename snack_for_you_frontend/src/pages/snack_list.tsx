@@ -102,7 +102,7 @@ export const SnackList = () => {
                                                     {item.category_name}
                                                 </div>
                                                 <div className="snack-item-price">
-                                                    {item.price}원
+                                                    {item.price}
                                                 </div>
                                             </div>
                                             <div className="snack-item-actions">

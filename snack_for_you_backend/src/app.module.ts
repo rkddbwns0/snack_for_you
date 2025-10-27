@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminUserModule } from './admin_user/admin_user.module';
+import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { SnackModule } from './snack/snack.module';
 import { UserModule } from './users/users.module';
@@ -26,7 +26,7 @@ import { ReviewModule } from './review/review.module';
       password: process.env.DB_PASSWORD,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
-    AdminUserModule,
+    AdminModule,
     AuthModule,
     SnackModule,
     UserModule,

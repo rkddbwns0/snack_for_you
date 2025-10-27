@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ValidateUserDto } from 'src/dto/auth.dto';
-import { AdminUserEntity } from 'src/entities/admin_user.entity';
 import { UserEntity } from 'src/entities/users.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -10,9 +9,6 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(AdminUserEntity)
-    private readonly admin: Repository<AdminUserEntity>,
-
     @InjectRepository(UserEntity)
     private readonly user: Repository<UserEntity>,
 
@@ -66,38 +62,14 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async adminLogin(admin_id: string, password: string) {
-    try {
-      const admin = await this.admin.findOne({ where: { id: admin_id } });
-
-      if (!admin) {
-        throw new HttpException(
-          '존재하지 않는 아이디입니다.',
-          HttpStatus.NOT_FOUND,
-        );
-      }
-
-      if (!bcrypt.compareSync(password, admin.password)) {
-        throw new HttpException(
-          '비밀번호가 일치하지 않습니다.',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-
-      return admin;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  private aceessToken(payload: any) {
+  aceessToken(payload: any) {
     return this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET_KEY,
       expiresIn: '15m',
     });
   }
 
-  private refreshToken(payload: any) {
+  refreshToken(payload: any) {
     return this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET_KEY,
       expiresIn: '1d',

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
@@ -25,6 +26,14 @@ export class AddressController {
     return result;
   }
 
+  @ApiOperation({ summary: '기본주소 조회 라우터 (address_id 있을 때/없을 때)' })
+  @Get('basic_address/:user_id')
+  async OrderAddress(@Param('user_id') user_id: number, @Query('address_id') address_id?: number) {
+    console.log(user_id);
+    const result = this.addressService.getOrderAddress(user_id, address_id);
+    return result;
+  }
+
   @ApiOperation({ summary: '배송지 조회 라우터' })
   @Get(':user_id')
   async getAddress(@Param('user_id') user_id: number) {
@@ -32,14 +41,7 @@ export class AddressController {
     return result;
   }
 
-  @ApiOperation({ summary: '기본주소 조회 라우터' })
-  @Get('basic_address/:user_id')
-  async getBasicAddress(@Param('user_id') user_id: number) {
-    const result = this.addressService.getBasicAddress(user_id);
-    return result;
-  }
-
-  @ApiOperation({ summary: '기본주소 설정 변경 라우터' })
+ @ApiOperation({ summary: '기본주소 설정 변경 라우터' })
   @Put(':user_id')
   async changeBasicAddress(
     @Param('user_id') user_id: number,

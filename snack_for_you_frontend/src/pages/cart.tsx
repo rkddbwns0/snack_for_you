@@ -15,6 +15,7 @@ export const Cart = () => {
         try {
             const data = await cartApi.getCart(user.user_id);
             setCartItems(data);
+            console.log(data);
         } catch (e) {
             console.error(e);
         }
@@ -133,7 +134,7 @@ export const Cart = () => {
                                             </button>
                                         </div>
                                         <div className="cart-item-total">
-                                            {(item.price * item.quantity).toLocaleString()}원
+                                            {item.price}원
                                         </div>
                                         <button
                                             className="cart-delete-btn"

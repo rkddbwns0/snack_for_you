@@ -5,34 +5,55 @@ import { AddressInput } from './address_input.tsx';
 import '../css/common.css';
 
 export const AddressModal = (
-    { isOpen, setIsOpen, address_id } = { isOpen: false, setIsOpen: () => {}, address_id: 0 }
+    { isOpen, setIsOpen, address_id, onAddressChange } = { isOpen: false, setIsOpen: () => {}, address_id: null, onAddressChange: (addr: any) => {} }
 ) => {
     const { user } = useAuth();
     const addressApi = new AddressApi();
     const [address, setAddress] = useState<any[]>([]);
-    const [checkAddress, setCheckAddress] = useState<any>(address_id);
+    const [checkAddress, setCheckAddress] = useState<number | null>(address_id);
     const [showAddressInput, setShowAddressInput] = useState<boolean>(false);
 
     const getAddress = async () => {
         try {
             const data = await addressApi.getAddress(user.user_id);
             setAddress(data);
-            console.log(data);
         } catch (e) {
             console.error(e);
         }
     };
 
-    const handleChangeAddress = () => {};
+    const handleChangeAddress = async () => {
+        try {
+            const data = await addressApi.orderAddress(user.user_id, checkAddress as number);
+            if (data) {
+                const selectedAddress = address.find((item: any) => item.address_id === checkAddress);
+                if (selectedAddress) {
+                    onAddressChange(selectedAddress);
+                }
+                setIsOpen();
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     const handleAddressInputClose = () => {
         setShowAddressInput(false);
-        getAddress(); // 주소 목록 새로고침
+        getAddress(); 
     };
 
     useEffect(() => {
-        getAddress();
-    }, []);
+        if (isOpen) {
+            getAddress();
+            setCheckAddress(address_id);
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (address_id !== undefined && address_id !== null) {
+            setCheckAddress(address_id);
+        }
+    }, [address_id]);
 
     return (
         <div>
@@ -86,7 +107,7 @@ export const AddressModal = (
                                 </div>
                                 
                                 <div className="modal-form-group">
-                                    <button className="modal-submit-btn">
+                                    <button className="modal-submit-btn" onClick={handleChangeAddress}>
                                         해당 주소로 변경하기
                                     </button>
                                 </div>
@@ -112,6 +133,7 @@ export const AddressModal = (
                 <AddressInput 
                     isOpen={showAddressInput} 
                     setIsOpen={handleAddressInputClose}
+                    onSuccess={handleAddressInputClose}
                 />
             )}
         </div>
