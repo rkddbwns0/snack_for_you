@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CreateOrderDto } from 'src/dto/order.dto';
 import { OrderService } from './order.service';
 import { ApiOperation } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
+import { JwtAuthGuard } from 'src/auth/user/guard/auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('order')

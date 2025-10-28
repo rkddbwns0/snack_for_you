@@ -392,7 +392,7 @@
 .admin-table-image {
     width: 50px;
     height: 50px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 6px;
 }
 
@@ -484,6 +484,387 @@
     color: #999;
 }
 
+/* 최근 주문 스타일 */
+.admin-orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-orders-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.admin-orders-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-orders-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.admin-orders-container::-webkit-scrollbar-thumb {
+    background: #f7a815;
+    border-radius: 10px;
+}
+
+.admin-orders-container::-webkit-scrollbar-thumb:hover {
+    background: #e0990f;
+}
+
+.admin-order-item {
+    display: grid;
+    grid-template-columns: 90px 1fr 120px;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+    transition: all 0.3s ease;
+    align-items: flex-start;
+}
+
+.admin-order-item:hover {
+    border-color: #f7a815;
+    box-shadow: 0 6px 16px rgba(247, 168, 21, 0.15);
+    transform: translateY(-2px);
+}
+
+.admin-order-left {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-order-image-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    flex-shrink: 0;
+}
+
+.admin-order-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.admin-order-quantity-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(247, 168, 21, 0.95);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.admin-order-middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-order-middle h3 {
+    margin: 0;
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.admin-order-basic-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.admin-order-user,
+.admin-order-receiver {
+    margin: 0;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-order-user strong,
+.admin-order-receiver strong {
+    color: #333;
+    margin-right: 4px;
+}
+
+.admin-order-address-section {
+    margin-top: 5px;
+}
+
+.admin-address-label {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    color: #333;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.admin-address-box {
+    background-color: #f5f5f5;
+    border-left: 3px solid #f7a815;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    max-width: 100%;
+    display: block;
+    text-align: left;
+}
+
+.admin-address-box strong {
+    color: #333;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.admin-address-receiver {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    color: #333;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-address-line {
+    margin: 0 0 8px 0;
+    font-size: 11px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-address-line strong {
+    color: #333;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.admin-address-request {
+    margin: 6px 0 0 0;
+    color: #f7a815;
+    font-weight: 600;
+    font-style: italic;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-order-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.admin-order-status {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 90px;
+}
+
+.admin-status-pending {
+    background-color: #fff3e0;
+    color: #f7a815;
+}
+
+.admin-status-completed {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+}
+
+.admin-status-cancelled {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+.admin-status-shipped {
+    background-color: #e3f2fd;
+    color: #3498db;
+}
+
+.admin-order-price {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f7a815;
+}
+
+/* 최근 리뷰 스타일 */
+.admin-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-reviews-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.admin-reviews-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-reviews-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.admin-reviews-container::-webkit-scrollbar-thumb {
+    background: #f7a815;
+    border-radius: 10px;
+}
+
+.admin-reviews-container::-webkit-scrollbar-thumb:hover {
+    background: #e0990f;
+}
+
+.admin-review-item {
+    padding: 15px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+    transition: all 0.3s ease;
+}
+
+.admin-review-item:hover {
+    border-color: #f7a815;
+    box-shadow: 0 4px 12px rgba(247, 168, 21, 0.15);
+    transform: translateY(-2px);
+}
+
+.admin-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-review-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f7a815 0%, #e0990f 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.admin-review-user-detail p {
+    margin: 0;
+}
+
+.admin-review-username {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.admin-review-date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+
+.admin-review-score-badge {
+    background: linear-gradient(135deg, #f7a815 0%, #e0990f 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: center;
+}
+
+.admin-review-content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-review-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+.admin-review-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.admin-review-product-info {
+    flex: 1;
+}
+
+.admin-review-product-name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.admin-review-product-quantity {
+    margin: 3px 0 0 0;
+    font-size: 12px;
+    color: #999;
+}
+
+.admin-review-text {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    border-left: 3px solid #f7a815;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
     .admin-sidebar {
@@ -512,6 +893,29 @@
 
     .admin-header-title {
         font-size: 20px;
+    }
+
+    .admin-order-item {
+        grid-template-columns: 70px 1fr 100px;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .admin-order-image-container {
+        width: 70px;
+        height: 70px;
+    }
+
+    .admin-order-middle h3 {
+        font-size: 14px;
+    }
+
+    .admin-order-basic-info {
+        font-size: 11px;
+    }
+
+    .admin-address-box {
+        font-size: 10px;
     }
 }
 
@@ -598,6 +1002,77 @@
         flex-direction: column;
     }
 
+    /* 모바일 주문 및 리뷰 스타일 */
+    .admin-orders-container,
+    .admin-reviews-container {
+        max-height: 400px;
+    }
+
+    .admin-order-item {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: unset;
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    .admin-order-left {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .admin-order-image-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .admin-order-middle {
+        flex: 1;
+        gap: 6px;
+    }
+
+    .admin-order-middle h3 {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .admin-order-basic-info {
+        gap: 4px;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .admin-order-right {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .admin-order-status {
+        min-width: auto;
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+
+    .admin-order-price {
+        font-size: 14px;
+    }
+
+    .admin-address-box {
+        padding: 6px;
+        font-size: 10px;
+    }
+
+    .admin-address-label {
+        font-size: 10px;
+        margin-bottom: 4px;
+    }
+
     .admin-edit-btn,
     .admin-delete-btn,
     .admin-view-btn,
@@ -612,4 +1087,3 @@
         justify-content: center;
     }
 }
-

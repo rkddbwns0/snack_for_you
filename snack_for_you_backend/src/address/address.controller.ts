@@ -12,7 +12,7 @@ import {
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateAddressDto } from 'src/dto/address.dto';
 import { AddressService } from './address.service';
-import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
+import { JwtAuthGuard } from 'src/auth/user/guard/auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('address')
@@ -26,9 +26,14 @@ export class AddressController {
     return result;
   }
 
-  @ApiOperation({ summary: '기본주소 조회 라우터 (address_id 있을 때/없을 때)' })
+  @ApiOperation({
+    summary: '기본주소 조회 라우터 (address_id 있을 때/없을 때)',
+  })
   @Get('basic_address/:user_id')
-  async OrderAddress(@Param('user_id') user_id: number, @Query('address_id') address_id?: number) {
+  async OrderAddress(
+    @Param('user_id') user_id: number,
+    @Query('address_id') address_id?: number,
+  ) {
     console.log(user_id);
     const result = this.addressService.getOrderAddress(user_id, address_id);
     return result;
@@ -41,7 +46,7 @@ export class AddressController {
     return result;
   }
 
- @ApiOperation({ summary: '기본주소 설정 변경 라우터' })
+  @ApiOperation({ summary: '기본주소 설정 변경 라우터' })
   @Put(':user_id')
   async changeBasicAddress(
     @Param('user_id') user_id: number,

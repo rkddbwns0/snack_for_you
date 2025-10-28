@@ -136,38 +136,40 @@ export class SnackService {
 
   async searchSnack(keyword: string) {
     try {
-      const category = await this.snack_category.createQueryBuilder('c')
-      .innerJoin('snack_info', 's', 's.category_id = c.category_id')
-      .leftJoin('favorites', 'f', 'f.snack_id = s.snack_id')
-      .leftJoin('review', 'r', 'r.snack_id = s.snack_id')
-      .select('c.category_id as category_id')
-      .addSelect('c.name as category_name')
-      .addSelect('s.name as name')
-      .addSelect('s.brand as brand')
-      .addSelect("s.price as price")
-      .addSelect('s.product_image as product_image')
-      .addSelect('COALESCE(COUNT(f.favorite_id), 0) as favorite_count')
-      .addSelect('COALESCE(COUNT(r.review_id), 0) as review_count')
-      .where('c.name LIKE :keyword', { keyword: `%${keyword}%` })
-      .groupBy('c.category_id')
-      .addGroupBy('s.snack_id')
-      .getRawMany();
-
-      if (!category) {
-        const snack = await this.snack_info.createQueryBuilder('s')
-        .innerJoin('snack_category', 'c', 'c.category_id = s.category_id')
+      const category = await this.snack_category
+        .createQueryBuilder('c')
+        .innerJoin('snack_info', 's', 's.category_id = c.category_id')
         .leftJoin('favorites', 'f', 'f.snack_id = s.snack_id')
         .leftJoin('review', 'r', 'r.snack_id = s.snack_id')
-        .select('s.snack_id as snack_id')
+        .select('c.category_id as category_id')
+        .addSelect('c.name as category_name')
         .addSelect('s.name as name')
         .addSelect('s.brand as brand')
-        .addSelect("s.price as price")
+        .addSelect('s.price as price')
         .addSelect('s.product_image as product_image')
         .addSelect('COALESCE(COUNT(f.favorite_id), 0) as favorite_count')
         .addSelect('COALESCE(COUNT(r.review_id), 0) as review_count')
-        .where('s.name LIKE :keyword', { keyword: `%${keyword}%` })
-        .groupBy('s.snack_id')
+        .where('c.name LIKE :keyword', { keyword: `%${keyword}%` })
+        .groupBy('c.category_id')
+        .addGroupBy('s.snack_id')
         .getRawMany();
+
+      if (!category) {
+        const snack = await this.snack_info
+          .createQueryBuilder('s')
+          .innerJoin('snack_category', 'c', 'c.category_id = s.category_id')
+          .leftJoin('favorites', 'f', 'f.snack_id = s.snack_id')
+          .leftJoin('review', 'r', 'r.snack_id = s.snack_id')
+          .select('s.snack_id as snack_id')
+          .addSelect('s.name as name')
+          .addSelect('s.brand as brand')
+          .addSelect('s.price as price')
+          .addSelect('s.product_image as product_image')
+          .addSelect('COALESCE(COUNT(f.favorite_id), 0) as favorite_count')
+          .addSelect('COALESCE(COUNT(r.review_id), 0) as review_count')
+          .where('s.name LIKE :keyword', { keyword: `%${keyword}%` })
+          .groupBy('s.snack_id')
+          .getRawMany();
 
         if (!snack) {
           throw new HttpException('검색 결과가 없습니다', HttpStatus.NOT_FOUND);
@@ -177,6 +179,19 @@ export class SnackService {
       }
 
       return category;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  // admin에서 사용할 코드 //
+  async countSnack() {
+    try {
+      const count = await this.snack_info.count();
+      return count;
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {

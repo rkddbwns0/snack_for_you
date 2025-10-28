@@ -18,5 +18,6 @@ import { SnackInfoEntity } from 'src/entities/snack_info.entity';
   ],
   controllers: [OrderController],
   providers: [OrderService],
+  exports: [OrderService],
 })
 export class OrderModule {}

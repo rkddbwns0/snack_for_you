@@ -4,7 +4,7 @@ import { CreateUserDto } from 'src/dto/users.dto';
 import { UserEntity } from 'src/entities/users.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/auth/user/auth.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -100,14 +100,16 @@ export class UserService {
     try {
       await this.user.update(user_id, { nickname: nickname });
 
-      const updateUser = await this.user.findOne({ where: { user_id: user_id } });
+      const updateUser = await this.user.findOne({
+        where: { user_id: user_id },
+      });
 
       const payload = {
         user_id: updateUser?.user_id,
         id: updateUser?.id,
         name: updateUser?.name,
         nickname: updateUser?.nickname,
-      }
+      };
 
       const access_token = this.jwtService.sign(payload, {
         secret: process.env.JWT_SECRET_KEY,
@@ -119,7 +121,24 @@ export class UserService {
         expiresIn: '1d',
       });
 
-      return { message: '닉네임이 변경되었습니다.', access_token: access_token, refresh_token: refresh_token };
+      return {
+        message: '닉네임이 변경되었습니다.',
+        access_token: access_token,
+        refresh_token: refresh_token,
+      };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  // admin에서 사용할 코드 //
+  async countUser() {
+    try {
+      const count = await this.user.count();
+      return count;
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {

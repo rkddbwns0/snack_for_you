@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateReviewDto } from 'src/dto/review.dto';
-import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
+import { JwtAuthGuard } from 'src/auth/user/guard/auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('review')

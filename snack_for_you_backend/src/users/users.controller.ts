@@ -1,8 +1,16 @@
-import { Body, Controller, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  Put,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './users.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, DupCcheckDto } from 'src/dto/users.dto';
-import { JwtAuthGuard } from 'src/auth/guard/auth.guard';
+import { JwtAuthGuard } from 'src/auth/user/guard/auth.guard';
 
 @ApiTags('사용자 처리 라우터')
 @Controller('users')

@@ -16,5 +16,6 @@ import { ReviewEntity } from 'src/entities/review.entity';
   ],
   controllers: [SnackController],
   providers: [SnackService],
+  exports: [SnackService],
 })
 export class SnackModule {}

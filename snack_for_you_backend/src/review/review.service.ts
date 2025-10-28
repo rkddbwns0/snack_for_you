@@ -82,22 +82,76 @@ export class ReviewService {
 
   async userReview(user_id: number) {
     try {
-      const review = await this.review.createQueryBuilder('r')
-      .innerJoin('r.snack', 's')
-      .innerJoin('r.order_item', 'i')
-      .select('r.review_id as review_id')
-      .addSelect('s.snack_id as snack_id')
-      .addSelect('s.category_id as category_id')
-      .addSelect('i.quantity as order_quantity')
-      .addSelect('s.name as snack_name')
-      .addSelect('s.product_image as snack_image')
-      .addSelect('r.content as review_content')
-      .addSelect('r.score as review_score')
-      .addSelect("TO_CHAR(r.writed_at, 'YYYY-MM-DD HH24:MI:SS') as review_writed_at")
-      .where('r.user_id = :user_id', { user_id: user_id })
-      .orderBy('r.writed_at', 'DESC')
-      .getRawMany();
-      return review
+      const review = await this.review
+        .createQueryBuilder('r')
+        .innerJoin('r.snack', 's')
+        .innerJoin('r.order_item', 'i')
+        .select('r.review_id as review_id')
+        .addSelect('s.snack_id as snack_id')
+        .addSelect('s.category_id as category_id')
+        .addSelect('i.quantity as order_quantity')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('r.content as review_content')
+        .addSelect('r.score as review_score')
+        .addSelect(
+          "TO_CHAR(r.writed_at, 'YYYY-MM-DD HH24:MI:SS') as review_writed_at",
+        )
+        .where('r.user_id = :user_id', { user_id: user_id })
+        .orderBy('r.writed_at', 'DESC')
+        .getRawMany();
+      return review;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  // admin에서 사용할 코드 //
+  async countReview() {
+    try {
+      const count = await this.review.count();
+
+      return count;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async recentReview() {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const savenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+      console.log(today, savenDaysAgo);
+
+      const review = await this.review
+        .createQueryBuilder('r')
+        .innerJoin('r.user', 'u')
+        .innerJoin('r.snack', 's')
+        .innerJoin('r.order_item', 'i')
+        .select('r.review_id as review_id')
+        .addSelect('u.nickname as user_nickname')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('i.quantity as order_quantity')
+        .addSelect('r.score as review_score')
+        .addSelect('r.content as review_content')
+        .addSelect(
+          "TO_CHAR(r.writed_at, 'YYYY-MM-DD HH24:MI:SS') as review_writed_at",
+        )
+        .where('r.writed_at >= :savenDaysAgo', { savenDaysAgo: savenDaysAgo })
+        .andWhere('r.writed_at <= :today', { today: today })
+        .orderBy('r.writed_at', 'DESC')
+        .getRawMany();
+      return review;
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {

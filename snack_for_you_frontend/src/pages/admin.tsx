@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { FaBox, FaList, FaStar, FaUsers, FaChartBar, FaSignOutAlt } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { FaBox, FaList, FaStar, FaUsers, FaChartBar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/context.tsx';
 import logoImg from '../img/snack_for_you_logo.png';
 import '../css/admin.css';
 import { AdminDashboard } from './admin/admin_dashboard.tsx';
@@ -48,7 +47,7 @@ export const Admin = () => {
                     <h2 className="admin-header-title">Snack For You 관리자</h2>
                 </div>
                 <div className="admin-header-right">
-                    {user ? (
+                    {/* {user ? (
                         <div className="admin-header-user">
                             <span className="admin-user-name">{user?.nickname}님</span>
                             <button className="admin-logout-btn" onClick={handleLogout}>
@@ -64,7 +63,11 @@ export const Admin = () => {
                             관리자 로그인
                         </button>
                     )}
+                        */}
                 </div>
+                <button className="admin-login-btn" onClick={() => navigation('/admin/login')}>
+                    관리자 로그인
+                </button>
             </header>
 
             <div className="admin-container">
@@ -89,9 +92,7 @@ export const Admin = () => {
                     </nav>
                 </div>
 
-                <div className="admin-content">
-                    {renderContent()}
-                </div>
+                <div className="admin-content">{renderContent()}</div>
             </div>
         </div>
     );

@@ -168,4 +168,60 @@ export class OrderService {
       }
     }
   }
+
+  async countOrder() {
+    try {
+      const count = await this.order_info.count();
+      return count;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async recentOrder() {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const savenDaysAgo = new Date(
+        today.getTime() - 7 * 24 * 60 * 60 * 1000 + 1,
+      );
+
+      const order = await this.order_info
+        .createQueryBuilder('o')
+        .innerJoin('o.order_item', 'oi')
+        .innerJoin('oi.snack', 's')
+        .innerJoin('o.user', 'u')
+        .innerJoin('o.address', 'a')
+        .select('o.order_id as order_id')
+        .addSelect('u.nickname as user_nickname')
+        .addSelect('a.name as address_name')
+        .addSelect('a.road_name as address_road_name')
+        .addSelect('a.detail_address as address_detail_address')
+        .addSelect('a.request as address_request')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('oi.quantity as order_quantity')
+        .addSelect('o.total_price as total_price')
+        .addSelect('o.status as status')
+        .addSelect(
+          "TO_CHAR(o.order_date, 'YYYY-MM-DD HH24:MI:SS') as order_date",
+        )
+        .where('order_date >= :savenDaysAgo', { savenDaysAgo: savenDaysAgo })
+        .andWhere('order_date <= :today', { today: today })
+        .distinctOn(['o.order_id'])
+        .orderBy('o.order_id', 'DESC')
+        .getRawMany();
+
+      return order;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }
