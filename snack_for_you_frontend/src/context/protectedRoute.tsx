@@ -7,8 +7,12 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-    const { user, loading, login } = useAuth();
+    const { user, userType, loading } = useAuth();
+
     if (loading) return <div>Loading...</div>;
-    if (!user && !login) return <Navigate to="/" />;
+
+    // user만 접근 가능 (admin은 접근 불가)
+    if (!user || userType !== 'user') return <Navigate to="/" />;
+
     return children;
 }

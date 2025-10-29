@@ -169,6 +169,8 @@ export class OrderService {
     }
   }
 
+  // admin에서 사용할 코드 //
+
   async countOrder() {
     try {
       const count = await this.order_info.count();

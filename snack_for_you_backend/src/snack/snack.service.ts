@@ -199,4 +199,36 @@ export class SnackService {
       }
     }
   }
+
+  async AllsnackList() {
+    try {
+      const snack = await this.snack_info
+        .createQueryBuilder('s')
+        .innerJoin('snack_category', 'c', 'c.category_id = s.category_id')
+        .select('c.name as category_name')
+        .addSelect('s.snack_id as snack_id')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.brand as snack_brand')
+        .addSelect('s.price as snack_price')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('c.category_id as category_id')
+        .addSelect('c.name as category_name')
+        .addSelect('s.snack_id as snack_id')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.brand as snack_brand')
+        .addSelect('s.quantity as snack_quantity')
+        .addSelect('s.price as snack_price')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('s.reg_at as reg_at')
+        .orderBy('s.reg_at', 'DESC')
+        .getRawMany();
+
+      return snack;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }

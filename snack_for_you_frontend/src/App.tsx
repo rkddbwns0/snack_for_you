@@ -13,6 +13,7 @@ import { Admin } from './pages/admin.tsx';
 import { SnackList } from './pages/snack_list.tsx';
 import { Signup } from './pages/signup.tsx';
 import ProtectedRoute from './context/protectedRoute.tsx';
+import AdminProtectedRoute from './context/adminProtectedRoute.tsx';
 import { AuthProvider } from './context/context.tsx';
 import { MyPage } from './pages/myPage.tsx';
 import { EditUser } from './pages/edit_user.tsx';
@@ -50,22 +51,52 @@ const AppContent = () => {
     return (
         <Routes>
             {/* 관리자 라우트 */}
-            <Route path="/admin/login" element={<AdminLayout><AdminLogin /></AdminLayout>} />
+            <Route
+                path="/admin/login"
+                element={
+                    <AdminLayout>
+                        <AdminLogin />
+                    </AdminLayout>
+                }
+            />
             <Route
                 path="/admin/*"
                 element={
                     <AdminLayout>
-                        <Admin />
+                        <AdminProtectedRoute>
+                            <Admin />
+                        </AdminProtectedRoute>
                     </AdminLayout>
                 }
             />
 
             {/* 사용자 라우트 */}
-            <Route path="/" element={<UserLayout><Main /></UserLayout>} />
+            <Route
+                path="/"
+                element={
+                    <UserLayout>
+                        <Main />
+                    </UserLayout>
+                }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/snack_list/:category_id" element={<UserLayout><SnackList /></UserLayout>} />
-            <Route path="/snack_detail/:snack_id" element={<UserLayout><SnackDetail /></UserLayout>} />
+            <Route
+                path="/snack_list/:category_id"
+                element={
+                    <UserLayout>
+                        <SnackList />
+                    </UserLayout>
+                }
+            />
+            <Route
+                path="/snack_detail/:snack_id"
+                element={
+                    <UserLayout>
+                        <SnackDetail />
+                    </UserLayout>
+                }
+            />
             <Route
                 path="/cart"
                 element={
@@ -166,7 +197,14 @@ const AppContent = () => {
                     </UserLayout>
                 }
             />
-            <Route path="/search" element={<UserLayout><Search /></UserLayout>} />
+            <Route
+                path="/search"
+                element={
+                    <UserLayout>
+                        <Search />
+                    </UserLayout>
+                }
+            />
         </Routes>
     );
 };

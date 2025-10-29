@@ -16,7 +16,6 @@ export class SnackController {
   @Get('/search/:keyword')
   async searchSnack(@Param('keyword') keyword: string) {
     const result = await this.snackService.searchSnack(keyword);
-    console.log(result)
     return result;
   }
 

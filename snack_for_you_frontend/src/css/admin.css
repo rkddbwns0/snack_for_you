@@ -369,10 +369,136 @@
 }
 
 .admin-table thead th {
-    padding: 15px;
-    text-align: left;
+    padding: 18px 12px;
+    text-align: center;
     font-weight: 600;
     color: #fff;
+    vertical-align: middle;
+}
+
+/* 컬럼 너비 설정 */
+.admin-table thead th:nth-child(1),
+.admin-table tbody td:nth-child(1) {
+    width: 10%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(2),
+.admin-table tbody td:nth-child(2) {
+    width: 15%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(3),
+.admin-table tbody td:nth-child(3) {
+    width: 12%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(4),
+.admin-table tbody td:nth-child(4) {
+    width: 18%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(5),
+.admin-table tbody td:nth-child(5) {
+    width: 10%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(6),
+.admin-table tbody td:nth-child(6) {
+    width: 12%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(7),
+.admin-table tbody td:nth-child(7) {
+    width: 23%;
+    text-align: center;
+}
+
+/* 리뷰 관리 테이블 - 상품명 컬럼 스타일 */
+.admin-review-manage .admin-table tbody td {
+    white-space: normal;
+}
+
+.admin-review-manage .admin-table tbody td:nth-child(1) {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-review-manage .admin-table-image {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.admin-review-manage .admin-product-info {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.admin-review-manage .admin-product-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.admin-review-manage .admin-product-quantity {
+    font-size: 12px;
+    color: #999;
+}
+
+/* 리뷰 관리 테이블 - 작성자 컬럼 스타일 */
+.admin-review-manage .admin-table tbody td:nth-child(2) {
+    width: 18%;
+    text-align: center;
+    padding: 16px 8px;
+}
+
+.admin-review-manage .admin-user-info {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    line-height: 1.5;
+}
+
+.admin-review-manage .admin-user-nickname {
+    font-size: 12px;
+    color: #999;
+    display: block;
+    line-height: 1.5;
+}
+
+/* 리뷰 관리 테이블 - 평점 컬럼 */
+.admin-review-manage .admin-table tbody td:nth-child(3) {
+    width: 12%;
+    white-space: nowrap;
+}
+
+/* 리뷰 관리 테이블 - 내용 컬럼 */
+.admin-review-manage .admin-table tbody td:nth-child(4) {
+    width: 22%;
+}
+
+/* 리뷰 관리 테이블 - 작성일 컬럼 */
+.admin-review-manage .admin-table tbody td:nth-child(5) {
+    width: 12%;
+}
+
+/* 리뷰 관리 테이블 - 관리 컬럼 */
+.admin-review-manage .admin-table tbody td:nth-child(6) {
+    width: 6%;
 }
 
 .admin-table tbody tr {
@@ -385,8 +511,10 @@
 }
 
 .admin-table tbody td {
-    padding: 15px;
+    padding: 16px 12px;
     color: #333;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .admin-table-image {
@@ -394,6 +522,8 @@
     height: 50px;
     object-fit: contain;
     border-radius: 6px;
+    display: block;
+    margin: 0 auto;
 }
 
 .admin-table-actions {
@@ -414,6 +544,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    white-space: nowrap;
 }
 
 .admin-edit-btn {

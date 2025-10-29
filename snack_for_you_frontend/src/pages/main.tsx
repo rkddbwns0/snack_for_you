@@ -32,8 +32,6 @@ export const Main = () => {
         }
     };
 
-
-
     const favoriteList = async () => {
         if (!user) {
             return;
@@ -81,42 +79,25 @@ export const Main = () => {
     }, []);
 
     const SnackCard = ({ item }: { item: any }) => {
-        const isFavorite = user && userFavorite && 
-            userFavorite.some((favorite: any) => favorite.snack_id === item.snack_id);
-        
+        const isFavorite =
+            user && userFavorite && userFavorite.some((favorite: any) => favorite.snack_id === item.snack_id);
+
         return (
             <div className="snack-card">
-                <div 
-                    className="snack-image-container" 
-                    onClick={() => navigation(`/snack_detail/${item.snack_id}`)}
-                >
-                    <img 
-                        src={item.product_image} 
-                        className="snack-image"
-                        alt={item.name}
-                    />
+                <div className="snack-image-container" onClick={() => navigation(`/snack_detail/${item.snack_id}`)}>
+                    <img src={item.product_image} className="snack-image" alt={item.name} />
                 </div>
-                <div className="snack-name">
-                    {item.name}
-                </div>
-                <div className="snack-price">
-                    {item.price?.toLocaleString()}원
-                </div>
+                <div className="snack-name">{item.name}</div>
+                <div className="snack-price">{item.price?.toLocaleString()}원</div>
                 <div className="snack-card-footer">
-                    <button 
-                        className="favorite-button"
-                        onClick={() => toggleFavorite(item.snack_id)}
-                    >
+                    <button className="favorite-button" onClick={() => toggleFavorite(item.snack_id)}>
                         {isFavorite ? (
                             <HiHeart className="favorite-icon active" />
                         ) : (
                             <HiOutlineHeart className="favorite-icon" />
                         )}
                     </button>
-                    <button 
-                        className="detail-button"
-                        onClick={() => navigation(`/snack_detail/${item.snack_id}`)}
-                    >
+                    <button className="detail-button" onClick={() => navigation(`/snack_detail/${item.snack_id}`)}>
                         상세보기
                     </button>
                 </div>
@@ -133,21 +114,15 @@ export const Main = () => {
                         <h1 className="welcome-title">
                             맛있는 간식, <span className="highlight">Snack For You</span>
                         </h1>
-                        <p className="welcome-subtitle">
-                            당신의 취향에 맞는 최고의 간식을 추천해드립니다
-                        </p>
+                        <p className="welcome-subtitle">당신의 취향에 맞는 최고의 간식을 추천해드립니다</p>
                     </div>
 
                     {/* 추천 상품 섹션 */}
-                    {randomSnack.length > 0 && (
+                    {randomSnack && randomSnack?.length > 0 && (
                         <div className="main-content">
                             <div className="section-header">
-                                <h2 className="main-title">
-                                    🎯 당신을 위한 추천 과자
-                                </h2>
-                                <p className="section-description">
-                                    매일 새로운 추천을 받아보세요!
-                                </p>
+                                <h2 className="main-title">🎯 당신을 위한 추천 과자</h2>
+                                <p className="section-description">매일 새로운 추천을 받아보세요!</p>
                             </div>
                             <div className="snack-scroll-container">
                                 {randomSnack.map((item: any) => (
@@ -161,12 +136,8 @@ export const Main = () => {
                     {allSnacks.length > 0 && (
                         <div className="main-content featured-section">
                             <div className="section-header">
-                                <h2 className="main-title">
-                                    ⭐ 전체 인기 상품
-                                </h2>
-                                <p className="section-description">
-                                    지금 가장 인기있는 간식들을 확인해보세요
-                                </p>
+                                <h2 className="main-title">⭐ 전체 인기 상품</h2>
+                                <p className="section-description">지금 가장 인기있는 간식들을 확인해보세요</p>
                             </div>
                             <div className="snack-grid-container">
                                 {allSnacks.slice(0, 8).map((item: any) => (
@@ -174,10 +145,7 @@ export const Main = () => {
                                 ))}
                             </div>
                             <div className="view-all-button-container">
-                                <button 
-                                    className="view-all-button"
-                                    onClick={() => navigation('/snack_list')}
-                                >
+                                <button className="view-all-button" onClick={() => navigation('/snack_list')}>
                                     전체 상품 보기
                                 </button>
                             </div>

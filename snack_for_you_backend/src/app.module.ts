@@ -13,6 +13,7 @@ import { OrderModule } from './order/order.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FavoritesModule } from './favorites/favorites.modeule';
 import { ReviewModule } from './review/review.module';
+import { AdminAuthModule } from './auth/admin/admin.auth.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ReviewModule } from './review/review.module';
     FavoritesModule,
     DashboardModule,
     ReviewModule,
+    AdminAuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

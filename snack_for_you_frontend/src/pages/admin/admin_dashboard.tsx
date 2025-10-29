@@ -11,7 +11,6 @@ export const AdminDashboard = () => {
 
     const getDashboardData = async () => {
         const data = await adminApi.getDashboardData();
-        console.log(data);
         setDashboardData(data?.dashboardData);
         setRecentOrders(data?.recentData?.orders);
         setRecentReviews(data?.recentData?.reviews);
@@ -89,6 +88,9 @@ export const AdminDashboard = () => {
                                                         </p>
                                                     )}
                                                 </div>
+                                            </div>
+                                            <div>
+                                                <button>주문 상태 변경</button>
                                             </div>
                                         </div>
                                         <div className="admin-order-right">

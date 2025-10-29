@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { AdminApi } from '../../api/admin.api.tsx';
 
 interface Product {
     snack_id: number;
@@ -13,15 +14,19 @@ interface Product {
 export const AdminProductManage = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
+    const [snackList, setSnackList] = useState<any>([]);
+    const adminApi = new AdminApi();
+
+    const getAllSnackList = async () => {
+        const data = await adminApi.getAllSnackList();
+        setSnackList(data);
+    };
 
     useEffect(() => {
-        // TODO: API에서 제품 목록 조회
-        setProducts([]);
-        setLoading(false);
+        getAllSnackList();
     }, []);
 
     const handleEdit = (id: number) => {
-        // TODO: 제품 수정 기능
         console.log('제품 수정:', id);
     };
 
@@ -40,11 +45,7 @@ export const AdminProductManage = () => {
             </div>
 
             <div className="admin-table-container">
-                {loading ? (
-                    <div className="admin-empty-message">
-                        <p>로딩 중...</p>
-                    </div>
-                ) : products.length > 0 ? (
+                {snackList ? (
                     <table className="admin-table">
                         <thead>
                             <tr>
@@ -53,34 +54,36 @@ export const AdminProductManage = () => {
                                 <th>카테고리</th>
                                 <th>가격</th>
                                 <th>재고</th>
+                                <th>등록일</th>
                                 <th>관리</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product) => (
-                                <tr key={product.snack_id}>
+                            {snackList.map((item) => (
+                                <tr key={item.snack_id}>
                                     <td>
                                         <img
-                                            src={product.snack_image}
-                                            alt={product.snack_name}
+                                            src={item.snack_image}
+                                            alt={item.snack_name}
                                             className="admin-table-image"
                                         />
                                     </td>
-                                    <td>{product.snack_name}</td>
-                                    <td>{product.category_name}</td>
-                                    <td>{product.price.toLocaleString()}원</td>
-                                    <td>{product.stock}</td>
+                                    <td>{item.snack_name}</td>
+                                    <td>{item.category_name}</td>
+                                    <td>{item.snack_price}원</td>
+                                    <td>{item.snack_quantity}</td>
+                                    <td>{item.reg_at.split('T')[0]}</td>
                                     <td>
                                         <div className="admin-table-actions">
                                             <button
                                                 className="admin-edit-btn"
-                                                onClick={() => handleEdit(product.snack_id)}
+                                                onClick={() => handleEdit(item.snack_id)}
                                             >
                                                 <FaEdit /> 수정
                                             </button>
                                             <button
                                                 className="admin-delete-btn"
-                                                onClick={() => handleDelete(product.snack_id)}
+                                                onClick={() => handleDelete(item.snack_id)}
                                             >
                                                 <FaTrash /> 삭제
                                             </button>

@@ -1,28 +1,24 @@
 import { useState, useEffect } from 'react';
 import { FaTrash, FaEye } from 'react-icons/fa';
-
-interface Review {
-    review_id: number;
-    snack_name: string;
-    user_nickname: string;
-    review_score: number;
-    review_content: string;
-    review_writed_at: string;
-}
+import { AdminApi } from '../../api/admin.api.tsx';
 
 export const AdminReviewManage = () => {
-    const [reviews, setReviews] = useState<Review[]>([]);
+    const adminApi = new AdminApi();
+    const [reviews, setReviews] = useState<any>([]);
     const [loading, setLoading] = useState(true);
 
+    const getAllReviewList = async () => {
+        const data = await adminApi.getAllReviewList();
+        console.log(data);
+        setReviews(data);
+    };
+
     useEffect(() => {
-        // TODO: API에서 리뷰 목록 조회
-        setReviews([]);
-        setLoading(false);
+        getAllReviewList();
     }, []);
 
     const handleDelete = (id: number) => {
         if (window.confirm('이 리뷰를 삭제하시겠습니까?')) {
-            // TODO: API로 리뷰 삭제
             console.log('리뷰 삭제:', id);
         }
     };
@@ -33,22 +29,18 @@ export const AdminReviewManage = () => {
     };
 
     return (
-        <div className="admin-content-wrapper">
+        <div className="admin-content-wrapper admin-review-manage">
             <div className="admin-content-header">
                 <h1>리뷰 관리</h1>
                 <p>사용자 리뷰를 관리하세요</p>
             </div>
 
             <div className="admin-table-container">
-                {loading ? (
-                    <div className="admin-empty-message">
-                        <p>로딩 중...</p>
-                    </div>
-                ) : reviews.length > 0 ? (
+                {reviews ? (
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>상품명</th>
+                                <th>상품</th>
                                 <th>작성자</th>
                                 <th>평점</th>
                                 <th>내용</th>
@@ -59,8 +51,21 @@ export const AdminReviewManage = () => {
                         <tbody>
                             {reviews.map((review) => (
                                 <tr key={review.review_id}>
-                                    <td>{review.snack_name}</td>
-                                    <td>{review.user_nickname}</td>
+                                    <td>
+                                        <img
+                                            src={review.snack_image}
+                                            alt={review.snack_name}
+                                            className="admin-table-image"
+                                        />
+                                        <div className="admin-product-info">
+                                            <span className="admin-product-name">{review.snack_name}</span>
+                                            <span className="admin-product-quantity">({review.order_quantity}개)</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span className="admin-user-info">{review.user_name}</span>
+                                        <span className="admin-user-nickname">({review.user_nickname})</span>
+                                    </td>
                                     <td>
                                         <span className="admin-review-score">
                                             {'⭐'.repeat(review.review_score)} {review.review_score}점
@@ -72,10 +77,7 @@ export const AdminReviewManage = () => {
                                     <td>{review.review_writed_at}</td>
                                     <td>
                                         <div className="admin-table-actions">
-                                            <button
-                                                className="admin-view-btn"
-                                                onClick={() => handleView(review)}
-                                            >
+                                            <button className="admin-view-btn" onClick={() => handleView(review)}>
                                                 <FaEye /> 보기
                                             </button>
                                             <button

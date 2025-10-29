@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaTrash, FaInfoCircle } from 'react-icons/fa';
-
+import { AdminApi } from '../../api/admin.api.tsx';
 interface User {
     user_id: number;
     email: string;
@@ -11,13 +11,16 @@ interface User {
 }
 
 export const AdminUserManage = () => {
-    const [users, setUsers] = useState<User[]>([]);
+    const adminApi = new AdminApi();
+    const [users, setUsers] = useState<any>([]);
     const [loading, setLoading] = useState(true);
 
+    const getAllUserList = async () => {
+        const data = await adminApi.getAllUserList();
+        setUsers(data);
+    };
     useEffect(() => {
-        // TODO: API에서 사용자 목록 조회
-        setUsers([]);
-        setLoading(false);
+        getAllUserList();
     }, []);
 
     const handleDelete = (id: number) => {
@@ -40,15 +43,11 @@ export const AdminUserManage = () => {
             </div>
 
             <div className="admin-table-container">
-                {loading ? (
-                    <div className="admin-empty-message">
-                        <p>로딩 중...</p>
-                    </div>
-                ) : users.length > 0 ? (
+                {users ? (
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>이메일</th>
+                                <th>아이디</th>
                                 <th>이름</th>
                                 <th>닉네임</th>
                                 <th>가입일</th>
@@ -59,21 +58,16 @@ export const AdminUserManage = () => {
                         <tbody>
                             {users.map((user) => (
                                 <tr key={user.user_id}>
-                                    <td>{user.email}</td>
-                                    <td>{user.user_name}</td>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
                                     <td>{user.nickname}</td>
                                     <td>{user.created_at}</td>
                                     <td>
-                                        <span className="admin-order-count">
-                                            {user.total_orders}건
-                                        </span>
+                                        <span className="admin-order-count">{user.order_count}건</span>
                                     </td>
                                     <td>
                                         <div className="admin-table-actions">
-                                            <button
-                                                className="admin-info-btn"
-                                                onClick={() => handleView(user)}
-                                            >
+                                            <button className="admin-info-btn" onClick={() => handleView(user)}>
                                                 <FaInfoCircle /> 정보
                                             </button>
                                             <button
@@ -90,7 +84,7 @@ export const AdminUserManage = () => {
                     </table>
                 ) : (
                     <div className="admin-empty-message">
-                        <p>등록된 사용자가 없습니다.</p>
+                        <p>사용자가 없습니다.</p>
                     </div>
                 )}
             </div>

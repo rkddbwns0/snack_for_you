@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaBox, FaList, FaStar, FaUsers, FaChartBar } from 'react-icons/fa';
+import { FaBox, FaList, FaStar, FaUsers, FaChartBar, FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import logoImg from '../img/snack_for_you_logo.png';
 import '../css/admin.css';
@@ -8,9 +8,11 @@ import { AdminProductRegister } from './admin/admin_product_register.tsx';
 import { AdminProductManage } from './admin/admin_product_manage.tsx';
 import { AdminReviewManage } from './admin/admin_review_manage.tsx';
 import { AdminUserManage } from './admin/admin_user_manage.tsx';
+import { useAuth } from '../context/context.tsx';
 
 export const Admin = () => {
     const navigation = useNavigate();
+    const { user } = useAuth();
     const [activeMenu, setActiveMenu] = useState<string>('dashboard');
 
     const menuItems = [
@@ -47,27 +49,20 @@ export const Admin = () => {
                     <h2 className="admin-header-title">Snack For You 관리자</h2>
                 </div>
                 <div className="admin-header-right">
-                    {/* {user ? (
+                    {user ? (
                         <div className="admin-header-user">
                             <span className="admin-user-name">{user?.nickname}님</span>
-                            <button className="admin-logout-btn" onClick={handleLogout}>
+                            <button className="admin-logout-btn">
                                 <FaSignOutAlt />
                                 로그아웃
                             </button>
                         </div>
                     ) : (
-                        <button 
-                            className="admin-login-btn"
-                            onClick={() => navigation('/admin_login')}
-                        >
+                        <button className="admin-login-btn" onClick={() => navigation('/admin_login')}>
                             관리자 로그인
                         </button>
                     )}
-                        */}
                 </div>
-                <button className="admin-login-btn" onClick={() => navigation('/admin/login')}>
-                    관리자 로그인
-                </button>
             </header>
 
             <div className="admin-container">

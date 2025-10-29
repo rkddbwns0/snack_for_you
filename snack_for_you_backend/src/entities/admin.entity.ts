@@ -15,7 +15,10 @@ export class AdminEntity {
   @PrimaryGeneratedColumn()
   admin_id: number;
 
-  @ManyToOne(() => AdminRoleEntity, (admin_role) => admin_role.role_id)
+  @ManyToOne(() => AdminRoleEntity, (admin_role) => admin_role.role_id, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'role_id' })
   role: AdminRoleEntity;
 
@@ -25,8 +28,11 @@ export class AdminEntity {
   @Column({ type: 'varchar', length: 255, nullable: false })
   password: string;
 
-  @Column({ type: 'varchar', length: 20, nullable: false })
+  @Column({ type: 'varchar', length: 10, nullable: false })
   name: string;
+
+  @Column({ type: 'varchar', length: 20, nullable: false })
+  nickname: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

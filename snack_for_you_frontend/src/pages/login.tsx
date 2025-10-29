@@ -36,6 +36,7 @@ export const Login = () => {
             const data = await response.json();
 
             sessionStorage.setItem('access_token', data.access_token);
+            sessionStorage.setItem('userType', 'user');
             navigation('/');
         } catch (e) {
             console.error(e);
@@ -55,7 +56,7 @@ export const Login = () => {
                     <div className="auth-content-wrapper">
                         <div className="auth-form-card">
                             <h1 className="auth-title">로그인</h1>
-                            
+
                             <div className="auth-form-group">
                                 <label className="auth-form-label">아이디</label>
                                 <input
@@ -67,7 +68,7 @@ export const Login = () => {
                                     onKeyDown={(e) => handleEnter(e)}
                                 />
                             </div>
-                            
+
                             <div className="auth-form-group">
                                 <label className="auth-form-label">비밀번호</label>
                                 <div className="auth-password-container">
@@ -79,30 +80,21 @@ export const Login = () => {
                                         placeholder="비밀번호를 입력하세요"
                                         onKeyDown={(e) => handleEnter(e)}
                                     />
-                                    <span 
-                                        onClick={() => setShowPassword(!showPassword)} 
-                                        className="auth-password-icon"
-                                    >
+                                    <span onClick={() => setShowPassword(!showPassword)} className="auth-password-icon">
                                         {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
                                     </span>
                                 </div>
                             </div>
-                            
-                            <button 
-                                className="auth-submit-button"
-                                onClick={handleLogin}
-                            >
+
+                            <button className="auth-submit-button" onClick={handleLogin}>
                                 로그인
                             </button>
-                            
+
                             <div className="auth-menu-container">
                                 <div className="login-menu-links">
                                     <span className="auth-menu-link">아이디 찾기</span>
                                     <span className="auth-menu-link">비밀번호 찾기</span>
-                                    <span 
-                                        className="auth-menu-link"
-                                        onClick={() => navigation('/signup')}
-                                    >
+                                    <span className="auth-menu-link" onClick={() => navigation('/signup')}>
                                         회원가입
                                     </span>
                                 </div>

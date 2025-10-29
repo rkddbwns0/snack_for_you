@@ -18,7 +18,15 @@ async function bootstrap() {
     .setDescription('Snack For You API 명세서')
     .setVersion('1.0')
     .addTag('Snack For You')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: '로그인 후 받은 JWT 토큰을 입력하세요',
+      },
+      'bearerAuth',
+    )
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

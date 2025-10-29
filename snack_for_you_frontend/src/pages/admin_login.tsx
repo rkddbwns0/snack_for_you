@@ -1,37 +1,23 @@
 import { useState } from 'react';
 import { IoIosEyeOff, IoIosEye } from 'react-icons/io';
 import '../css/admin_login.css';
+import { AdminAuthApi } from '../api/admin.auth.api.tsx';
+import { useNavigate } from 'react-router-dom';
 
 export const AdminLogin = () => {
+    const navigation = useNavigate();
+    const adminAuthApi = new AdminAuthApi();
     const [adminId, setAdminId] = useState<string>('');
     const [adminPassword, setAdminPassword] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const handleAdminLogin = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    admin_id: adminId,
-                    password: adminPassword,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => {});
-                alert(errorData.message || '오류가 발생했습니다 다시 시도해 주세요.');
-            }
-
-            const data = await response.json();
-
-            sessionStorage.setItem('access_token', data.access_token);
-
-            window.location.href = '/admin';
-        } catch (e) {
-            console.error(e);
+        const data = await adminAuthApi.adminLogin(adminId, adminPassword);
+        console.log(data);
+        if (data?.status === 201) {
+            sessionStorage.setItem('access_token', data?.data.access_token);
+            sessionStorage.setItem('userType', 'admin');
+            navigation('/admin');
         }
     };
 

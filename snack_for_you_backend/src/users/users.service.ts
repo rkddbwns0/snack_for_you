@@ -146,4 +146,30 @@ export class UserService {
       }
     }
   }
+
+  async allUserList() {
+    try {
+      const user = await this.user
+        .createQueryBuilder('u')
+        .leftJoin('order_info', 'o', 'o.user_id = u.user_id')
+        .select('u.user_id as user_id')
+        .addSelect('u.id as id')
+        .addSelect('u.name as name')
+        .addSelect('u.nickname as nickname')
+        .addSelect('COUNT(o.order_id) as order_count')
+        .addSelect(
+          "TO_CHAR(u.created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at",
+        )
+        .groupBy('u.user_id')
+        .orderBy('u.created_at', 'DESC')
+        .getRawMany();
+
+      return user;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }
