@@ -2,18 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { AdminApi } from '../../api/admin.api.tsx';
 
-interface Product {
-    snack_id: number;
-    snack_name: string;
-    price: number;
-    stock: number;
-    category_name: string;
-    snack_image: string;
-}
-
 export const AdminProductManage = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
     const [snackList, setSnackList] = useState<any>([]);
     const adminApi = new AdminApi();
 
@@ -30,10 +19,15 @@ export const AdminProductManage = () => {
         console.log('제품 수정:', id);
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (snack_id: number) => {
         if (window.confirm('이 제품을 삭제하시겠습니까?')) {
-            // TODO: API로 제품 삭제
-            console.log('제품 삭제:', id);
+            const data = await adminApi.deleteSnack(snack_id);
+            if (data?.status === 200) {
+                alert(data?.data.message);
+                getAllSnackList();
+            } else {
+                alert(data?.data.message);
+            }
         }
     };
 

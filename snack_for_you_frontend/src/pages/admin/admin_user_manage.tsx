@@ -52,7 +52,6 @@ export const AdminUserManage = () => {
                                 <th>닉네임</th>
                                 <th>가입일</th>
                                 <th>주문 수</th>
-                                <th>관리</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,19 +63,6 @@ export const AdminUserManage = () => {
                                     <td>{user.created_at}</td>
                                     <td>
                                         <span className="admin-order-count">{user.order_count}건</span>
-                                    </td>
-                                    <td>
-                                        <div className="admin-table-actions">
-                                            <button className="admin-info-btn" onClick={() => handleView(user)}>
-                                                <FaInfoCircle /> 정보
-                                            </button>
-                                            <button
-                                                className="admin-delete-btn"
-                                                onClick={() => handleDelete(user.user_id)}
-                                            >
-                                                <FaTrash /> 삭제
-                                            </button>
-                                        </div>
                                     </td>
                                 </tr>
                             ))}

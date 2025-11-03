@@ -1,6 +1,5 @@
 import { HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { distinct } from 'rxjs';
 import { CreateOrderDto } from 'src/dto/order.dto';
 import { CartItemEntity } from 'src/entities/cart_items.entity';
 import { OrderInfoEntity } from 'src/entities/order_info.entity';
@@ -219,6 +218,28 @@ export class OrderService {
         .getRawMany();
 
       return order;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async changeOrderStatus(order_id: number, status: string) {
+    try {
+      const order = await this.order_info.findOne({
+        where: { order_id: order_id },
+      });
+
+      if (!order) {
+        throw new HttpException('존재하지 않는 주문내역입니다.', 404);
+      }
+
+      order.status = status;
+      await this.order_info.save(order);
+
+      return { message: '주문 상태가 변경되었습니다.' };
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {

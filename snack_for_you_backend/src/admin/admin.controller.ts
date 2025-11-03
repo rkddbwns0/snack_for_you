@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateAdminDto } from 'src/dto/admin.auth.dto';
 import { AdminAuthGuard } from 'src/auth/admin/admin_guard/admin.auth.guard';
 
@@ -47,5 +56,22 @@ export class AdminUserController {
   async getAllReviewList() {
     const reviewList = await this.adminService.getAllReviewList();
     return reviewList;
+  }
+
+  @ApiOperation({ summary: '주문 상태 변경' })
+  @Put('/order/:order_id')
+  async changeOrderStatus(
+    @Param('order_id') order_id: number,
+    @Body('status') status: string,
+  ) {
+    const result = await this.adminService.changeOrderStatus(order_id, status);
+    return result;
+  }
+
+  @ApiOperation({ summary: '상품 삭제 라우터' })
+  @Delete('/snack/:snack_id')
+  async deleteSnack(@Param('snack_id') snack_id: number) {
+    const result = await this.adminService.deleteSnack(snack_id);
+    return result;
   }
 }

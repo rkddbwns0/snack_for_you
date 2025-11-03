@@ -12,7 +12,7 @@ import { AdminAuthService } from './admin.auth.service';
 
 @Module({
   imports: [
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'admin-jwt' }),
     JwtModule.register({ secret: process.env.JWT_SECRET_KEY as string }),
     TypeOrmModule.forFeature([AdminEntity]),
   ],

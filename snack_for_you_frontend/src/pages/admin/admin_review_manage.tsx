@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { FaTrash, FaEye } from 'react-icons/fa';
 import { AdminApi } from '../../api/admin.api.tsx';
+import { ReviewDetail } from '../../component/review_detail.tsx';
 
 export const AdminReviewManage = () => {
     const adminApi = new AdminApi();
-    const [reviews, setReviews] = useState<any>([]);
-    const [loading, setLoading] = useState(true);
+    const [reviews, setReviews] = useState<any>(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedReview, setSelectedReview] = useState<any>(null);
 
     const getAllReviewList = async () => {
         const data = await adminApi.getAllReviewList();
@@ -23,9 +25,14 @@ export const AdminReviewManage = () => {
         }
     };
 
-    const handleView = (review: Review) => {
-        // TODO: 리뷰 상세 보기
-        console.log('리뷰 상세:', review);
+    const handleView = (review: any) => {
+        setSelectedReview(review);
+        setIsOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsOpen(false);
+        setSelectedReview(null);
     };
 
     return (
@@ -72,7 +79,9 @@ export const AdminReviewManage = () => {
                                         </span>
                                     </td>
                                     <td className="admin-review-content">
-                                        {review.review_content.substring(0, 50)}...
+                                        {review.review_content.length > 10
+                                            ? review.review_content.substring(0, 10) + '...'
+                                            : review.review_content}
                                     </td>
                                     <td>{review.review_writed_at}</td>
                                     <td>
@@ -94,10 +103,11 @@ export const AdminReviewManage = () => {
                     </table>
                 ) : (
                     <div className="admin-empty-message">
-                        <p>리뷰가 없습니다.</p>
+                        <p>최근 작성된 리뷰가 없습니다.</p>
                     </div>
                 )}
             </div>
+            <ReviewDetail isOpen={isOpen} setIsOpen={handleCloseModal} review={selectedReview} />
         </div>
     );
 };

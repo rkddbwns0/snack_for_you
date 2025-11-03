@@ -11,8 +11,8 @@ import { LocalStrategy } from './strategies/local.strategy';
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
-    PassportModule,
-    JwtModule.register({ secret: process.env.JWT_SECRET }),
+    PassportModule.register({ defaultStrategy: 'user-jwt' }),
+    JwtModule.register({ secret: process.env.JWT_SECRET_KEY as string }),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtService, JwtStrategy, LocalStrategy],

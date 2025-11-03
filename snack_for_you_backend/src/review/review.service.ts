@@ -127,6 +127,7 @@ export class ReviewService {
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
+      today.setDate(today.getDate() + 1);
 
       const savenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 

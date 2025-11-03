@@ -1,0 +1,261 @@
+/* 리뷰 상세보기 오버레이 */
+.review-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* 리뷰 상세보기 모달 */
+.review-detail-modal {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 모달 헤더 */
+.review-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-bottom: 2px solid #f7a815;
+    background: linear-gradient(135deg, #f7a815 0%, #e0990f 100%);
+}
+
+.review-detail-header h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.review-detail-close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.review-detail-close-btn:hover {
+    transform: scale(1.2);
+}
+
+/* 모달 본문 */
+.review-detail-body {
+    padding: 30px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.review-detail-section {
+    margin-bottom: 30px;
+}
+
+.review-detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.review-detail-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f7a815;
+}
+
+/* 상품 정보 */
+.review-product-info {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.review-product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.review-product-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.review-product-name {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.review-product-quantity {
+    margin: 0;
+    font-size: 13px;
+    color: #999;
+}
+
+/* 작성자 정보 */
+.review-author-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.review-author-item {
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}
+
+.review-author-item label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f7a815;
+    margin-bottom: 6px;
+}
+
+.review-author-item p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 평점 */
+.review-score-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(247, 168, 21, 0.1) 0%, rgba(224, 153, 15, 0.05) 100%);
+    border-radius: 8px;
+    border-left: 4px solid #f7a815;
+}
+
+.review-stars {
+    font-size: 24px;
+}
+
+.review-score-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f7a815;
+}
+
+/* 리뷰 내용 */
+.review-content-text {
+    margin: 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #666;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 모달 푸터 */
+.review-detail-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #f9f9f9;
+}
+
+.review-close-button {
+    padding: 12px 30px;
+    background-color: #f7a815;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.review-close-button:hover {
+    background-color: #e0990f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(247, 168, 21, 0.3);
+}
+
+.review-close-button:active {
+    transform: translateY(0);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .review-detail-modal {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .review-detail-header {
+        padding: 20px;
+    }
+
+    .review-detail-header h2 {
+        font-size: 20px;
+    }
+
+    .review-detail-body {
+        padding: 20px;
+    }
+
+    .review-author-info {
+        grid-template-columns: 1fr;
+    }
+
+    .review-product-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .review-product-image {
+        width: 120px;
+        height: 120px;
+    }
+}

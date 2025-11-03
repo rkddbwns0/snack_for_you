@@ -11,7 +11,7 @@ export class ReviewApi {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+                    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
                 },
                 credentials: 'include',
                 body: JSON.stringify({
@@ -42,8 +42,7 @@ export class ReviewApi {
                     Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
                 },
                 credentials: 'include',
-
-            })
+            });
 
             if (!response.ok) {
                 throw new Error('Failed to get user review');
@@ -51,7 +50,7 @@ export class ReviewApi {
 
             const data = await response.json();
             return data;
-        }catch (e) {
+        } catch (e) {
             console.error(e);
         }
     }

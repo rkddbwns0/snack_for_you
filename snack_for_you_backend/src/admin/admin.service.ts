@@ -94,4 +94,14 @@ export class AdminService {
     const review = await this.reviewService.allReviewList();
     return review;
   }
+
+  async changeOrderStatus(order_id: number, status: string) {
+    const result = await this.orderService.changeOrderStatus(order_id, status);
+    return result;
+  }
+
+  async deleteSnack(snack_id: number) {
+    const result = await this.snackService.deleteSnack(snack_id);
+    return result;
+  }
 }

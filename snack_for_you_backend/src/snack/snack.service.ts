@@ -231,4 +231,28 @@ export class SnackService {
       }
     }
   }
+
+  async deleteSnack(snack_id: number) {
+    try {
+      const snack = await this.snack_info.findOne({
+        where: { snack_id: snack_id },
+      });
+
+      if (!snack) {
+        throw new HttpException(
+          '존재하지 않는 상품입니다.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      await this.snack_info.delete({ snack_id: snack_id });
+
+      return { message: '상품이 삭제되었습니다.' };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
 }
