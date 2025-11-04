@@ -415,7 +415,13 @@
 
 .admin-table thead th:nth-child(7),
 .admin-table tbody td:nth-child(7) {
-    width: 23%;
+    width: 15%;
+    text-align: center;
+}
+
+.admin-table thead th:nth-child(8),
+.admin-table tbody td:nth-child(8) {
+    width: 15%;
     text-align: center;
 }
 
@@ -1193,6 +1199,10 @@
         border-top: 1px solid #f0f0f0;
     }
 
+    .admin-order-snack-name {
+        display: flex;
+    }
+
     .admin-order-status {
         min-width: auto;
         padding: 5px 8px;
@@ -1260,4 +1270,143 @@
     padding: 8px;
     color: #333;
     background-color: #fff;
+}
+
+/* 주문 관리 페이지 테이블 스타일 */
+.admin-order-manage .admin-table tbody tr {
+    height: 70px;
+}
+
+.admin-order-manage .admin-table tbody td {
+    height: 70px;
+    padding: 10 12px;
+    align-items: center;
+    color: #333;
+}
+
+/* 컬럼 너비 설정 */
+.admin-order-manage .admin-table tbody td:nth-child(1) {
+    width: 5%;
+    justify-content: center;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(2) {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(2) img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(2) .admin-snack-name-text {
+    font-weight: 500;
+    color: #333;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(3),
+.admin-order-manage .admin-table tbody td:nth-child(4) {
+    width: 12%;
+    justify-content: center;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(5) {
+    width: 10%;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(6) {
+    width: 12%;
+    justify-content: center;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(7) {
+    width: 8%;
+    padding: 0px;
+    justify-content: center;
+}
+
+.admin-order-manage .admin-table tbody td:nth-child(8) {
+    width: 10%;
+    padding: 0 4px;
+    justify-content: center;
+}
+
+/* 가격 스타일 */
+.admin-order-manage .admin-order-price {
+    font-weight: 700;
+    color: #f7a815;
+    white-space: nowrap;
+}
+
+/* 상태 변경 select 스타일 */
+.admin-order-manage select {
+    width: 60%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: inherit;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-order-manage select:hover {
+    border-color: #f7a815;
+    background-color: #fffbf0;
+}
+
+.admin-order-manage select:focus {
+    outline: none;
+    border-color: #f7a815;
+    box-shadow: 0 0 0 3px rgba(247, 168, 21, 0.1);
+}
+
+.admin-order-manage select option {
+    padding: 8px;
+    color: #333;
+    background-color: #fff;
+}
+
+.admin-order-manage select option:disabled {
+    background-color: #f0f0f0;
+    color: #999;
+}
+
+/* 상세 정보 버튼 스타일 */
+.admin-order-manage button {
+    padding: 8px 14px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: center;
+}
+
+.admin-order-manage button:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.admin-order-manage button:active {
+    transform: translateY(0);
 }

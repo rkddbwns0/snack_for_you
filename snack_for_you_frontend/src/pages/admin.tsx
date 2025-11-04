@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaBox, FaList, FaStar, FaUsers, FaChartBar, FaSignOutAlt } from 'react-icons/fa';
+import { FaBox, FaList, FaStar, FaUsers, FaChartBar, FaSignOutAlt, FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import logoImg from '../img/snack_for_you_logo.png';
 import '../css/admin.css';
@@ -9,6 +9,7 @@ import { AdminProductManage } from './admin/admin_product_manage.tsx';
 import { AdminReviewManage } from './admin/admin_review_manage.tsx';
 import { AdminUserManage } from './admin/admin_user_manage.tsx';
 import { useAuth } from '../context/context.tsx';
+import { AdminOrderManage } from './admin/admin_order_manage.tsx';
 
 export const Admin = () => {
     const navigation = useNavigate();
@@ -19,6 +20,7 @@ export const Admin = () => {
         { id: 'dashboard', label: '대시보드', icon: FaChartBar },
         { id: 'product-register', label: '제품 등록', icon: FaBox },
         { id: 'product-manage', label: '제품 관리', icon: FaList },
+        { id: 'order-manage', label: '주문 관리', icon: FaShoppingCart },
         { id: 'review-manage', label: '리뷰 관리', icon: FaStar },
         { id: 'user-manage', label: '사용자 관리', icon: FaUsers },
     ];
@@ -31,6 +33,8 @@ export const Admin = () => {
                 return <AdminProductRegister />;
             case 'product-manage':
                 return <AdminProductManage />;
+            case 'order-manage':
+                return <AdminOrderManage />;
             case 'review-manage':
                 return <AdminReviewManage />;
             case 'user-manage':

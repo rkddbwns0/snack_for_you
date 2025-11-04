@@ -16,15 +16,6 @@ export const AdminDashboard = () => {
         setRecentReviews(data?.recentData?.reviews);
     };
 
-    const handleOrderStatus = async (order_id: number, status: string) => {
-        const data = await adminApi.changeOrderStatus(order_id, status);
-
-        if (data?.status === 200) {
-            alert(data.data.message);
-            getDashboardData();
-        }
-    };
-
     useEffect(() => {
         getDashboardData();
     }, []);
@@ -98,37 +89,6 @@ export const AdminDashboard = () => {
                                                     )}
                                                 </div>
                                             </div>
-                                            <label>
-                                                <select
-                                                    onChange={(e) => handleOrderStatus(item.order_id, e.target.value)}
-                                                    defaultValue={item.status}
-                                                >
-                                                    <option
-                                                        disabled={item.status === '주문 완료' ? true : false}
-                                                        value="주문 완료"
-                                                    >
-                                                        주문 완료
-                                                    </option>
-                                                    <option
-                                                        disabled={item.status === '배송 준비' ? true : false}
-                                                        value="배송 준비"
-                                                    >
-                                                        배송 준비
-                                                    </option>
-                                                    <option
-                                                        disabled={item.status === '배송 중' ? true : false}
-                                                        value="배송 중"
-                                                    >
-                                                        배송 중
-                                                    </option>
-                                                    <option
-                                                        disabled={item.status === '배송 완료' ? true : false}
-                                                        value="배송 완료"
-                                                    >
-                                                        배송 완료
-                                                    </option>
-                                                </select>
-                                            </label>
                                         </div>
                                         <div className="admin-order-right">
                                             <div className={`admin-order-status admin-status-${item.status}`}>

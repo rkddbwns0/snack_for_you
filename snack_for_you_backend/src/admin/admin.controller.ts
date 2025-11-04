@@ -58,6 +58,20 @@ export class AdminUserController {
     return reviewList;
   }
 
+  @ApiOperation({ summary: '모든 주문 리스트 조회' })
+  @Get('/order')
+  async getAllOrderList() {
+    const orderList = await this.adminService.getAllOrderList();
+    return orderList;
+  }
+
+  @ApiOperation({ summary: '주문 상세 정보 조회회' })
+  @Get('/order/:order_id')
+  async getOrderDetail(@Param('order_id') order_id: number) {
+    const orderList = await this.adminService.getOrderDetail(order_id);
+    return orderList;
+  }
+
   @ApiOperation({ summary: '주문 상태 변경' })
   @Put('/order/:order_id')
   async changeOrderStatus(

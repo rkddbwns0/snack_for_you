@@ -182,6 +182,65 @@ export class OrderService {
     }
   }
 
+  async getAllOrderList() {
+    try {
+      const order = await this.order_info
+        .createQueryBuilder('oi')
+        .innerJoin('oi.user', 'u')
+        .innerJoin('oi.address', 'a')
+        .innerJoin('oi.order_item', 'i')
+        .innerJoin('i.snack', 's')
+        .select('oi.order_id as order_id')
+        .addSelect('u.nickname as user_nickname')
+        .addSelect('a.name as recipient_name')
+        .addSelect('a.road_name as road_name')
+        .addSelect('a.detail_address as detail_address')
+        .addSelect('a.request as request')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('i.quantity as order_quantity')
+        .addSelect('oi.total_price as total_price')
+        .addSelect('oi.payment_method as payment_method')
+        .addSelect('oi.status as status')
+        .addSelect(
+          "TO_CHAR(oi.order_date, 'YYYY-MM-DD HH24:MI:SS') as order_date",
+        )
+        .orderBy('oi.order_id', 'DESC')
+        .distinctOn(['oi.order_id'])
+        .getRawMany();
+
+      console.log(order);
+      return order;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async orderDetail(order_id: number) {
+    try {
+      const order_items = await this.order_item
+        .createQueryBuilder('i')
+        .innerJoin('i.snack', 's')
+        .select('i.order_item_id as order_item_id')
+        .addSelect('s.name as snack_name')
+        .addSelect('s.product_image as snack_image')
+        .addSelect('i.quantity as order_quantity')
+        .addSelect('i.price as price')
+        .where('i.order_id = :order_id', { order_id: order_id })
+        .getRawMany();
+
+      return order_items;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
   async recentOrder() {
     try {
       const today = new Date();

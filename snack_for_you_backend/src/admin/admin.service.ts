@@ -95,6 +95,16 @@ export class AdminService {
     return review;
   }
 
+  async getAllOrderList() {
+    const order = await this.orderService.getAllOrderList();
+    return order;
+  }
+
+  async getOrderDetail(order_id: number) {
+    const orderDetail = await this.orderService.orderDetail(order_id);
+    return orderDetail;
+  }
+
   async changeOrderStatus(order_id: number, status: string) {
     const result = await this.orderService.changeOrderStatus(order_id, status);
     return result;
