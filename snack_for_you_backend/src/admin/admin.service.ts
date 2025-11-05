@@ -8,6 +8,7 @@ import { SnackService } from 'src/snack/snack.service';
 import { OrderService } from 'src/order/order.service';
 import { ReviewService } from 'src/review/review.service';
 import { CreateAdminDto } from 'src/dto/admin.auth.dto';
+import { CreateSnackDto, UpdateSnackDto } from 'src/dto/admin.dto';
 
 @Injectable()
 export class AdminService {
@@ -110,8 +111,26 @@ export class AdminService {
     return result;
   }
 
+  async createSnack(createSnackDto: CreateSnackDto, file: Express.Multer.File) {
+    const result = await this.snackService.createSnack(createSnackDto, file);
+    return result;
+  }
+
   async deleteSnack(snack_id: number) {
     const result = await this.snackService.deleteSnack(snack_id);
+    return result;
+  }
+
+  async blockReview(review_id: number) {
+    const result = await this.reviewService.blockReview(review_id);
+    return result;
+  }
+
+  async updateSnack(snack_id: number, updateSnackDto: UpdateSnackDto) {
+    const result = await this.snackService.updateSnack(
+      snack_id,
+      updateSnackDto,
+    );
     return result;
   }
 }

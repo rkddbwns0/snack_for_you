@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateSnackDto, UpdateSnackDto } from 'src/dto/admin.dto';
 import { ReviewEntity } from 'src/entities/review.entity';
 import { SnackCategoryEntity } from 'src/entities/snack_category.entity';
 import { SnackInfoEntity } from 'src/entities/snack_info.entity';
@@ -104,6 +105,7 @@ export class SnackService {
         .addSelect(
           "TO_CHAR(r.writed_at, 'YYYY-MM-DD HH24:MI:SS') as review_writed_at",
         )
+        .addSelect('r.block_at as block_at')
         .where('s.snack_id = :snack_id', { snack_id: snack_id })
         .orderBy('r.writed_at', 'DESC')
         .getRawMany();
@@ -216,14 +218,40 @@ export class SnackService {
         .addSelect('s.snack_id as snack_id')
         .addSelect('s.name as snack_name')
         .addSelect('s.brand as snack_brand')
+        .addSelect('s.weight as snack_weight')
+        .addSelect('s.composition as snack_composition')
+        .addSelect('s.nation_info as snack_nation_info')
         .addSelect('s.quantity as snack_quantity')
         .addSelect('s.price as snack_price')
         .addSelect('s.product_image as snack_image')
         .addSelect('s.reg_at as reg_at')
-        .orderBy('s.reg_at', 'DESC')
+        .orderBy('s.snack_id', 'ASC')
         .getRawMany();
 
       return snack;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async createSnack(createSnackDto: CreateSnackDto, file: Express.Multer.File) {
+    console.log(createSnackDto, file);
+    try {
+      const product_image = file.path.replace(/\\/g, '/');
+
+      const snackData = {
+        ...createSnackDto,
+        product_image,
+        category: { category_id: createSnackDto.category_id },
+      };
+
+      const snack = await this.snack_info.create(snackData);
+      await this.snack_info.save(snack);
+
+      return { message: '상품이 등록되었습니다.' };
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {
@@ -248,6 +276,31 @@ export class SnackService {
       await this.snack_info.delete({ snack_id: snack_id });
 
       return { message: '상품이 삭제되었습니다.' };
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async updateSnack(snack_id: number, updateSnackDto: UpdateSnackDto) {
+    console.log(snack_id, updateSnackDto);
+    try {
+      const snack = await this.snack_info.findOne({
+        where: { snack_id: snack_id },
+      });
+
+      if (!snack) {
+        throw new HttpException(
+          '존재하지 않는 상품입니다.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      await this.snack_info.update(snack_id, updateSnackDto);
+
+      return { message: '상품 정보가 변경되었습니다.' };
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { FaTrash, FaEye } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaEye, FaBan } from 'react-icons/fa';
 import { AdminApi } from '../../api/admin.api.tsx';
 import { ReviewDetail } from '../../component/review_detail.tsx';
 
@@ -15,15 +15,21 @@ export const AdminReviewManage = () => {
         setReviews(data);
     };
 
+    const blockReview = async (review_id: number) => {
+        if (window.confirm('해당 리뷰를 비공개 처리 하시겠습니까?')) {
+            const data = await adminApi.blockReview(review_id);
+            if (data?.status === 200) {
+                alert(data?.data.message);
+                getAllReviewList();
+            } else {
+                alert(data?.data.message);
+            }
+        }
+    };
+
     useEffect(() => {
         getAllReviewList();
     }, []);
-
-    const handleDelete = (id: number) => {
-        if (window.confirm('이 리뷰를 삭제하시겠습니까?')) {
-            console.log('리뷰 삭제:', id);
-        }
-    };
 
     const handleView = (review: any) => {
         setSelectedReview(review);
@@ -79,9 +85,16 @@ export const AdminReviewManage = () => {
                                         </span>
                                     </td>
                                     <td className="admin-review-content">
-                                        {review.review_content.length > 10
-                                            ? review.review_content.substring(0, 10) + '...'
-                                            : review.review_content}
+                                        <div className="admin-review-text-wrapper">
+                                            <span className="admin-review-text">
+                                                {review.review_content.length > 8
+                                                    ? review.review_content.substring(0, 10) + '...'
+                                                    : review.review_content}
+                                            </span>
+                                            {review.block_at && (
+                                                <span className="admin-review-blocked">비공개 처리 리뷰</span>
+                                            )}
+                                        </div>
                                     </td>
                                     <td>{review.review_writed_at}</td>
                                     <td>
@@ -91,9 +104,10 @@ export const AdminReviewManage = () => {
                                             </button>
                                             <button
                                                 className="admin-delete-btn"
-                                                onClick={() => handleDelete(review.review_id)}
+                                                onClick={() => blockReview(review.review_id)}
+                                                disabled={review.block_at ? true : false}
                                             >
-                                                <FaTrash /> 삭제
+                                                <FaBan /> 비공개 처리
                                             </button>
                                         </div>
                                     </td>

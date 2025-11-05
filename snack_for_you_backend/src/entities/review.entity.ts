@@ -35,4 +35,7 @@ export class ReviewEntity {
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   writed_at: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  block_at: Date;
 }

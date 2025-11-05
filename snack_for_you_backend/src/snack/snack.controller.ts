@@ -39,9 +39,4 @@ export class SnackController {
     const result = await this.snackService.randomSnack();
     return result;
   }
-
-  // delete method
-  @ApiOperation({ summary: '상품 삭제 라우터' })
-  @Delete('/snack/:snack_id')
-  async deleteSnack(@Param('snack_id') snack_id: number) {}
 }

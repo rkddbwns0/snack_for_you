@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { IoIosEyeOff, IoIosEye } from 'react-icons/io';
 import '../css/admin_login.css';
 import { AdminAuthApi } from '../api/admin.auth.api.tsx';
@@ -17,7 +17,7 @@ export const AdminLogin = () => {
         if (data?.status === 201) {
             sessionStorage.setItem('access_token', data?.data.access_token);
             sessionStorage.setItem('userType', 'admin');
-            navigation('/admin');
+            navigation('/admin/*');
         }
     };
 

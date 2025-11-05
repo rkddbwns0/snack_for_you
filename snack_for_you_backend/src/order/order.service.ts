@@ -66,7 +66,6 @@ export class OrderService {
       });
 
       await this.order_item.save(order_item);
-      console.log(cart, item);
       if (cart === true) {
         await this.cart_item.delete({ cart_item_id: item.cart_item_id });
       }
@@ -208,8 +207,6 @@ export class OrderService {
         .orderBy('oi.order_id', 'DESC')
         .distinctOn(['oi.order_id'])
         .getRawMany();
-
-      console.log(order);
       return order;
     } catch (e) {
       console.error(e);

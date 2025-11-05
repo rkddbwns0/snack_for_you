@@ -1,0 +1,234 @@
+/* 상품 수정 모달 오버레이 */
+.edit-product-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* 상품 수정 모달 */
+.edit-product-modal {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 650px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 모달 헤더 */
+.edit-product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-bottom: 2px solid #f7a815;
+    background: linear-gradient(135deg, #f7a815 0%, #e0990f 100%);
+}
+
+.edit-product-header h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.edit-product-close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.edit-product-close-btn:hover {
+    transform: scale(1.2);
+}
+
+/* 모달 본문 */
+.edit-product-body {
+    padding: 30px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.edit-product-section {
+    margin-bottom: 30px;
+}
+
+.edit-product-section:last-child {
+    margin-bottom: 0;
+}
+
+.edit-product-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f7a815;
+}
+
+/* 상품 이미지 */
+.edit-product-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    display: block;
+}
+
+/* 폼 그리드 */
+.edit-product-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* 폼 그룹 */
+.edit-product-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-product-form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.edit-product-input,
+.edit-product-textarea {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.edit-product-input:focus,
+.edit-product-textarea:focus {
+    outline: none;
+    border-color: #f7a815;
+    box-shadow: 0 0 0 3px rgba(247, 168, 21, 0.1);
+}
+
+.edit-product-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* 모달 푸터 */
+.edit-product-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    background-color: #f9f9f9;
+}
+
+.edit-product-cancel-button,
+.edit-product-submit-button {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    height: 40px;
+    min-width: 100px;
+}
+
+.edit-product-cancel-button {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.edit-product-cancel-button:hover {
+    background-color: #e0e0e0;
+}
+
+.edit-product-submit-button {
+    background-color: #f7a815;
+    color: #fff;
+}
+
+.edit-product-submit-button:hover {
+    background-color: #e0990f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(247, 168, 21, 0.3);
+}
+
+.edit-product-submit-button:active {
+    transform: translateY(0);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .edit-product-modal {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .edit-product-header {
+        padding: 20px;
+    }
+
+    .edit-product-header h2 {
+        font-size: 20px;
+    }
+
+    .edit-product-body {
+        padding: 20px;
+    }
+
+    .edit-product-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-product-footer {
+        flex-direction: column;
+    }
+
+    .edit-product-cancel-button,
+    .edit-product-submit-button {
+        width: 100%;
+    }
+}

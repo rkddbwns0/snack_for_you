@@ -71,15 +71,15 @@ export const SnackList = () => {
             <div className="content-box">
                 <div className="snack-list-container">
                     <div className="snack-list-content">
-                        <h2 className="snack-list-title">
-                            과자 목록
-                        </h2>
+                        <h2 className="snack-list-title">과자 목록</h2>
                         {snacks.length > 0 ? (
                             <div className="snack-grid-container">
                                 {snacks.map((item: any) => {
-                                    const isFavorite = user && userFavorite && 
+                                    const isFavorite =
+                                        user &&
+                                        userFavorite &&
                                         userFavorite.some((favorite: any) => favorite.snack_id === item.snack_id);
-                                    
+
                                     return (
                                         <div key={item.snack_id} className="snack-grid-item">
                                             <div
@@ -90,20 +90,18 @@ export const SnackList = () => {
                                                     })
                                                 }
                                             >
-                                                <img 
-                                                    src={item.product_image} 
+                                                <img
+                                                    src={
+                                                        item.product_image && item.product_image.startsWith('http')
+                                                            ? item.product_image
+                                                            : `${process.env.REACT_APP_SERVER_URL}/${item.product_image}`
+                                                    }
                                                     className="snack-item-image"
                                                     alt={item.name}
                                                 />
-                                                <div className="snack-item-name">
-                                                    {item.name}
-                                                </div>
-                                                <div className="snack-item-category">
-                                                    {item.category_name}
-                                                </div>
-                                                <div className="snack-item-price">
-                                                    {item.price}
-                                                </div>
+                                                <div className="snack-item-name">{item.name}</div>
+                                                <div className="snack-item-category">{item.category_name}</div>
+                                                <div className="snack-item-price">{item.price}</div>
                                             </div>
                                             <div className="snack-item-actions">
                                                 <button
@@ -113,7 +111,7 @@ export const SnackList = () => {
                                                         handleFavorite(item.snack_id);
                                                     }}
                                                 >
-                                                    <HiOutlineHeart 
+                                                    <HiOutlineHeart
                                                         className={`favorite-icon ${isFavorite ? 'active' : ''}`}
                                                     />
                                                     <span>{Number(item.favorite_count)}</span>

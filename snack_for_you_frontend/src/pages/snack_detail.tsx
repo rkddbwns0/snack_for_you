@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/context.tsx';
 import { SnackApi } from '../api/snack.api.tsx';
@@ -125,17 +125,19 @@ export const SnackDetail = () => {
                         {/* 메인 상품 정보 섹션 */}
                         <div className="snack-detail-main">
                             <div className="snack-detail-image-section">
-                                <img 
-                                    src={snack?.product_image} 
+                                <img
+                                    src={
+                                        snack?.product_image && snack?.product_image.startsWith('http')
+                                            ? snack?.product_image
+                                            : `${process.env.REACT_APP_SERVER_URL}/${snack?.product_image}`
+                                    }
                                     className="snack-detail-image"
                                     alt={snack?.name}
                                 />
                             </div>
                             <div className="snack-detail-info-section">
                                 <div>
-                                    <h1 className="snack-detail-title">
-                                        {snack?.name}
-                                    </h1>
+                                    <h1 className="snack-detail-title">{snack?.name}</h1>
                                     <div className="snack-detail-info">
                                         <div className="snack-detail-info-item">
                                             <span className="snack-detail-info-label">카테고리</span>
@@ -155,18 +157,13 @@ export const SnackDetail = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="snack-detail-price-section">
-                                    <div className="snack-detail-price">
-                                        {totalPrice}원
-                                    </div>
+                                    <div className="snack-detail-price">{totalPrice}원</div>
                                     <div className="snack-detail-quantity-controls">
                                         <span className="snack-detail-quantity-label">수량</span>
                                         <div className="snack-detail-quantity-buttons">
-                                            <button 
-                                                className="snack-detail-quantity-btn"
-                                                onClick={decrease}
-                                            >
+                                            <button className="snack-detail-quantity-btn" onClick={decrease}>
                                                 -
                                             </button>
                                             <input
@@ -179,7 +176,7 @@ export const SnackDetail = () => {
                                                     setQuantity(value < 1 ? 1 : value);
                                                 }}
                                             />
-                                            <button 
+                                            <button
                                                 className="snack-detail-quantity-btn"
                                                 onClick={() => increase(snack?.quantity)}
                                             >
@@ -189,25 +186,39 @@ export const SnackDetail = () => {
                                     </div>
                                     <div className="snack-detail-actions">
                                         <div className="snack-detail-favorite-section">
-                                            <button 
+                                            <button
                                                 className="snack-detail-favorite-btn"
                                                 onClick={() => handleFavorite(snack?.snack_id)}
                                             >
-                                                <HiOutlineHeart 
-                                                    className={`favorite-icon ${user && favoriteCheck(snack?.snack_id) ? 'active' : ''}`}
+                                                <HiOutlineHeart
+                                                    className={`favorite-icon ${
+                                                        user && favoriteCheck(snack?.snack_id) ? 'active' : ''
+                                                    }`}
                                                 />
                                             </button>
-                                            <span className="snack-detail-favorite-count">
-                                                {snack?.favorite_count}
-                                            </span>
+                                            <span className="snack-detail-favorite-count">{snack?.favorite_count}</span>
                                         </div>
-                                        <button 
-                                            className="snack-detail-cart-btn"
-                                            onClick={handleCart}
-                                        >
+                                        <button className="snack-detail-cart-btn" onClick={handleCart}>
                                             장바구니
                                         </button>
-                                        <button className="snack-detail-buy-btn" onClick={() => navigation('/order', { state: {items: [{snack_id: snack?.snack_id, quantity: quantity, price: totalPrice, product_image: snack?.product_image}], cart: false }})}>
+                                        <button
+                                            className="snack-detail-buy-btn"
+                                            onClick={() =>
+                                                navigation('/order', {
+                                                    state: {
+                                                        items: [
+                                                            {
+                                                                snack_id: snack?.snack_id,
+                                                                quantity: quantity,
+                                                                price: totalPrice,
+                                                                product_image: snack?.product_image,
+                                                            },
+                                                        ],
+                                                        cart: false,
+                                                    },
+                                                })
+                                            }
+                                        >
                                             구매하기
                                         </button>
                                     </div>
@@ -218,19 +229,13 @@ export const SnackDetail = () => {
                         {/* 리뷰 섹션 */}
                         <div className="snack-detail-reviews-section">
                             <div className="snack-detail-reviews-header">
-                                <h2 className="snack-detail-reviews-title">
-                                    리뷰
-                                </h2>
+                                <h2 className="snack-detail-reviews-title">리뷰</h2>
                                 <div className="snack-detail-reviews-summary">
-                                    <span className="snack-detail-review-score">
-                                        {snack?.review_score || 0}점
-                                    </span>
-                                    <span className="snack-detail-review-count">
-                                        ({snack?.review_count || 0}개)
-                                    </span>
+                                    <span className="snack-detail-review-score">{snack?.review_score || 0}점</span>
+                                    <span className="snack-detail-review-count">({snack?.review_count || 0}개)</span>
                                 </div>
                             </div>
-                            
+
                             {review && review.length > 0 ? (
                                 <div className="snack-detail-reviews-list">
                                     {review.map((item: any) => (
@@ -247,12 +252,16 @@ export const SnackDetail = () => {
                                                 <span className="snack-detail-review-score-badge">
                                                     {item?.review_score}점
                                                 </span>
-                                                <span>
-                                                    구매 수량: {item?.order_quantity}개
-                                                </span>
+                                                <span>구매 수량: {item?.order_quantity}개</span>
                                             </div>
                                             <div className="snack-detail-review-content">
-                                                {item?.review_content}
+                                                {item?.block_at ? (
+                                                    <span className="snack-detail-blocked-review">
+                                                        비공개 처리된 리뷰입니다.
+                                                    </span>
+                                                ) : (
+                                                    item?.review_content
+                                                )}
                                             </div>
                                         </div>
                                     ))}

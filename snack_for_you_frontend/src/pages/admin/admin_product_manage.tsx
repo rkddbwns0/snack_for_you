@@ -1,10 +1,24 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { AdminApi } from '../../api/admin.api.tsx';
+import { EditProductModal } from '../../component/edit_product_modal.tsx';
 
 export const AdminProductManage = () => {
     const [snackList, setSnackList] = useState<any>([]);
     const adminApi = new AdminApi();
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState<any>(null);
+
+    const handleOpenModal = (product: any) => {
+        console.log(product);
+        setSelectedProduct(product);
+        setIsOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedProduct(null);
+        setIsOpen(false);
+    };
 
     const getAllSnackList = async () => {
         const data = await adminApi.getAllSnackList();
@@ -14,10 +28,6 @@ export const AdminProductManage = () => {
     useEffect(() => {
         getAllSnackList();
     }, []);
-
-    const handleEdit = (id: number) => {
-        console.log('제품 수정:', id);
-    };
 
     const handleDelete = async (snack_id: number) => {
         if (window.confirm('이 제품을 삭제하시겠습니까?')) {
@@ -53,11 +63,15 @@ export const AdminProductManage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {snackList.map((item) => (
+                            {snackList.map((item: any) => (
                                 <tr key={item.snack_id}>
                                     <td>
                                         <img
-                                            src={item.snack_image}
+                                            src={
+                                                item.snack_image && item.snack_image.startsWith('http')
+                                                    ? item.snack_image
+                                                    : `${process.env.REACT_APP_SERVER_URL}/${item.snack_image}`
+                                            }
                                             alt={item.snack_name}
                                             className="admin-table-image"
                                         />
@@ -69,10 +83,7 @@ export const AdminProductManage = () => {
                                     <td>{item.reg_at.split('T')[0]}</td>
                                     <td>
                                         <div className="admin-table-actions">
-                                            <button
-                                                className="admin-edit-btn"
-                                                onClick={() => handleEdit(item.snack_id)}
-                                            >
+                                            <button className="admin-edit-btn" onClick={() => handleOpenModal(item)}>
                                                 <FaEdit /> 수정
                                             </button>
                                             <button
@@ -93,6 +104,12 @@ export const AdminProductManage = () => {
                     </div>
                 )}
             </div>
+            <EditProductModal
+                isOpen={isOpen}
+                setIsOpen={handleCloseModal}
+                productData={selectedProduct}
+                onUpdateSuccess={getAllSnackList}
+            />
         </div>
     );
 };

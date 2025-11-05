@@ -31,7 +31,12 @@ export class SnackInfoEntity {
   @Column({ type: 'varchar', length: 100, nullable: false })
   weight: string;
 
-  @Column({ type: 'varchar', length: 300, nullable: false })
+  @Column({
+    type: 'varchar',
+    length: 300,
+    nullable: true,
+    default: '(해당표기없음)',
+  })
   composition: string;
 
   @Column({ type: 'varchar', length: 20, nullable: false })

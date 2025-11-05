@@ -1,0 +1,176 @@
+/* Admin Product Register 스타일 */
+.admin-register-form-container {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.admin-register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.admin-register-section {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-register-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.admin-register-section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-register-section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background-color: #f7a815;
+    border-radius: 2px;
+}
+
+.admin-register-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.admin-register-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-register-form-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    display: block;
+}
+
+.admin-register-form-input,
+.admin-register-form-textarea {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.admin-register-form-input:focus,
+.admin-register-form-textarea:focus {
+    border-color: #f7a815;
+    box-shadow: 0 0 0 3px rgba(247, 168, 21, 0.1);
+}
+
+.admin-register-form-input::placeholder,
+.admin-register-form-textarea::placeholder {
+    color: #999;
+}
+
+.admin-register-form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+select.admin-register-form-input {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
+}
+
+.admin-register-form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.admin-register-submit-btn {
+    background-color: #f7a815;
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 150px;
+}
+
+.admin-register-submit-btn:hover {
+    background-color: #e0990f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(247, 168, 21, 0.3);
+}
+
+.admin-register-submit-btn:active {
+    transform: translateY(0);
+}
+
+.admin-register-cancel-btn {
+    background-color: #e9ecef;
+    color: #333;
+    border: 2px solid #dee2e6;
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 150px;
+}
+
+.admin-register-cancel-btn:hover {
+    background-color: #dee2e6;
+    border-color: #adb5bd;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .admin-register-form-container {
+        padding: 20px;
+    }
+
+    .admin-register-form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-register-form-actions {
+        flex-direction: column;
+    }
+
+    .admin-register-submit-btn,
+    .admin-register-cancel-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .admin-register-section-title {
+        font-size: 16px;
+    }
+}

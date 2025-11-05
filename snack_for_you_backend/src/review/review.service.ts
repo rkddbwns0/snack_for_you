@@ -178,10 +178,39 @@ export class ReviewService {
         .addSelect(
           "TO_CHAR(r.writed_at, 'YYYY-MM-DD HH24:MI:SS') as review_writed_at",
         )
+        .addSelect('r.block_at as block_at')
         .orderBy('r.writed_at', 'DESC')
         .getRawMany();
 
       return review;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
+    }
+  }
+
+  async blockReview(review_id: number) {
+    try {
+      const review = await this.review.findOne({
+        where: { review_id: review_id },
+      });
+
+      if (!review) {
+        throw new HttpException(
+          '존재하지 않는 리뷰입니다.',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      const block_at = new Date();
+      await this.review.update(
+        { review_id: review_id },
+        { block_at: block_at },
+      );
+
+      return { message: '리뷰가 비공개 처리 되었습니다.' };
     } catch (e) {
       console.error(e);
       if (e instanceof HttpException) {
